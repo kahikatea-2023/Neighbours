@@ -1,25 +1,19 @@
-import { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks'
-import { fetchFruits } from '../slices/fruits'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
+
+const queryClient = new QueryClient()
 
 function App() {
-  const fruits = useAppSelector((state) => state.fruits)
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(fetchFruits())
-  }, [dispatch])
-
   return (
-    <>
-      <div className="app">
-        <h1>Fullstack Boilerplate - with Fruits!</h1>
-        <ul>
-          {fruits.map((fruit) => (
-            <li key={fruit}>{fruit}</li>
-          ))}
-        </ul>
-      </div>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <header className="header">
+        <h1>NEIGHBOURS</h1>
+      </header>
+
+      <section className="main"></section>
+
+      <footer className="footer"></footer>
+    </QueryClientProvider>
   )
 }
 
