@@ -1,6 +1,6 @@
 {
-  "name": "boilerplate-fullstack-scss",
-  "version": "2.0.0",
+  "name": "neighbours",
+  "version": "1.0.0",
   "main": "server/index.ts",
   "license": "MIT",
   "keywords": [
