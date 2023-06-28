@@ -1,5 +1,13 @@
+import LoginButton from '../../components/LoginButton/LoginButton'
+
 function Home() {
-  return <p>This will be our home page with log in and register button.</p>
+  return (
+    <div>
+      <p>Slogan will be located here</p>
+      <LoginButton />
+      {/* <RegisterButton /> */}
+    </div>
+  )
 }
 
 export default Home
