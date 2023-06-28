@@ -1,15 +1,10 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.up = function(knex) {
-  
-};
+exports.up = async function (knex) {
+  await knex.schema.createTable('locations', (table) => {
+    table.increments('id').primary()
+    table.string('name').primary()
+  })
+}
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.down = function(knex) {
-  
-};
+exports.down = function (knex) {
+  return knex.schema.dropTable('locations')
+}
