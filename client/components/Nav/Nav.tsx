@@ -40,9 +40,6 @@ function Nav(props: Props) {
         <li>
           <button onClick={() => goTo('/my-posts')}>My posts</button>
         </li>
-        {/* <li>
-          {!isAuthenticated && <button onClick={handleLogin}>Log in</button>}
-        </li> */}
         <li>
           {isAuthenticated && <button onClick={handleLogout}>Sign out</button>}
         </li>
