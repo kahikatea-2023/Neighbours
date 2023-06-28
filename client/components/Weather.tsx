@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
-import { API_KEY } from './config'
+import { API_KEY } from '../../config'
 
 interface WeatherData {
   name: string
