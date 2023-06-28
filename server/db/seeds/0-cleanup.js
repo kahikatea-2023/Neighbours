@@ -8,6 +8,6 @@ exports.seed = async function (knex) {
   await knex('activities_post_comments').del()
   await knex('activities_post').del()
 
-  await knex('locations').del()
   await knex('users').del()
+  await knex('locations').del()
 }

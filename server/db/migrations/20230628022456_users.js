@@ -5,7 +5,7 @@ exports.up = async function (knex) {
     table.string('last_name')
     table.string('name')
     table.string('email')
-    table.string('location_name').references('locations.name')
+    table.integer('location_id').references('locations.id')
     table.string('pronouns')
     table.string('bio')
   })

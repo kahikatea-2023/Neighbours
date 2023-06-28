@@ -2,7 +2,6 @@ exports.up = async function (knex) {
   await knex.schema.createTable('classified_request', (table) => {
     table.increments('id').primary()
     table.string('user_auth0_id').references('users.auth0_id')
-    table.string('created_by')
     table.integer('location_id').references('locations.id')
     table.string('title')
     table.string('type')
@@ -11,7 +10,6 @@ exports.up = async function (knex) {
     table.string('time')
     table.string('venue')
     table.string('description')
-    table.integer('comment_section').primary()
   })
 }
 

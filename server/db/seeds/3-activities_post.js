@@ -2,9 +2,7 @@ exports.seed = async function (knex) {
   await knex('activities_post').insert([
     {
       id: 1,
-      user_auth0_id: 'auth0_1234567890',
-      created_by: 'John Doe',
-      location_id: 1,
+      user_auth0_id: 'auth0_1',
       title: 'Yoga Workshop',
       type: 'Workshop',
       image: 'https://example.com/yoga-workshop.jpg',
@@ -14,13 +12,11 @@ exports.seed = async function (knex) {
       attendees: '5/10',
       description:
         'Join us for a rejuvenating yoga workshop aimed at all skill levels. Relax, stretch, and find your inner peace.',
-      comment_section: 1,
     },
     {
       id: 2,
-      user_auth0_id: 'auth0_0987654321',
-      created_by: 'Jane Smith',
-      location_id: 1,
+      user_auth0_id: 'auth0_2',
+      location_id: 4,
       title: 'Painting Class',
       type: 'Class',
       image: 'https://example.com/painting-class.jpg',
@@ -30,13 +26,11 @@ exports.seed = async function (knex) {
       attendees: '8/12',
       description:
         'Discover your creativity through our painting class. Learn various techniques and express yourself on canvas.',
-      comment_section: 2,
     },
     {
       id: 3,
-      user_auth0_id: 'auth0_5678901234',
-      created_by: 'Alex Johnson',
-      location_id: 2,
+      user_auth0_id: 'auth0_3',
+      location_id: 4,
       title: 'Book Club Meeting',
       type: 'Club',
       image: 'https://example.com/book-club-meeting.jpg',
@@ -46,13 +40,11 @@ exports.seed = async function (knex) {
       attendees: '6/8',
       description:
         'Join our book club and dive into captivating stories. Engage in thoughtful discussions with fellow book lovers.',
-      comment_section: 3,
     },
     {
       id: 4,
-      user_auth0_id: 'auth0_1234567890',
-      created_by: 'John Doe',
-      location_id: 2,
+      user_auth0_id: 'auth0_1',
+      location_id: 4,
       title: 'Music Jam Session',
       type: 'Jam Session',
       image: 'https://example.com/music-jam-session.jpg',
@@ -62,13 +54,11 @@ exports.seed = async function (knex) {
       attendees: '4/6',
       description:
         "Calling all musicians! Bring your instruments and let's create beautiful melodies together in this casual jam session.",
-      comment_section: 4,
     },
     {
       id: 5,
-      user_auth0_id: 'auth0_0987654321',
-      created_by: 'Jane Smith',
-      location_id: 3,
+      user_auth0_id: 'auth0_2',
+      location_id: 4,
       title: 'Fitness Bootcamp',
       type: 'Bootcamp',
       image: 'https://example.com/fitness-bootcamp.jpg',
@@ -78,13 +68,11 @@ exports.seed = async function (knex) {
       attendees: '10/15',
       description:
         'Get ready to sweat and challenge yourself with our high-intensity fitness bootcamp. Improve your strength and endurance.',
-      comment_section: 5,
     },
     {
       id: 6,
-      user_auth0_id: 'auth0_5678901234',
-      created_by: 'Alex Johnson',
-      location_id: 3,
+      user_auth0_id: 'auth0_3',
+      location_id: 4,
       title: 'Cooking Workshop',
       type: 'Workshop',
       image: 'https://example.com/cooking-workshop.jpg',
@@ -94,7 +82,6 @@ exports.seed = async function (knex) {
       attendees: '6/10',
       description:
         'Join us for a hands-on cooking workshop and learn to prepare delicious dishes. Explore different cuisines and techniques.',
-      comment_section: 6,
     },
   ])
 }
