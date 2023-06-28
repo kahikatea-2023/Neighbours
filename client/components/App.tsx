@@ -1,5 +1,7 @@
+import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import Weather from './Weather'
 
 const queryClient = new QueryClient()
 
@@ -10,9 +12,15 @@ function App() {
         <h1>NEIGHBOURS</h1>
       </header>
 
-      <section className="main"></section>
+      <section className="main">
+        <div className="left-top">
+          <Weather />
+        </div>
+      </section>
 
       <footer className="footer"></footer>
+
+      <ReactQueryDevtools />
     </QueryClientProvider>
   )
 }
