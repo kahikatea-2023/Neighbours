@@ -1,7 +1,6 @@
 import { Suspense, lazy, useState } from 'react'
 import { useIsBusy } from '../../hooks/useIsBusy'
-
-// import Logo from '../Logo/Logo'
+import Logo from '../Logo/Logo'
 // import Loading from '../Loading/Loading'
 
 const Nav = lazy(() => import('../Nav/Nav'))
@@ -16,7 +15,7 @@ function Header() {
 
   return (
     <div className="pl-4 pt-3 pr-4 flex justify-between items-center">
-      {/* <Logo /> */}
+      <Logo />
       {isBusy > 0 && (
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-20">
           <img
