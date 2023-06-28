@@ -33,7 +33,8 @@
     "framer-motion": "^10.12.17",
     "knex": "^2.3.0",
     "sqlite3": "^5.1.2",
-    "superagent": "7.1.1"
+    "superagent": "7.1.1",
+    "tailwind-merge": "^1.13.2"
   },
   "devDependencies": {
     "@devacademy/eslint-config": "^1.8.0",
