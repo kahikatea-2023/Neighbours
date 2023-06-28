@@ -1,5 +1,5 @@
 exports.up = async function (knex) {
-  await knex.schema.createTable('activities_post', (table) => {
+  await knex.schema.createTable('market_advertisment', (table) => {
     table.increments('id').primary()
     table.string('user_auth0_id').references('users.auth0_id')
     table.string('created_by')
@@ -17,5 +17,5 @@ exports.up = async function (knex) {
 }
 
 exports.down = function (knex) {
-  return knex.schema.dropTable('activities_post')
+  return knex.schema.dropTable('market_advertisment')
 }
