@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import { Suspense, lazy } from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 // import { Auth0Provider } from '@auth0/auth0-react'
 
