@@ -5,24 +5,24 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 // import { Auth0Provider } from '@auth0/auth0-react'
 
 import AppLayout from './components/AppLayout/AppLayout'
-import Home from './components/Home/Home'
+import Home from './Pages/Home/Home'
 
 const routes = (
   <Routes>
-  <Route path="/" element={<AppLayout />}>
-    <Route index element={<Home />} />
-    <Route path="register" element={<p>Register will be here</p>} />
-    <Route path=":location" element={<p>Community will be here</p>}>
-      <Route path="activities" element={<p>Activities will be here</p>} />
-      <Route path="classifieds" element={<p>Classifieds will be here</p>}>
-        <Route path=":id" element={<p>ClassifiedsItem will be here</p>} />
+    <Route path="/" element={<AppLayout />}>
+      <Route index element={<Home />} />
+      <Route path="register" element={<p>Register will be here</p>} />
+      <Route path=":location" element={<p>Community will be here</p>}>
+        <Route path="activities" element={<p>Activities will be here</p>} />
+        <Route path="classifieds" element={<p>Classifieds will be here</p>}>
+          <Route path=":id" element={<p>ClassifiedsItem will be here</p>} />
+        </Route>
+        <Route path="market" element={<p>Market will be here</p>} />
       </Route>
-      <Route path="market" element={<p>Market will be here</p>} />
+      <Route path="profile" element={<p>Profile will be here</p>} />
+      <Route path="my-posts" element={<p>Posts will be here</p>} />
     </Route>
-    <Route path="profile" element={<p>Profile will be here</p>} />
-    <Route path="my-posts" element={<p>Posts will be here</p>} />
-  </Route>
-</Routes>
+  </Routes>
 )
 
 document.addEventListener('DOMContentLoaded', () => {
