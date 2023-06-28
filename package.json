@@ -12,7 +12,7 @@
     "dev": "run-p dev:client dev:server dev:css",
     "dev:client": "vite",
     "dev:server": "nodemon --watch server/",
-    "dev:css": "tailwindcss -i ./client/styles/input.css -o ./public/output.css --watch",
+    "dev:css": "tailwindcss -i ./client/styles/index.css -o ./public/output.css --watch",
     "build": "run-s build:client build:server",
     "build:client": "vite build",
     "build:server": "tsc -p server/tsconfig.json",
@@ -28,7 +28,9 @@
   "dependencies": {
     "auth0": "^3.5.0",
     "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
     "express": "^4.17.2",
+    "framer-motion": "^10.12.17",
     "knex": "^2.3.0",
     "sqlite3": "^5.1.2",
     "superagent": "7.1.1"

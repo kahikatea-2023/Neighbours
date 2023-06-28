@@ -25,8 +25,4 @@ export const routes = createRoutesFromElements(
     <Route path="profile" element={<p>profile will be here</p>} />
     <Route path="my-posts" element={<p>posts will be here</p>} />
   </Route>
-)
 
-document.addEventListener('DOMContentLoaded', () => {
-  createRoot(document.getElementById('app') as HTMLElement).render(<App />)
-})
