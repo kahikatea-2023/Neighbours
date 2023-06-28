@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useLocation } from 'react-router-dom'
 import { API_KEY } from './config'
 
 interface WeatherData {
@@ -14,12 +15,13 @@ interface WeatherData {
 }
 
 function Weather() {
+  const location = useLocation()
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
 
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
-        const city = window.location.pathname.substring(1) // Get the city from the current URL
+        const city = location.pathname.substring(1) // Get the city from the current URL
         const response = await axios.get(
           `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
         )
@@ -30,7 +32,7 @@ function Weather() {
     }
 
     fetchWeatherData()
-  }, [])
+  }, [location.pathname])
 
   const formatTemperature = (temperature: number) => {
     const celsiusTemperature = temperature - 273.15
