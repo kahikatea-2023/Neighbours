@@ -1,6 +1,6 @@
 
 import CommunityPost from "../../components/CommunityPost/CommunityPost"
-import Weather from "../../components/Weather"
+import Weather from "../../components/Weather/Weather"
 import { useAuth0 } from '@auth0/auth0-react'
 
 
