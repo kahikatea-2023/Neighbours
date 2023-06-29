@@ -5,26 +5,15 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import AppLayout from './components/AppLayout/AppLayout'
 import Home from './Pages/Home/Home'
 import { Auth0Provider } from '@auth0/auth0-react'
-<<<<<<< HEAD
-import Weather from './components/Weather/Weather'
 import RegisterUser from './components/RegisterUser/RegisterUser'
-=======
 import Community from './Pages/Community/Community'
-
-
->>>>>>> b099ad9ac5176bef7ec5b4431e31f9854e9723d4
 
 const routes = (
   <Routes>
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Home />} />
-<<<<<<< HEAD
       <Route path="register" element={<RegisterUser />} />
-      <Route path=":location" element={<Weather />}>
-=======
-      <Route path="register" element={<p>Register will be here</p>} />
-      <Route path=":location" element={<Community />}>
->>>>>>> b099ad9ac5176bef7ec5b4431e31f9854e9723d4
+      <Route path=":newmarket" element={<Community />}>
         <Route path="activities" element={<p>Activities will be here</p>} />
         <Route path="classifieds" element={<p>Classifieds will be here</p>}>
           <Route path=":id" element={<p>ClassifiedsItem will be here</p>} />
