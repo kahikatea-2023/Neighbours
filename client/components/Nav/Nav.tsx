@@ -29,7 +29,7 @@ function Nav(props: Props) {
           <button onClick={() => goTo('/:location/activities')}>Activities</button>
         </li>
         <li>
-          <button onClick={() => goTo('/:location/classifieds')}>Classifieds</button>
+          <button onClick={() => goTo('/newmarket/classifieds')}>Classifieds</button>
         </li>
         <li>
           <button onClick={() => goTo('/:location/market')}>Market</button>
