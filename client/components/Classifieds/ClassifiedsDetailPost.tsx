@@ -1,10 +1,14 @@
 import { FaArrowLeft } from 'react-icons/fa'
+import { useNavigate, useParams } from 'react-router-dom'
 
 function ClassifiedsDetailPost() {
+  const id = useParams()
+  const navigate = useNavigate()
+
   const hardcodedData = [
     {
       id: 1,
-      createdBy: 'Sarah',
+      created_by: 'Sarah',
       title: 'Help Needed: Cockroach in House',
       type: 'Household',
       image: '../../public/images/cockroach.png',
@@ -13,11 +17,10 @@ function ClassifiedsDetailPost() {
       venue: 'My House',
       description:
         "There is a cockroach in my house, and I need someone's help to get rid of it!",
-      price: '0',
     },
     {
       id: 2,
-      createdBy: 'Tem',
+      created_by: 'Tem',
       title: 'Gardening Assistance Needed',
       type: 'Gardening',
       image: 'https://example.com/gardening.jpg',
@@ -26,12 +29,16 @@ function ClassifiedsDetailPost() {
       venue: 'Backyard',
       description:
         "I'm looking for someone who can help me with gardening tasks like weeding and planting.",
-      price: '15',
     },
   ]
+
+  function handleGoBack() {
+    navigate(-1)
+  }
+
   return (
     <div className="p-5">
-      <FaArrowLeft />
+      <FaArrowLeft size={30} onClick={handleGoBack} />
       <img
         className="w-96 m-auto mt-4"
         src={hardcodedData[0].image}
@@ -39,7 +46,7 @@ function ClassifiedsDetailPost() {
       />
       <h1 className="font-black text-2xl">{hardcodedData[0].title}</h1>
       <p className="text-right">
-        Posted by: <strong>{hardcodedData[0].createdBy}</strong>
+        Posted by: <strong>{hardcodedData[0].created_by}</strong>
       </p>
       <p className="pt-1">{hardcodedData[0].description}</p>
       <div>
@@ -51,9 +58,6 @@ function ClassifiedsDetailPost() {
           <p>
             <strong>Time: </strong>
             {hardcodedData[0].time}
-          </p>
-          <p>
-            <strong>Price: </strong>${hardcodedData[0].price}
           </p>
         </div>
         <div className="border-slate-400 border-t-2">

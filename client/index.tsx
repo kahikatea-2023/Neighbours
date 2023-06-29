@@ -14,11 +14,10 @@ const routes = (
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Home />} />
       <Route path="register" element={<RegisterUser />} />
-      <Route path=":location" element={<Community />}>
-        <Route path="activities" element={<p>Activities will be here</p>} />
-        <Route path="classifieds" element={<p>Classifieds will be here</p>}>
-          <Route path="detail" element={<ClassifiedsDetail />} />
-        </Route>
+      <Route path="newmarket" element={<Community />} />
+      <Route path="activities" element={<p>Activities will be here</p>} />
+      <Route path="newmarket/classifieds" element={<ClassifiedsDetail />}>
+        <Route path="detail" element={<p>Detail page will be here</p>}/>
         <Route path="market" element={<p>Market will be here</p>} />
       </Route>
       <Route path="profile" element={<p>Profile will be here</p>} />
