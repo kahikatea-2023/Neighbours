@@ -3,7 +3,6 @@ exports.up = async function (knex) {
     table.increments('id')
     table.integer('activity_post_id').references('activities_post.id')
     table.string('user_auth0_id').references('users.auth0_id')
-    table.string('user_name')
     table.string('time')
     table.string('comment')
   })
