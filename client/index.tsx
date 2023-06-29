@@ -14,16 +14,17 @@ const routes = (
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Home />} />
       <Route path="register" element={<RegisterUser />} />
-      <Route path="newmarket" element={<Community />} />
-      <Route path="activities" element={<p>Activities will be here</p>} />
-      <Route path="newmarket/classifieds" element={<ClassifiedsDetail />}>
-        <Route path="detail" element={<p>Detail page will be here</p>}/>
-        <Route path="market" element={<p>Market will be here</p>} />
-      </Route>
       <Route path="profile" element={<p>Profile will be here</p>} />
       <Route path="my-posts" element={<p>Posts will be here</p>} />
+      <Route path="newmarket" element={<Community />} />
+      <Route path="newmarket/activities" element={<p>Activities will be here</p>} />
+      <Route path="newmarket/activities/:id" element={<p>Activities will be here</p>} />
+      <Route path="newmarket/classifieds" element={<ClassifiedsDetail />}/>
+      <Route path="newmarket/classifieds/:id" element={<p>ClassifiedsItem will be here</p>} />
+      <Route path="newmarket/market" element={<p>Market will be here</p>} />
+
     </Route>
-  </Routes>
+  </Routes >
 )
 
 document.addEventListener('DOMContentLoaded', () => {
