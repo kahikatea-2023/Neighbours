@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
 import { API_KEY } from './config'
-import { useAuth0 } from '@auth0/auth0-react'
 
 interface WeatherData {
   name: string
@@ -43,12 +42,6 @@ function Weather() {
   const iconCode = weatherData?.weather[0]?.icon
   const weatherIcon = `https://openweathermap.org/img/w/${iconCode}.png`
 
-  const { user, isAuthenticated, isLoading } = useAuth0()
-
-  console.log(user)
-  if (isLoading) {
-    return <div>Loading ...</div>
-  }
   return (
     <>
       <div>
