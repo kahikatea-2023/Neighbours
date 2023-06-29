@@ -43,18 +43,20 @@ function Weather() {
   const weatherIcon = `https://openweathermap.org/img/w/${iconCode}.png`
 
   return (
-    <div>
-      {weatherData ? (
-        <div>
-          <h2>Weather in {weatherData.name}</h2>
-          <p>Temperature: {formatTemperature(weatherData.main.temp)}</p>
-          <p>Humidity: {weatherData.main.humidity}%</p>
-          {weatherIcon && <img src={weatherIcon} alt="Weather Icon" />}
-        </div>
-      ) : (
-        <p>Loading weather data...</p>
-      )}
-    </div>
+    <>
+      <div>
+        {weatherData ? (
+          <div>
+            <h2>Weather in {weatherData.name}</h2>
+            <p>Temperature: {formatTemperature(weatherData.main.temp)}</p>
+            <p>Humidity: {weatherData.main.humidity}%</p>
+            {weatherIcon && <img src={weatherIcon} alt="Weather Icon" />}
+          </div>
+        ) : (
+          <p>Loading weather data...</p>
+        )}
+      </div>
+    </>
   )
 }
 
