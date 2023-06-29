@@ -27,7 +27,9 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.1.0",
+    "@fortawesome/react-fontawesome": "github:fortawesome/react-fontawesome",
     "axios": "^1.4.0",
+    "babel-plugin-macros": "^3.1.0",
     "dotenv": "^16.3.1",
     "express": "^4.17.2",
     "express-jwt": "^7.7.5",
@@ -35,6 +37,7 @@
     "framer-motion": "^10.12.17",
     "jwks-rsa": "^2.1.5",
     "knex": "^2.3.0",
+    "react-icons": "^4.10.1",
     "sqlite3": "^5.1.2",
     "superagent": "7.1.1",
     "tailwind-merge": "^1.13.2"

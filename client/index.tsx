@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import AppLayout from './components/AppLayout/AppLayout'
 import Home from './Pages/Home/Home'
 import { Auth0Provider } from '@auth0/auth0-react'
+import ClassifiedsDetail from './Pages/ClassifiedsDetail/ClassifiedsDetail'
 import RegisterUser from './components/RegisterUser/RegisterUser'
 import Community from './Pages/Community/Community'
 
@@ -18,7 +19,7 @@ const routes = (
       <Route path="newmarket" element={<Community />} />
       <Route path="newmarket/activities" element={<p>Activities will be here</p>} />
       <Route path="newmarket/activities/:id" element={<p>Activities will be here</p>} />
-      <Route path="newmarket/classifieds" element={<p>Classifieds will be here</p>} />
+      <Route path="newmarket/classifieds" element={<ClassifiedsDetail />}/>
       <Route path="newmarket/classifieds/:id" element={<p>ClassifiedsItem will be here</p>} />
       <Route path="newmarket/market" element={<p>Market will be here</p>} />
 
