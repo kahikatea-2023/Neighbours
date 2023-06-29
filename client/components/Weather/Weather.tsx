@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
 import { API_KEY } from '../config'
@@ -46,21 +46,28 @@ function Weather() {
     <>
       <div>
         {weatherData ? (
-          <div className='flex flex-row'>
-            <div className='pl-6'>
-              <h2 className='font-bold'>{weatherData.name}</h2>
+          <div className="flex flex-row">
+            <div className="pl-6">
+              <h2 className="font-bold">{weatherData.name}</h2>
               <div>
-                {weatherIcon && <img className='w-20 items-center' src={weatherIcon} alt="Weather Icon" />}
-                <p className='self-center'>{formatTemperature(weatherData.main.temp)}</p>
+                {weatherIcon && (
+                  <img
+                    className="w-20 items-center"
+                    src={weatherIcon}
+                    alt="Weather Icon"
+                  />
+                )}
+                <p className="self-center">
+                  {formatTemperature(weatherData.main.temp)}
+                </p>
               </div>
             </div>
-            <div className='pl-8 pt-8'>
-              <p className='font-bold font-xl'>
+            <div className="pl-8 pt-8">
+              <p className="font-bold font-xl">
                 Bundle up and take umbrella with you! <br />
                 You know New Zealand weather is fickle.
               </p>
             </div>
-
           </div>
         ) : (
           <p>Loading weather data...</p>

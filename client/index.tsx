@@ -6,13 +6,14 @@ import AppLayout from './components/AppLayout/AppLayout'
 import Home from './Pages/Home/Home'
 import { Auth0Provider } from '@auth0/auth0-react'
 import ClassifiedsDetail from './Pages/ClassifiedsDetail/ClassifiedsDetail'
+import RegisterUser from './components/RegisterUser/RegisterUser'
 import Community from './Pages/Community/Community'
 
 const routes = (
   <Routes>
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Home />} />
-      <Route path="register" element={<p>Register will be here</p>} />
+      <Route path="register" element={<RegisterUser />} />
       <Route path=":location" element={<Community />}>
         <Route path="activities" element={<p>Activities will be here</p>} />
         <Route path="classifieds" element={<p>Classifieds will be here</p>}>
