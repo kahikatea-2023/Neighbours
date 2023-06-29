@@ -1,7 +1,11 @@
 import { Router } from 'express'
 
 import { getAllLocations, getLocationById } from '../db/locations'
-import { getAllClassifications, getClassificationById } from '../db/classified'
+import {
+  getAllAnswers,
+  getAllClassifications,
+  getClassificationById,
+} from '../db/classified'
 const router = Router()
 
 //get, post, update, delete
@@ -43,11 +47,25 @@ router.get('/:id/classified', async (req, res) => {
   }
 })
 
-router.get('/:id/classified/:id', async (req, res) => {
+router.get('/:id/classified/:request', async (req, res) => {
   try {
-    const id = Number(req.params.id)
+    const id = Number(req.params.request)
     const classification = await getClassificationById(id)
     res.json({ classification })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
+// classified_request_answers
+
+router.get('/:id/classified/:request/answers', async (req, res) => {
+  try {
+    const requestId = Number(req.params.request)
+    const answers = await getAllAnswers(requestId)
+
+    res.json({ answers })
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
