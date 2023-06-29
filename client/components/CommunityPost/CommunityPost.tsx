@@ -28,13 +28,13 @@ function CommunityPost() {
   return (
     <>
       <div>
-        <Link className="flex " to={'/:location/activities'}>View All Activities</Link>
+        <Link className="w-3/4 flex justify-end text-grey italic" to={'/newmarket/activities'}>View All Activities</Link>
       </div>
-      <Post key={actPost.user_auth0_id} title={actPost.title} className="text-black" imgSource={actPost.image} date={actPost.date} />
+      <Post key={actPost.user_auth0_id} title={actPost.title} className="text-black" imgSource={actPost.image} path={`/newmarket/activities/${actPost.user_auth0_id}`} date={actPost.date} />
       <div>
-        <Link to={'/:location/classifieds'}>View All Classification</Link>
+        <Link className="w-3/4 flex justify-end text-grey italic" to={'/newmarket/classifieds'}>View All Classification</Link>
       </div>
-      <Post key={classifiedPost.user_auth0_id} title={classifiedPost.title} className="text-black" imgSource={classifiedPost.image} date={classifiedPost.date} />
+      <Post key={classifiedPost.user_auth0_id} title={classifiedPost.title} className="text-black" path={`/newmarket/classifieds/${classifiedPost.user_auth0_id}`} imgSource={classifiedPost.image} date={classifiedPost.date} />
     </>
   )
 

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 
 // type DivProps = HtmlHTMLAttributes<HTMLDivElement>
@@ -5,10 +6,11 @@ interface PostProps {
   imgSource: string,
   title: string,
   date: string,
-  className: string
+  className: string,
+  path: string
 }
 
-function Post({ imgSource, title, date, className }: PostProps) {
+function Post({ imgSource, title, date, className, path }: PostProps) {
   return (
     <div
       className={twMerge(
@@ -19,7 +21,12 @@ function Post({ imgSource, title, date, className }: PostProps) {
 
       <img className="h-24" src={imgSource} alt="" />
       <div className='flex flex-col pt-8 pl-4'>
-        <p className='text-black font-bold font-xl'>{title}</p>
+        <p className='text-black font-bold font-xl'>
+          <Link to={path}>
+            {title}
+          </Link>
+
+        </p>
         <p className='text-grey italic font-base'>{date}</p>
       </div>
     </div>
