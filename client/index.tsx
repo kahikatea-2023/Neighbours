@@ -5,15 +5,14 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import AppLayout from './components/AppLayout/AppLayout'
 import Home from './Pages/Home/Home'
 import { Auth0Provider } from '@auth0/auth0-react'
-import Weather from './components/Weather'
-
-
+import Weather from './components/Weather/Weather'
+import RegisterUser from './components/RegisterUser/RegisterUser'
 
 const routes = (
   <Routes>
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Home />} />
-      <Route path="register" element={<p>Register will be here</p>} />
+      <Route path="register" element={<RegisterUser />} />
       <Route path=":location" element={<Weather />}>
         <Route path="activities" element={<p>Activities will be here</p>} />
         <Route path="classifieds" element={<p>Classifieds will be here</p>}>
