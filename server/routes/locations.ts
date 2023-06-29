@@ -5,9 +5,10 @@ import {
   getAllAnswers,
   getAllClassificationsByLocation,
   getClassificationById,
+  addRequest,
 } from '../db/classified'
-import checkJwt from './auth0'
-import { JwtRequest } from './auth0'
+import { ClassifiedRqData } from '../../models/classified'
+import {validateAccessToken}  from './auth0'
 const router = Router()
 
 //get, post, update, delete
@@ -50,9 +51,37 @@ router.get('/:id/classified', async (req, res) => {
   }
 })
 
-// router.post('/:id/classified',checkJwt,  (req: JwtRequest, res) => {
-//   const { } = req.body
-// })
+router.post('/:id/classified', validateAccessToken, async (req , res) => {
+  try {
+    const { ClassifiedRqData } = req.body
+    const auth0Id = req.auth?.payload.sub
+    const locationId = Number(req.params.id)
+
+    if (!auth0Id) {
+      console.error('No auth0Id')
+      return res.status(401).send('Unauthorized')
+    }
+
+    const newRequest: ClassifiedRqData = {
+      user_auth0_id: auth0Id,
+      location_id: ClassifiedRqData.location_id,
+      title: ClassifiedRqData.title,
+      type: ClassifiedRqData.type,
+      image: ClassifiedRqData.image,
+      date: ClassifiedRqData.date,
+      time: ClassifiedRqData.time,
+      venue: ClassifiedRqData.venue,
+      description: ClassifiedRqData.description,
+    }
+
+    await addRequest(newRequest)
+    const request = await getAllClassificationsByLocation(locationId)
+    res.json({ request })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Something went wrong')
+  }
+})
 
 router.get('/:id/classified/:request', async (req, res) => {
   try {

@@ -2,7 +2,9 @@ import db from './connection'
 import {
   ClassifiedRqCommentDataBackend,
   ClassifiedRqDataBackend,
+  ClassifiedPostRqData,
 } from '../../models/classified'
+import { request } from 'express'
 
 export async function getAllClassificationsByLocation(locationId: number) {
   return (await db('classified_request')
@@ -56,4 +58,8 @@ export async function getAllAnswers(requestId: number) {
       'classified_request_answers.time',
       'classified_request_answers.comment'
     )) as ClassifiedRqCommentDataBackend[]
+}
+
+export function addRequest(request: ClassifiedPostRqData) {
+  return db('fruits').insert(request)
 }

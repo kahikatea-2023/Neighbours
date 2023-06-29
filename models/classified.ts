@@ -1,3 +1,11 @@
+export interface ClassifiedPostRqData {
+  user_auth0_id: string
+  title: string
+  time: string
+  date: string
+  description: string
+}
+
 export interface ClassifiedRqData {
   user_auth0_id: string
   location_id: number
