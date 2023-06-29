@@ -9,7 +9,6 @@ function Nav(props: Props) {
   const { isAuthenticated, logout } = useAuth0()
   const navigate = useNavigate()
 
-
   function handleLogout() {
     logout({ logoutParams: { returnTo: window.location.origin } })
   }
@@ -23,10 +22,12 @@ function Nav(props: Props) {
     <nav className="pt-16 pl-4 flex">
       <ul className="text-3xl">
         <li>
-          <button onClick={() => goTo('/')}>Home</button>
+          <button onClick={() => goTo('/newmarket')}>Home</button>
         </li>
         <li>
-          <button onClick={() => goTo('/:location/activities')}>Activities</button>
+          <button onClick={() => goTo('/:location/activities')}>
+            Activities
+          </button>
         </li>
         <li>
           <button onClick={() => goTo('/newmarket/classifieds')}>Classifieds</button>
