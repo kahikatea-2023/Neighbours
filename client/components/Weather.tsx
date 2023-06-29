@@ -47,10 +47,18 @@ function Weather() {
       <div>
         {weatherData ? (
           <div>
-            <h2>Weather in {weatherData.name}</h2>
-            <p>Temperature: {formatTemperature(weatherData.main.temp)}</p>
-            <p>Humidity: {weatherData.main.humidity}%</p>
-            {weatherIcon && <img src={weatherIcon} alt="Weather Icon" />}
+            <h2>{weatherData.name}</h2>
+            <div>
+              {weatherIcon && <img src={weatherIcon} alt="Weather Icon" />}
+              <p>{formatTemperature(weatherData.main.temp)}</p>
+            </div>
+            <div>
+              <p>
+                Bundle up and take umbrella with you!
+                You know New Zealand weather is fickle.
+              </p>
+            </div>
+
           </div>
         ) : (
           <p>Loading weather data...</p>
