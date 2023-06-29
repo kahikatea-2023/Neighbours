@@ -1,5 +1,5 @@
-import ActivityPost from "../../components/ActivityPost/ActivityPost"
-import Post from "../../components/UI/Post/Post"
+
+import CommunityPost from "../../components/CommunityPost/CommunityPost"
 import Weather from "../../components/Weather"
 import { useAuth0 } from '@auth0/auth0-react'
 
@@ -25,7 +25,7 @@ function Community() {
       <div className="text-2xl font-bold pl-7 mb-3">
         <h2>Explore your Neighourhood</h2>
       </div>
-      <ActivityPost />
+      <CommunityPost />
 
 
 
