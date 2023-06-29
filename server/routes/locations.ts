@@ -3,9 +3,11 @@ import { Router } from 'express'
 import { getAllLocations, getLocationById } from '../db/locations'
 import {
   getAllAnswers,
-  getAllClassifications,
+  getAllClassificationsByLocation,
   getClassificationById,
 } from '../db/classified'
+import checkJwt from './auth0'
+import { JwtRequest } from './auth0'
 const router = Router()
 
 //get, post, update, delete
@@ -39,13 +41,18 @@ router.get('/:id', async (req, res) => {
 
 router.get('/:id/classified', async (req, res) => {
   try {
-    const classifications = await getAllClassifications()
+    const locationId = Number(req.params.id)
+    const classifications = await getAllClassificationsByLocation(locationId)
     res.json({ classifications })
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
   }
 })
+
+// router.post('/:id/classified',checkJwt,  (req: JwtRequest, res) => {
+//   const { } = req.body
+// })
 
 router.get('/:id/classified/:request', async (req, res) => {
   try {
@@ -62,8 +69,8 @@ router.get('/:id/classified/:request', async (req, res) => {
 
 router.get('/:id/classified/:request/answers', async (req, res) => {
   try {
-    const requestId = Number(req.params.request)
-    const answers = await getAllAnswers(requestId)
+    const id = Number(req.params.request)
+    const answers = await getAllAnswers(id)
 
     res.json({ answers })
   } catch (error) {
