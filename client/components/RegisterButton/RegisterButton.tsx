@@ -8,8 +8,8 @@ function RegisterButton() {
   function handleRegister() {
     loginWithRedirect({
       authorizationParams: {
-        // redirect_uri: `${window.location.origin}/newmarket`,
-        redirect_uri: `http://localhost:5173/register`,
+        //NEEDS TO BE CHANGED TO /register
+        redirect_uri: `http://localhost:5173/newmarket`,
       },
     })
   }

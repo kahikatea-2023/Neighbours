@@ -2,17 +2,19 @@ import { createRoot } from 'react-dom/client'
 import { Suspense, lazy } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
-// import { Auth0Provider } from '@auth0/auth0-react'
-
 import AppLayout from './components/AppLayout/AppLayout'
 import Home from './Pages/Home/Home'
+import { Auth0Provider } from '@auth0/auth0-react'
+import Weather from './components/Weather'
+
+
 
 const routes = (
   <Routes>
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Home />} />
       <Route path="register" element={<p>Register will be here</p>} />
-      <Route path=":location" element={<p>Community will be here</p>}>
+      <Route path=":location" element={<Weather />}>
         <Route path="activities" element={<p>Activities will be here</p>} />
         <Route path="classifieds" element={<p>Classifieds will be here</p>}>
           <Route path=":id" element={<p>ClassifiedsItem will be here</p>} />
@@ -28,12 +30,20 @@ const routes = (
 document.addEventListener('DOMContentLoaded', () => {
   const queryClient = new QueryClient()
   createRoot(document.getElementById('app') as HTMLElement).render(
-    // <Auth0Provider>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Suspense fallback={<p>Loading...</p>}>{routes}</Suspense>
-      </BrowserRouter>
-    </QueryClientProvider>
-    // </Auth0Provider>
+    <Auth0Provider
+      domain="kahikatea-2023-jaelyn.au.auth0.com"
+      clientId="rYOWRNnbnQVux6LpH9PDA9qlIfIgCNuq"
+      cacheLocation="localstorage"
+      authorizationParams={{
+        audience: 'https://neighbours/api',
+        redirect_uri: 'http://localhost:5173/newmarket',
+      }}
+    >
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Suspense fallback={<p>Loading...</p>}>{routes}</Suspense>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </Auth0Provider>
   )
 })
