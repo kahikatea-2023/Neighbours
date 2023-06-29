@@ -17,8 +17,13 @@ export interface ActPostDataBackend extends ActPostData {
 
 export interface ActPostCommentData {
   name: string
+  activity_post_id: number
+  user_auth0_id: number
+  user_name: string
+  time: string
+  comment: string
 }
 
-export interface ActPostCommentDataBackend  extends ActPostCommentData {
+export interface ActPostCommentDataBackend extends ActPostCommentData {
   id: number
 }
