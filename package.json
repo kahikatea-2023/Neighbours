@@ -34,7 +34,10 @@
     "knex": "^2.3.0",
     "sqlite3": "^5.1.2",
     "superagent": "7.1.1",
-    "tailwind-merge": "^1.13.2"
+    "tailwind-merge": "^1.13.2",
+    "express-jwt": "^7.7.5",
+    "express-jwt-authz": "^2.4.1",
+    "jwks-rsa": "^2.1.5"
   },
   "devDependencies": {
     "@devacademy/eslint-config": "^1.8.0",
