@@ -43,45 +43,37 @@ function Weather() {
   const weatherIcon = `https://openweathermap.org/img/w/${iconCode}.png`
 
   return (
-<<<<<<< HEAD:client/components/Weather/Weather.tsx
-    <div>
-      {weatherData ? (
-        <div>
-          <h2>Weather in {weatherData.name}</h2>
-          <p>Temperature: {formatTemperature(weatherData.main.temp)}</p>
-          <p>Humidity: {weatherData.main.humidity}%</p>
-          {weatherIcon && <img src={weatherIcon} alt="Weather Icon" />}
-        </div>
-      ) : (
-        <p>Loading weather data...</p>
-      )}
-    </div>
-=======
     <>
       <div>
         {weatherData ? (
-          <div className='flex flex-row'>
-            <div className='pl-6'>
-              <h2 className='font-bold'>{weatherData.name}</h2>
+          <div className="flex flex-row">
+            <div className="pl-6">
+              <h2 className="font-bold">{weatherData.name}</h2>
               <div>
-                {weatherIcon && <img className='w-20 items-center' src={weatherIcon} alt="Weather Icon" />}
-                <p className='self-center'>{formatTemperature(weatherData.main.temp)}</p>
+                {weatherIcon && (
+                  <img
+                    className="w-20 items-center"
+                    src={weatherIcon}
+                    alt="Weather Icon"
+                  />
+                )}
+                <p className="self-center">
+                  {formatTemperature(weatherData.main.temp)}
+                </p>
               </div>
             </div>
-            <div className='pl-8 pt-8'>
-              <p className='font-bold font-xl'>
+            <div className="pl-8 pt-8">
+              <p className="font-bold font-xl">
                 Bundle up and take umbrella with you! <br />
                 You know New Zealand weather is fickle.
               </p>
             </div>
-
           </div>
         ) : (
           <p>Loading weather data...</p>
         )}
       </div>
     </>
->>>>>>> b099ad9ac5176bef7ec5b4431e31f9854e9723d4:client/components/Weather.tsx
   )
 }
 
