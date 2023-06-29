@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import AppLayout from './components/AppLayout/AppLayout'
 import Home from './Pages/Home/Home'
 import { Auth0Provider } from '@auth0/auth0-react'
-import Weather from './components/Weather'
 import Community from './Pages/Community/Community'
 
 

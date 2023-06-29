@@ -12,7 +12,7 @@ function ActivityPost() {
       price: 'free'
     },
     {
-      img: '',
+      img: '../../public/images/cockroach.png',
       title: 'Catch a cockroach PLZ!!!!!',
       description: 'Please anyone can come ASAP!',
       time: '6pm',
@@ -22,11 +22,14 @@ function ActivityPost() {
     }
 
   ]
-  return (
-    <Post>
-      <img className="h-40" src={actPosts[0].img} alt="" />
 
-    </Post>
+  // const post = 
+  return (
+    <>
+      {actPosts.map((post, index) =>
+        <Post key={index} title={post.title} className="text-black" imgSource={post.img} date={post.date} />
+      )}
+    </>
   )
 
 }
