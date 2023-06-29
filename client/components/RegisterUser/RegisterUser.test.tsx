@@ -1,7 +1,7 @@
 import { vi, test, expect, afterEach } from 'vitest'
 import { screen, render, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import RegisterUser, { RegisterUserProps } from './RegisterUser'
+import RegisterUser from './RegisterUser'
 
 afterEach(cleanup)
 
@@ -10,14 +10,16 @@ test('When the form is submitted the handleSubmit function should be called with
   let submittedForm: unknown = null
 
   // Define a mock handleSubmit function
-  const handleSubmitMock = vi.mockFn((form: unknown) => {
+  const handleSubmitMock = vi.fn((form: unknown) => {
     submittedForm = form
   })
 
-  // Render the component with the mock handleSubmit function
-  const props: RegisterUserProps = {
+  // Create a mock props object
+  const props = {
     handleSubmit: handleSubmitMock,
   }
+
+  // Render the component with the mock props
   render(<RegisterUser {...props} />)
 
   // Find the form elements
@@ -35,20 +37,16 @@ test('When the form is submitted the handleSubmit function should be called with
   userEvent.click(submitButton)
 
   // Assert that the handleSubmit function is called with the expected form object
-  expect(handleSubmitMock).toHaveBeenCalledWith(
-    expect.objectContaining({
-      firstName: 'John',
-      lastName: 'Doe',
-      suburb: 'Auckland Central',
-    })
-  )
+  expect(handleSubmitMock).toHaveBeenCalledWith(expect.objectContaining({
+    firstName: 'John',
+    lastName: 'Doe',
+    suburb: 'Auckland Central',
+  }))
 
   // Assert that the submitted form object is stored correctly
-  expect(submittedForm).toEqual(
-    expect.objectContaining({
-      firstName: 'John',
-      lastName: 'Doe',
-      suburb: 'Auckland Central',
-    })
-  )
+  expect(submittedForm).toEqual(expect.objectContaining({
+    firstName: 'John',
+    lastName: 'Doe',
+    suburb: 'Auckland Central',
+  }))
 })
