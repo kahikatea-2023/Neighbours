@@ -1,3 +1,13 @@
+export interface ClassifiedPostRqData {
+  user_auth0_id: string
+  location_id: number
+  title: string
+  date: string
+  image: string
+  venue: string
+  description: string
+}
+
 export interface ClassifiedRqData {
   user_auth0_id: string
   location_id: number
@@ -14,10 +24,8 @@ export interface ClassifiedRqDataBackend extends ClassifiedRqData {
 }
 
 export interface ClassifiedRqCommentData {
-  name: string
   classified_request_id: number
   user_auth0_id: number
-  user_name: string
   time: string
   comment: string
 }

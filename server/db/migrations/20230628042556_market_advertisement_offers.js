@@ -5,7 +5,6 @@ exports.up = async function (knex) {
       .integer('market_advertisement_id')
       .references('market_advertisement.id')
     table.string('user_auth0_id').references('users.auth0_id')
-    table.string('user_name')
     table.string('time')
     table.string('comment')
   })
