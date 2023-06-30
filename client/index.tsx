@@ -10,7 +10,7 @@ import ClassifiedPage from './Pages/ClassifiedsPage/ClassifiedsPage'
 import AppLayout from './components/AppLayout/AppLayout'
 import Home from './Pages/Home/Home'
 
-const routes = createRoutesFromElements(
+export const routes = createRoutesFromElements(
   <Route>
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Home />} />
