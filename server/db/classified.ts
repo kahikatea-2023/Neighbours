@@ -89,7 +89,3 @@ export function addRequest(request: ClassifiedPostRqData) {
     )
     .insert(newRequest)
 }
-
-// const newRequest: ClassifiedPostRqData = {
-
-// }
