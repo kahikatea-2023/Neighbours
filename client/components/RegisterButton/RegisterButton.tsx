@@ -8,8 +8,7 @@ function RegisterButton() {
   function handleRegister() {
     loginWithRedirect({
       authorizationParams: {
-        //NEEDS TO BE CHANGED TO /register
-        redirect_uri: `http://localhost:5173/newmarket`,
+        redirect_uri: `http://localhost:5173/register`,
       },
     })
   }
