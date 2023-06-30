@@ -3,8 +3,8 @@ import { cleanup, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { RouterProvider, createMemoryRouter } from 'react-router-dom'
 import matchers from '@testing-library/jest-dom/matchers'
-
 import { routes } from './index'
+import React from 'react'
 
 expect.extend(matchers)
 afterEach(cleanup)
