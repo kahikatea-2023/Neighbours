@@ -7,10 +7,11 @@ interface PostProps {
   title: string,
   date: string,
   className: string,
-  path: string
+  path: string,
+  comment: number,
 }
 
-function Post({ imgSource, title, date, className, path }: PostProps) {
+function Post({ imgSource, title, date, className, path, comment }: PostProps) {
   return (
     <div
       className={twMerge(
@@ -27,7 +28,10 @@ function Post({ imgSource, title, date, className, path }: PostProps) {
           </Link>
 
         </p>
-        <p className='text-grey italic font-base'>{date}</p>
+        <div className='flex flex-row space-x-10 text-grey italic font-base'>
+          <p>{date}</p>
+          <p>({comment}) comments</p>
+        </div>
       </div>
     </div>
   )
