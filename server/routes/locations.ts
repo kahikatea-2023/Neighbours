@@ -61,10 +61,10 @@ router.post('/:id/classified', validateAccessToken, async (req, res) => {
     }
 
     await addRequest(newRequest)
-    console.log(addRequest(newRequest), 'im in the server')
 
     res.sendStatus(201)
-    res.redirect(`${newRequest.location_id}/classified`)
+    //still need to fixed to redirect issue
+    // res.redirect(`/:${locationId}/classified`)
   } catch (error) {
     console.error(error)
     res.status(500).send('Something went wrong')
