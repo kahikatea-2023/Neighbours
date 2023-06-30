@@ -61,5 +61,31 @@ export async function getAllAnswers(requestId: number) {
 }
 
 export function addRequest(request: ClassifiedPostRqData) {
-  return db('fruits').insert(request)
+  const newRequest = {
+    user_auth0_id: request.user_auth0_id,
+    location_id: request.location_id,
+    title: request.title,
+    image: request.image,
+    date: request.date,
+    venue: request.venue,
+    description: request.description,
+  }
+  return db('classified_request')
+    .join('locations', 'locations.id', 'classified_request.location_id')
+    .join('users', 'users.auth0_id', 'classified_request.user_auth0_id')
+    .where('locations.id', request.location_id)
+    .select(
+    'classified_request.user_auth0_id',
+    'classified_request.location_id',
+    'classified_request.title',
+    'classified_request.image',
+    'classified_request.date',
+    'classified_request.time',
+    'classified_request.venue',
+    'classified_request.description')
+    .insert(newRequest)
 }
+
+// const newRequest: ClassifiedPostRqData = {
+
+// }
