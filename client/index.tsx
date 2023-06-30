@@ -1,6 +1,11 @@
 import { createRoot } from 'react-dom/client'
 import { Suspense, lazy } from 'react'
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Auth0Provider } from '@auth0/auth0-react'
 import ClassifiedsDetail from './Pages/ClassifiedsDetail/ClassifiedsDetail'
@@ -10,7 +15,7 @@ import ClassifiedPage from './Pages/ClassifiedsPage/ClassifiedsPage'
 import AppLayout from './components/AppLayout/AppLayout'
 import Home from './Pages/Home/Home'
 
-const routes = createRoutesFromElements(
+export const routes = createRoutesFromElements(
   <Route>
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Home />} />
@@ -18,13 +23,19 @@ const routes = createRoutesFromElements(
       <Route path="profile" element={<p>Profile will be here</p>} />
       <Route path="my-posts" element={<p>Posts will be here</p>} />
       <Route path="newmarket" element={<Community />} />
-      <Route path="newmarket/activities" element={<p>Activities will be here</p>} />
-      <Route path="newmarket/activities/:id" element={<p>Activities will be here</p>} />
+      <Route
+        path="newmarket/activities"
+        element={<p>Activities will be here</p>}
+      />
+      <Route
+        path="newmarket/activities/:id"
+        element={<p>Activities will be here</p>}
+      />
       <Route path="newmarket/classifieds" element={<ClassifiedPage />} />
       <Route path="newmarket/classifieds/:id" element={<ClassifiedsDetail />} />
       <Route path="newmarket/market" element={<p>Market will be here</p>} />
     </Route>
-  </Route >
+  </Route>
 )
 
 function AppProvider() {
