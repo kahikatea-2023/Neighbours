@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { useLocation } from 'react-router-dom'
 import { API_KEY } from '../config'
+import { loadWeatherData } from '../../apis/weather'
 
 interface WeatherData {
   name: string
@@ -20,15 +20,7 @@ function Weather() {
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      try {
-        const city = location.pathname.substring(1) // Get the city from the current URL
-        const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
-        )
-        setWeatherData(response.data)
-      } catch (error) {
-        console.error('Error fetching weather data:', error)
-      }
+      loadWeatherData(API_KEY, setWeatherData)
     }
 
     fetchWeatherData()
