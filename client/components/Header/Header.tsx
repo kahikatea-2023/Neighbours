@@ -30,7 +30,6 @@ function Header() {
           <button onClick={toggleMenu}>
             <i className="fa-solid fa-bars text-4xl"></i>
           </button>
-
         </div>
       )}
 
@@ -43,8 +42,10 @@ function Header() {
       )}
 
       <nav
-        className={`fixed left-0 top-12 h-full w-full backdrop-filter backdrop-blur-md text-white bg-lightGreen bg-opacity-90 shadow-transparent transition-all ease-in-out duration-200 ${navOpened ? 'opacity-100' : 'hidden'
-          }`}
+        className={`fixed z-50 left-0 top-12 h-full w-full backdrop-filter backdrop-blur-md text-white bg-lightGreen bg-opacity-90 shadow-transparent transition-all ease-in-out duration-200 ${
+          navOpened ? 'opacity-100' : 'hidden'
+        }`}
+
       >
         {/* <Suspense fallback={<Loading />}> */}
         <Suspense>
