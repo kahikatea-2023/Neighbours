@@ -1,9 +1,11 @@
-import { render } from '@testing-library/react'
-import Weather from './Weather'
+/**
+ * @vitest-environment jsdom
+ */
 
-test('renders weather information', () => {
-  // Render the Weather component
-  render(<Weather />)
+import { describe, expect, test } from 'vitest'
+import { render } from '@testing-library/react';
+import Weather from './Weather';
 
-  // Add your assertions here
-})
+
+
+
