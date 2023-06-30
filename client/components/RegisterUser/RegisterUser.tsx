@@ -81,37 +81,66 @@ function RegisterUser() {
 
   return (
     <div>
-      <h2>Edit Profile</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="firstName" >First Name</label>
+      <div className="w-3/4 text-center text-4xl font-bold mt-6 mb-6">
+        <h2>Edit Profile</h2>
+      </div>
+      <form onSubmit={handleSubmit} className='pl-7 flex flex-col w-3/4'>
+        <div className='flex flex-col '>
+          <label htmlFor="firstName" className='text-black pl-7 pb-2 font-bold font-xl' >First Name</label>
           <input
             type="text"
             name='firstName'
             value={userData.first_name}
             onChange={handleChange}
+            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
           />
         </div>
-        <div>
-          <label htmlFor='lastName'>Last Name</label>
-          <input type="text" name='lastName' value={userData.last_name} onChange={handleChange} />
+
+        <div className='flex flex-col '>
+          <label htmlFor='lastName' className='text-black pl-7 pb-2 font-bold font-xl'>Last Name</label>
+          <input
+            type="text"
+            name='lastName'
+            value={userData.last_name}
+            onChange={handleChange}
+            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+          />
+
         </div>
-        <div>
-          <label htmlFor="userName">User Name</label>
-          <input type="text" name='userName' value={userData.name} onChange={handleChange} />
+
+        <div className='flex flex-col '>
+          <label htmlFor="userName" className='text-black pl-7 pb-2 font-bold font-xl'>User Name</label>
+          <input
+            type="text"
+            name='userName'
+            value={userData.name}
+            onChange={handleChange}
+            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+          />
         </div>
-        <div>
-          <label htmlFor='location'>Location</label>
-          <select name='location' value={userData.location_id} onChange={handleSelect}>
+
+        <div className='flex flex-col '>
+          <label htmlFor='location' className='text-black pl-7 pb-2 font-bold font-xl'>Location</label>
+          <select
+            name='location'
+            value={userData.location_id}
+            onChange={handleSelect}
+            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+          >
             <option value="">Select location</option>
             {data.map((suburb) => (
-              <option key={suburb.id} value={suburb.id}>
+              <option
+                key={suburb.id}
+                value={suburb.id}>
                 {suburb.name}
               </option>
             ))}
           </select>
         </div>
-        <button type="submit" className='w-auto bg-lightGreen text-white font-bold py-2 px-4 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C] drop-shadow-2xl'>Register</button>
+
+        <button type="submit" className=' bg-lightGreen text-white justify-center text-center font-bold py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C] drop-shadow-2xl'>
+          Register
+        </button>
       </form>
     </div>
   )
