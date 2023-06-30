@@ -3,12 +3,12 @@ import { twMerge } from 'tailwind-merge'
 
 // type DivProps = HtmlHTMLAttributes<HTMLDivElement>
 interface PostProps {
-  imgSource: string,
-  title: string,
-  date: string,
-  className: string,
-  path: string,
-  comment: number,
+  imgSource: string
+  title: string
+  date: string
+  className: string
+  path: string
+  comment: number
 }
 
 function Post({ imgSource, title, date, className, path, comment }: PostProps) {
@@ -19,16 +19,12 @@ function Post({ imgSource, title, date, className, path, comment }: PostProps) {
         className
       )}
     >
-
       <img className="h-24" src={imgSource} alt="" />
-      <div className='flex flex-col pt-8 pl-4'>
-        <p className='text-black font-bold font-xl'>
-          <Link to={path}>
-            {title}
-          </Link>
-
+      <div className="flex flex-col pt-8 pl-4">
+        <p className="text-black font-bold font-xl">
+          <Link to={path}>{title}</Link>
         </p>
-        <div className='flex flex-row space-x-10 text-grey italic font-base'>
+        <div className="flex flex-row space-x-10 text-grey italic font-base">
           <p>{date}</p>
           <p>({comment}) comments</p>
         </div>
