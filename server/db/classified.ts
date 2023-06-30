@@ -60,6 +60,9 @@ export async function getAllAnswers(requestId: number) {
     )) as ClassifiedRqCommentDataBackend[]
 }
 
+// added answer
+// export
+
 export function addRequest(request: ClassifiedPostRqData) {
   const newRequest = {
     user_auth0_id: request.user_auth0_id,
@@ -75,14 +78,15 @@ export function addRequest(request: ClassifiedPostRqData) {
     .join('users', 'users.auth0_id', 'classified_request.user_auth0_id')
     .where('locations.id', request.location_id)
     .select(
-    'classified_request.user_auth0_id',
-    'classified_request.location_id',
-    'classified_request.title',
-    'classified_request.image',
-    'classified_request.date',
-    'classified_request.time',
-    'classified_request.venue',
-    'classified_request.description')
+      'classified_request.user_auth0_id',
+      'classified_request.location_id',
+      'classified_request.title',
+      'classified_request.image',
+      'classified_request.date',
+      'classified_request.time',
+      'classified_request.venue',
+      'classified_request.description'
+    )
     .insert(newRequest)
 }
 

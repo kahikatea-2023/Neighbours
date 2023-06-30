@@ -63,8 +63,7 @@ router.post('/:id/classified', validateAccessToken, async (req, res) => {
     await addRequest(newRequest)
 
     res.sendStatus(201)
-    //still need to fixed to redirect issue
-    // res.redirect(`/:${locationId}/classified`)
+ 
   } catch (error) {
     console.error(error)
     res.status(500).send('Something went wrong')
@@ -95,5 +94,20 @@ router.get('/:id/classified/:request/answers', async (req, res) => {
     res.status(500).json({ message: 'Something went wrong' })
   }
 })
+
+// router.post('/:id/classified/:request/answers', async (req, res) => {
+//   try {
+  
+
+
+
+//     res.json({ answers })
+//   } catch (error) {
+//     console.log(error)
+//     res.status(500).json({ message: 'Something went wrong' })
+//   }
+// })
+
+
 
 export default router
