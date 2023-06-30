@@ -19,6 +19,4 @@ test('renders AppLayout without errors', () => {
     </QueryClientProvider>,
     div
   )
-
-  // No error should be thrown during rendering
 })
