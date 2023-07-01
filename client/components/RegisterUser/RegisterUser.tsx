@@ -89,21 +89,19 @@ function RegisterUser() {
   // })
 
   return (
-    <div>
-      <div className="text-center text-3xl font-semibold my-5">
-        <h2>Register</h2>
+    <div className="mr-6">
+      <div className="text-center text-2xl font-semibold my-5">
+        <h2>Tell us about yourself</h2>
       </div>
-      <form
-        onSubmit={handleSubmit}
-        className="pl-7 flex flex-col drop-shadow-xl"
-      >
+      <form onSubmit={handleSubmit} className="flex flex-col drop-shadow-xl">
         <div className="flex flex-col ">
-          <label htmlFor="firstName" className=" pl-7 pb-2 font-xl">
+          <label htmlFor="firstName" className="pl-7 pb-2 text-lg">
             First Name
           </label>
           <input
             type="text"
-            name="firstName"
+            name="first_name"
+            placeholder="e.g. Mary"
             value={userData.first_name}
             onChange={handleChange}
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
@@ -111,12 +109,13 @@ function RegisterUser() {
         </div>
 
         <div className="flex flex-col ">
-          <label htmlFor="lastName" className="text-black pl-7 pb-2 font-xl">
+          <label htmlFor="lastName" className="pl-7 pb-2 text-lg">
             Last Name
           </label>
           <input
             type="text"
-            name="lastName"
+            name="last_name"
+            placeholder="e.g. Anne"
             value={userData.last_name}
             onChange={handleChange}
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
@@ -124,39 +123,7 @@ function RegisterUser() {
         </div>
 
         <div className="flex flex-col ">
-          <label htmlFor="userName" className="text-black pl-7 pb-2 font-xl">
-            User Name
-          </label>
-          <input
-            type="text"
-            name="userName"
-            value={userData.name}
-            onChange={handleChange}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
-          />
-        </div>
-
-        <div className="flex flex-col ">
-          <label htmlFor="location" className="text-black pl-7 pb-2 font-xl">
-            Location
-          </label>
-          <select
-            name="location"
-            value={userData.location_id}
-            onChange={handleSelect}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
-          >
-            <option value="">Select location</option>
-            {data.map((suburb) => (
-              <option key={suburb.id} value={suburb.id}>
-                {suburb.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="flex flex-col ">
-          <label htmlFor="pronouns" className="text-black pl-7 pb-2 font-xl">
+          <label htmlFor="pronouns" className="pl-7 pb-2 text-lg">
             Pronouns
           </label>
           <input
@@ -169,7 +136,7 @@ function RegisterUser() {
         </div>
 
         <div className="flex flex-col ">
-          <label htmlFor="bio" className="text-black pl-7 pb-2 font-xl">
+          <label htmlFor="bio" className="pl-7 pb-2 text-lg">
             Bio
           </label>
           <input
@@ -181,9 +148,54 @@ function RegisterUser() {
           />
         </div>
 
+        <div className="text-center text-2xl font-semibold mb-5">
+          <h2>Find your Neighbours</h2>
+        </div>
+
+        <div className="flex flex-col ">
+          <label htmlFo
+          r="location" className="pl-7 pb-2 text-lg">
+            Location
+          </label>
+          <select
+            name="location"
+            value={userData.location_id}
+            onChange={handleSelect}
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
+          >
+            <option disabled>Auckland</option>
+            <option value="">Select location</option>
+            {data.map((suburb) => (
+              <option key={suburb.id} value={suburb.id}>
+                {suburb.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        
+        <div className="flex flex-col ">
+          <label htmlFor="location" className="pl-7 pb-2 text-lg">
+            Location
+          </label>
+          <select
+            name="location"
+            value={userData.location_id}
+            onChange={handleSelect}
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
+          >
+            <option disabled>Auckland</option>
+            <option value="">Select location</option>
+            {data.map((suburb) => (
+              <option key={suburb.id} value={suburb.id}>
+                {suburb.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <button
           type="submit"
-          className=" bg-lightGreen text-white justify-center text-center py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C]"
+          className=" bg-primary text-white justify-center text-center py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C]"
         >
           Register
         </button>
