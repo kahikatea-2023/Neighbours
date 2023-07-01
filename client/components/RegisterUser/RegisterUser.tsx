@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { UsersDataBackend } from '../../../models/user'
 import { useNavigate } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 // save for later
 // import { useMutation, useQueryClient } from 'react-query'
 
@@ -12,15 +13,20 @@ function RegisterUser() {
   //     queryClient.invalidateQueries('getUsers')
   //   }
   // })
+  const { user } = useAuth0()
 
   const navigate = useNavigate()
 
   const initialState = {
+    auth0_id: user?.sub,
     first_name: '',
     last_name: '',
     name: '',
+    email: user?.email,
     location_id: 0,
-  } as Partial<UsersDataBackend>
+    pronouns: '',
+    bio: '',
+  } as UsersDataBackend
 
   const [userData, setUserData] = useState(initialState)
 
@@ -33,7 +39,7 @@ function RegisterUser() {
 
   function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
     const value = +event.target.value
-    const currentUserData: Partial<UsersDataBackend> = { ...userData, location_id: value }
+    const currentUserData: UsersDataBackend = { ...userData, location_id: value }
     setUserData(currentUserData)
   }
 
@@ -105,7 +111,6 @@ function RegisterUser() {
             onChange={handleChange}
             className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
           />
-
         </div>
 
         <div className='flex flex-col '>
@@ -136,6 +141,28 @@ function RegisterUser() {
               </option>
             ))}
           </select>
+        </div>
+
+        <div className='flex flex-col '>
+          <label htmlFor="pronouns" className='text-black pl-7 pb-2 font-bold font-xl'>Pronouns</label>
+          <input
+            type="text"
+            name='pronouns'
+            value={userData.pronouns}
+            onChange={handleChange}
+            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+          />
+        </div>
+
+        <div className='flex flex-col '>
+          <label htmlFor="bio" className='text-black pl-7 pb-2 font-bold font-xl'>Bio</label>
+          <input
+            type="text"
+            name='bio'
+            value={userData.bio}
+            onChange={handleChange}
+            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+          />
         </div>
 
         <button type="submit" className=' bg-lightGreen text-white justify-center text-center font-bold py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C] drop-shadow-2xl'>

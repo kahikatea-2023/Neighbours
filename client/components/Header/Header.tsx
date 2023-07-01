@@ -14,7 +14,7 @@ function Header() {
   }
 
   return (
-    <div className="pl-4 pt-3 pr-4 flex justify-between items-center">
+    <div className="pl-4 pt-6 pr-4 flex justify-between items-center">
       <div className="ml-2 mt-2">
         <Logo />
       </div>
