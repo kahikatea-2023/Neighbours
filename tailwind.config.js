@@ -17,6 +17,9 @@ module.exports = {
       backgroundImage: {
         neighbours: "url('public/images/background-image.png')",
       },
+      borderWidth: {
+        3: '3px',
+      },
     },
   },
   variants: {
