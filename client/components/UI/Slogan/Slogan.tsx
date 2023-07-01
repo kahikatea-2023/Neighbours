@@ -8,13 +8,13 @@ function Slogan() {
     'Making good connection',
   ]
   return (
-    <div className={twMerge('text-black')}>
+    <div className={twMerge('text-black text-center')}>
       {texts.map((text, index) => (
         <motion.p
           initial={{ opacity: 0, translateY: -50 }}
           animate={{ opacity: 1, translateY: 0 }}
           transition={{ duration: 1, delay: 0.5 + index * 1.3 }}
-          className="text-3xl font-bold"
+          className="text-2xl font-bold pb-2"
           key={text}
         >
           {text}

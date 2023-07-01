@@ -108,8 +108,8 @@ function RegisterUser() {
 
   return (
     <div>
-      <div className="w-3/4 text-center text-4xl font-bold mt-6 mb-6">
-        <h2>Edit Profile</h2>
+      <div className="text-center text-3xl font-semibold my-5">
+        <h2>Register</h2>
       </div>
       <form onSubmit={handleSubmit} className="pl-7 flex flex-col w-3/4">
         <div className="flex flex-col ">

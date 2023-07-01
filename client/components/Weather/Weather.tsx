@@ -39,8 +39,8 @@ function Weather() {
       <div>
         {weatherData ? (
           <div className="flex flex-row">
-            <div className="pl-6">
-              <h2 className="font-bold">{weatherData.name}</h2>
+            <div>
+              <h2 className="font-semibold">{weatherData.name}</h2>
               <div>
                 {weatherIcon && (
                   <img
@@ -49,13 +49,13 @@ function Weather() {
                     alt="Weather Icon"
                   />
                 )}
-                <p className="self-center">
+                <p className="pl-6 text-left text-xs font-semibold">
                   {formatTemperature(weatherData.main.temp)}
                 </p>
               </div>
             </div>
-            <div className="pl-8 pt-8">
-              <p className="font-bold font-xl">
+            <div className="pt-8">
+              <p className="text-sm font-sm">
                 Bundle up and take umbrella with you! <br />
                 You know New Zealand weather is fickle.
               </p>

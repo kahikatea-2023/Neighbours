@@ -4,7 +4,6 @@ import Button from '../UI/Button/Button'
 
 function LoginButton() {
   const { loginWithRedirect } = useAuth0()
-  
 
   function handleLogin() {
     loginWithRedirect({
@@ -17,7 +16,7 @@ function LoginButton() {
 
   return (
     <>
-      <Button className="bg-lightGreen text-primary " onClick={handleLogin}>
+      <Button className="bg-primary text-lightPink " onClick={handleLogin}>
         LOG IN
       </Button>
     </>
