@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UsersDataBackend } from '../../../models/user'
 import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -16,19 +16,46 @@ function RegisterUser() {
   const { user } = useAuth0()
 
   const navigate = useNavigate()
-
-  const initialState = {
-    auth0_id: user?.sub,
+  const [userData, setUserData] = useState<UsersDataBackend>({
+    auth0_id: '',
     first_name: '',
     last_name: '',
     name: '',
-    email: user?.email, // this is returned undified, sometime is retured undified,
+    email: '',
     location_id: 0,
     pronouns: '',
     bio: '',
-  } as UsersDataBackend
+  })
+  useEffect(() => {
+    if (user) {
+      Promise.resolve(user)
+        .then((resolvedUser) => {
+          if (resolvedUser.email && resolvedUser.sub) {
+            const userDraftData: UsersDataBackend = {
+              ...userData,
+              auth0_id: resolvedUser.sub,
+              email: resolvedUser.email,
+            }
 
-  const [userData, setUserData] = useState(initialState)
+            setUserData(userDraftData)
+          }
+        })
+        .catch((error) => {
+          // Handle any error that occurred during the promise chain
+          console.error(error)
+        })
+    }
+  }, [user])
+  // const initialState = {
+  //   auth0_id: user?.sub,
+  //   first_name: '',
+  //   last_name: '',
+  //   name: '',
+  //   email: user?.email, // this is returned undified, sometime is retured undified,
+  //   location_id: 0,
+  //   pronouns: '',
+  //   bio: '',
+  // } as UsersDataBackend
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const name = event.target.name
