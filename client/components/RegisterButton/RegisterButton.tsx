@@ -14,7 +14,7 @@ function RegisterButton() {
   }
 
   return (
-    <Button className="bg-primary text-lightGreen" onClick={handleRegister}>
+    <Button className="bg-coldPink text-primary " onClick={handleRegister}>
       REGISTER
     </Button>
   )

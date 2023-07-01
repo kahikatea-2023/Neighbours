@@ -8,7 +8,7 @@ module.exports = {
         pink: '#F18A81',
         warmPink: '#EDC1AF',
         coldPink: '#ECDBD2',
-        backgroundColor: '#FFFAFA',
+        lightPink: '#FFFAFA',
       },
       fontFamily: {
         display: ['Oswald'],
