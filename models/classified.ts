@@ -8,6 +8,10 @@ export interface ClassifiedPostRqData {
   description: string
 }
 
+export interface ClassifiedRqDataUpdateBackend extends ClassifiedPostRqData {
+  id: number
+}
+
 export interface ClassifiedRqData {
   user_auth0_id: string
   location_id: number
@@ -30,7 +34,6 @@ export interface ClassifiedRqCommentData {
   comment: string
 }
 
-export interface ClassifiedRqCommentDataBackend
-  extends ClassifiedRqCommentData {
+export interface ClassifiedRqCommentDataBackend {
   id: number
 }

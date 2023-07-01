@@ -75,3 +75,7 @@ export const getMockToken = () => {
 
   return jwt.sign(payload, privateKey, options)
 }
+
+const token = getMockToken()
+
+console.log(token, 'here i am')

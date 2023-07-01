@@ -3,8 +3,8 @@ import {
   ClassifiedRqCommentDataBackend,
   ClassifiedRqDataBackend,
   ClassifiedPostRqData,
+  ClassifiedRqDataUpdateBackend,
 } from '../../models/classified'
-import { request } from 'express'
 
 export async function getAllClassificationsByLocation(locationId: number) {
   return (await db('classified_request')
@@ -88,4 +88,23 @@ export function addRequest(request: ClassifiedPostRqData) {
       'classified_request.description'
     )
     .insert(newRequest)
+}
+
+export function updateRequest(
+  Updatedrequest: ClassifiedRqDataUpdateBackend,
+  id: number
+) {
+  const newObj = { ...Updatedrequest }
+
+  return db('classified_request').where('id', id).update(newObj)
+}
+
+export function deleteRequestById(
+  requestId: ClassifiedRqDataUpdateBackend,
+  userAuth0Id: string
+) {
+  return db('classified_request')
+    .where('id', requestId)
+    .where('user_auth0_id', userAuth0Id)
+    .delete()
 }

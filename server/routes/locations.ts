@@ -6,8 +6,13 @@ import {
   getAllClassificationsByLocation,
   getClassificationById,
   addRequest,
+  updateRequest,
+  deleteRequestById,
 } from '../db/classified'
-import { ClassifiedPostRqData } from '../../models/classified'
+import {
+  ClassifiedPostRqData,
+  ClassifiedRqDataUpdateBackend,
+} from '../../models/classified'
 import { validateAccessToken } from './auth0'
 const router = Router()
 
@@ -18,7 +23,6 @@ const router = Router()
 router.get('/', async (req, res) => {
   try {
     const locations = await getAllLocations()
-
     res.json({ locations })
   } catch (error) {
     console.log(error)
@@ -61,14 +65,60 @@ router.post('/:id/classified', validateAccessToken, async (req, res) => {
     }
 
     await addRequest(newRequest)
-
     res.sendStatus(201)
- 
   } catch (error) {
     console.error(error)
     res.status(500).send('Something went wrong')
   }
 })
+
+//update request
+
+router.patch(
+  '/:id/classified/:request',
+  validateAccessToken,
+  async (req, res) => {
+    try {
+      const updatedRequest = req.body as ClassifiedRqDataUpdateBackend
+      const id = Number(req.params.request)
+      const auth0Id = req.auth?.payload.sub
+      if (!auth0Id) {
+        console.error('No auth0Id')
+        return res.status(401).send('Unauthorized')
+      }
+      await getClassificationById(id)
+      await updateRequest(updatedRequest, Number(req.params.request))
+      res.sendStatus(204)
+    } catch (error) {
+      console.error(error)
+      res.status(500).send('Something went wrong')
+    }
+  }
+)
+
+//delete request
+
+router.delete(
+  '/:id/classified/:request',
+  validateAccessToken,
+  async (req, res) => {
+    try {
+      const id = Number(req.params.request)
+      const auth0Id = req.auth?.payload.sub
+      if (!auth0Id) {
+        console.error('No auth0Id')
+        return res.status(401).send('Unauthorized')
+      }
+      await getClassificationById(id)
+      await deleteRequestById(Number(req.params.request), auth0Id)
+
+      res.sendStatus(200)
+    } catch (error) {
+      console.error(error)
+      res.status(500).send('Something went wrong')
+    }
+  }
+)
 
 router.get('/:id/classified/:request', async (req, res) => {
   try {
@@ -97,9 +147,6 @@ router.get('/:id/classified/:request/answers', async (req, res) => {
 
 // router.post('/:id/classified/:request/answers', async (req, res) => {
 //   try {
-  
-
-
 
 //     res.json({ answers })
 //   } catch (error) {
@@ -107,7 +154,5 @@ router.get('/:id/classified/:request/answers', async (req, res) => {
 //     res.status(500).json({ message: 'Something went wrong' })
 //   }
 // })
-
-
 
 export default router
