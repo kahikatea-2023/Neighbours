@@ -14,8 +14,10 @@ function Header() {
   }
 
   return (
-    <div className="pl-4 pt-3 pr-4 flex justify-between items-center">
-      <Logo />
+    <div className="pl-4 pt-6 pr-4 flex justify-between items-center">
+      <div className="ml-2 mt-2">
+        <Logo />
+      </div>
       {isBusy > 0 && (
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-20">
           <img
@@ -45,7 +47,6 @@ function Header() {
         className={`fixed z-50 left-0 top-12 h-full w-full backdrop-filter backdrop-blur-md text-white bg-lightGreen bg-opacity-90 shadow-transparent transition-all ease-in-out duration-200 ${
           navOpened ? 'opacity-100' : 'hidden'
         }`}
-
       >
         {/* <Suspense fallback={<Loading />}> */}
         <Suspense>

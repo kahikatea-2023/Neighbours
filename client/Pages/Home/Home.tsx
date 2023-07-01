@@ -6,7 +6,7 @@ function Home() {
   return (
     <div className="pt-44 pl-4 flex flex-col gap-4">
       <Slogan />
-      <div className="flex gap-2 pt-20">
+      <div className="flex gap-6 pt-14 place-content-center">
         <LoginButton />
         <RegisterButton />
       </div>
