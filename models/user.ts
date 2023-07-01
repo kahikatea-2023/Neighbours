@@ -9,9 +9,10 @@ export const usersDataSchema = z.object({
   pronouns: z.string(),
   bio: z.string(),
 })
-
 export type UsersData = z.infer<typeof usersDataSchema>
 
-export interface UsersDataBackend extends UsersData {
-  auth0_id: string
-}
+export const usersDataBackendSchema = usersDataSchema.extend({
+  auth0_id: z.string(),
+})
+
+export type UsersDataBackend = z.infer<typeof usersDataBackendSchema>

@@ -1,20 +1,18 @@
 import { Router } from 'express'
-import { UsersData, usersDataSchema } from '../../models/user'
+import { usersDataBackendSchema } from '../../models/user'
 import { getUserById, upsertProfile } from '../db/profile'
 import { validateAccessToken } from './auth0'
 const router = Router()
 
 //get profile by auth0_id
-router.get('/:auth0_id', validateAccessToken, async (req, res) => {
+router.get('/', validateAccessToken, async (req, res) => {
   try {
-    const auth0_id = req.params.auth0_id as string
-
     const auth0Id = req.auth?.payload.sub
     if (!auth0Id) {
       console.error('No auth0Id')
       return res.status(401).send('Unauthorized')
     }
-    const profile = await getUserById(auth0_id)
+    const profile = await getUserById(auth0Id)
 
     res.json({ profile })
   } catch (error) {
@@ -24,9 +22,9 @@ router.get('/:auth0_id', validateAccessToken, async (req, res) => {
 })
 
 // add a new user
-router.post('/:auth0_id', validateAccessToken, async (req, res) => {
+router.post('/', validateAccessToken, async (req, res) => {
   const form = req.body
-  const auth0_id = req.params.auth0_id
+  const auth0_id = req.auth?.payload.sub
 
   if (!auth0_id) {
     res.status(400).json({ message: 'Please provide an auth0_id' })
@@ -39,16 +37,17 @@ router.post('/:auth0_id', validateAccessToken, async (req, res) => {
   }
 
   try {
-    const userResult = usersDataSchema.safeParse(form)
+    const userResult = usersDataBackendSchema.safeParse(form)
 
     if (!userResult.success) {
       res.status(400).json({ message: 'Please provide a valid form' })
       return
     }
+    //add the user
 
-    const newUser = { ...userResult.data, auth0_id: auth0_id }
+    // const newUser = { ...userResult.data, auth0_id: auth0_id }
 
-    await upsertProfile(newUser)
+    await upsertProfile(userResult.data)
     res.sendStatus(201)
   } catch (e) {
     console.error(e)
