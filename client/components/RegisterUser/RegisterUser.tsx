@@ -46,16 +46,6 @@ function RegisterUser() {
         })
     }
   }, [user])
-  // const initialState = {
-  //   auth0_id: user?.sub,
-  //   first_name: '',
-  //   last_name: '',
-  //   name: '',
-  //   email: user?.email, // this is returned undified, sometime is retured undified,
-  //   location_id: 0,
-  //   pronouns: '',
-  //   bio: '',
-  // } as UsersDataBackend
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const name = event.target.name
