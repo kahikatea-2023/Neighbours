@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 
-function Title() {
+function Logo() {
   return (
     <Link to="/">
-      <h1 className="text-3xl font-bold text-lightGreen">Neighbours</h1>
+      <img src="public/images/Neighbours-logo.png" alt="Logo" />
     </Link>
   )
 }
 
-export default Title
+export default Logo
