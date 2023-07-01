@@ -14,6 +14,7 @@ import Community from './Pages/Community/Community'
 import ClassifiedPage from './Pages/ClassifiedsPage/ClassifiedsPage'
 import AppLayout from './components/AppLayout/AppLayout'
 import Home from './Pages/Home/Home'
+import AddPostPage from './Pages/AddPostPage/AddPostPage'
 
 export const routes = createRoutesFromElements(
   <Route>
@@ -33,6 +34,7 @@ export const routes = createRoutesFromElements(
       />
       <Route path="newmarket/classifieds" element={<ClassifiedPage />} />
       <Route path="newmarket/classifieds/:id" element={<ClassifiedsDetail />} />
+      <Route path="newmarket/classifieds/add-post" element={<AddPostPage />} />
       <Route path="newmarket/market" element={<p>Market will be here</p>} />
     </Route>
   </Route>
