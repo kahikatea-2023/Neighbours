@@ -22,7 +22,7 @@ function RegisterUser() {
     first_name: '',
     last_name: '',
     name: '',
-    email: user?.email,
+    email: user?.email, // this is returned undified, sometime is retured undified,
     location_id: 0,
     pronouns: '',
     bio: '',
@@ -39,20 +39,24 @@ function RegisterUser() {
 
   function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
     const value = +event.target.value
-    const currentUserData: UsersDataBackend = { ...userData, location_id: value }
+    const currentUserData: UsersDataBackend = {
+      ...userData,
+      location_id: value,
+    }
     setUserData(currentUserData)
   }
-
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     // code below save for later
     // mutations.mutate(userData)
     //the redirect url need more work
-    const location = data.find((location) => location.id === userData.location_id)
+    const location = data.find(
+      (location) => location.id === userData.location_id
+    )
     const lowercaseName = location?.name.toLowerCase()
     navigate(`/${lowercaseName}`)
-
+    console.log('submitted', userData)
   }
 
   // Hardcoded locations data
@@ -90,82 +94,114 @@ function RegisterUser() {
       <div className="w-3/4 text-center text-4xl font-bold mt-6 mb-6">
         <h2>Edit Profile</h2>
       </div>
-      <form onSubmit={handleSubmit} className='pl-7 flex flex-col w-3/4'>
-        <div className='flex flex-col '>
-          <label htmlFor="firstName" className='text-black pl-7 pb-2 font-bold font-xl' >First Name</label>
+      <form onSubmit={handleSubmit} className="pl-7 flex flex-col w-3/4">
+        <div className="flex flex-col ">
+          <label
+            htmlFor="firstName"
+            className="text-black pl-7 pb-2 font-bold font-xl"
+          >
+            First Name
+          </label>
           <input
+            id="firstName"
             type="text"
-            name='firstName'
+            name="first_name"
             value={userData.first_name}
             onChange={handleChange}
-            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
           />
         </div>
 
-        <div className='flex flex-col '>
-          <label htmlFor='lastName' className='text-black pl-7 pb-2 font-bold font-xl'>Last Name</label>
+        <div className="flex flex-col ">
+          <label
+            htmlFor="lastName"
+            className="text-black pl-7 pb-2 font-bold font-xl"
+          >
+            Last Name
+          </label>
           <input
             type="text"
-            name='lastName'
+            name="last_name"
             value={userData.last_name}
             onChange={handleChange}
-            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
           />
         </div>
 
-        <div className='flex flex-col '>
-          <label htmlFor="userName" className='text-black pl-7 pb-2 font-bold font-xl'>User Name</label>
+        <div className="flex flex-col ">
+          <label
+            htmlFor="userName"
+            className="text-black pl-7 pb-2 font-bold font-xl"
+          >
+            User Name
+          </label>
           <input
             type="text"
-            name='userName'
+            name="name"
             value={userData.name}
             onChange={handleChange}
-            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
           />
         </div>
 
-        <div className='flex flex-col '>
-          <label htmlFor='location' className='text-black pl-7 pb-2 font-bold font-xl'>Location</label>
+        <div className="flex flex-col ">
+          <label
+            htmlFor="location"
+            className="text-black pl-7 pb-2 font-bold font-xl"
+          >
+            Location
+          </label>
           <select
-            name='location'
+            name="location"
             value={userData.location_id}
             onChange={handleSelect}
-            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
           >
             <option value="">Select location</option>
             {data.map((suburb) => (
-              <option
-                key={suburb.id}
-                value={suburb.id}>
+              <option key={suburb.id} value={suburb.id}>
                 {suburb.name}
               </option>
             ))}
           </select>
         </div>
 
-        <div className='flex flex-col '>
-          <label htmlFor="pronouns" className='text-black pl-7 pb-2 font-bold font-xl'>Pronouns</label>
+        <div className="flex flex-col ">
+          <label
+            htmlFor="pronouns"
+            className="text-black pl-7 pb-2 font-bold font-xl"
+          >
+            Pronouns
+          </label>
           <input
             type="text"
-            name='pronouns'
+            name="pronouns"
             value={userData.pronouns}
             onChange={handleChange}
-            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
           />
         </div>
 
-        <div className='flex flex-col '>
-          <label htmlFor="bio" className='text-black pl-7 pb-2 font-bold font-xl'>Bio</label>
+        <div className="flex flex-col ">
+          <label
+            htmlFor="bio"
+            className="text-black pl-7 pb-2 font-bold font-xl"
+          >
+            Bio
+          </label>
           <input
             type="text"
-            name='bio'
+            name="bio"
             value={userData.bio}
             onChange={handleChange}
-            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
           />
         </div>
 
-        <button type="submit" className=' bg-lightGreen text-white justify-center text-center font-bold py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C] drop-shadow-2xl'>
+        <button
+          type="submit"
+          className=" bg-lightGreen text-white justify-center text-center font-bold py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C] drop-shadow-2xl"
+        >
           Register
         </button>
       </form>
