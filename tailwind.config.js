@@ -4,15 +4,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#E4EBF2',
-        grey: '#65768C',
-        darkGreen: '#99A638',
-        lightGreen: '#B0BF3B',
-        warning: '#F27C7C',
+        primary: '#DF4E41',
+        pink: '#F18A81',
+        warmPink: '#EDC1AF',
+        coldPink: '#ECDBD2',
+        lightPink: '#FFFAFA',
       },
       fontFamily: {
-        serif: ['"Roboto Slab"', 'serif'],
-        sans: ['Quicksand', 'sans-serif'],
+        display: ['Oswald'],
+        body: ['"Open Sans"'],
+      },
+      backgroundImage: {
+        neighbours: "url('public/images/background-image.png')",
+      },
+      borderWidth: {
+        3: '3px',
       },
     },
   },
@@ -21,3 +27,5 @@ module.exports = {
   },
   plugins: [],
 }
+
+
