@@ -2,7 +2,7 @@ import { Router } from 'express'
 
 import { getAllLocations, getLocationById } from '../db/locations'
 import {
-  getAllAnswers,
+  getAllAnswersByRequest,
   getAllClassificationsByLocation,
   getClassificationById,
   addRequest,
@@ -110,7 +110,7 @@ router.delete(
         return res.status(401).send('Unauthorized')
       }
       await getClassificationById(id)
-      await deleteRequestById(Number(req.params.request), auth0Id)
+      await deleteRequestById(id, auth0Id)
 
       res.sendStatus(200)
     } catch (error) {
@@ -136,7 +136,7 @@ router.get('/:id/classified/:request', async (req, res) => {
 router.get('/:id/classified/:request/answers', async (req, res) => {
   try {
     const id = Number(req.params.request)
-    const answers = await getAllAnswers(id)
+    const answers = await getAllAnswersByRequest(id)
 
     res.json({ answers })
   } catch (error) {

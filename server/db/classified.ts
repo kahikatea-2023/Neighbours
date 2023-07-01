@@ -43,7 +43,7 @@ export async function getClassificationById(id: number) {
     .first()) as ClassifiedRqDataBackend[]
 }
 
-export async function getAllAnswers(requestId: number) {
+export async function getAllAnswersByRequest(requestId: number) {
   return (await db('classified_request_answers')
     .join(
       'classified_request',
@@ -54,7 +54,6 @@ export async function getAllAnswers(requestId: number) {
     .select(
       'classified_request.id as answers_id',
       'classified_request_answers.user_auth0_id',
-      'classified_request_answers.user_name',
       'classified_request_answers.time',
       'classified_request_answers.comment'
     )) as ClassifiedRqCommentDataBackend[]
@@ -99,10 +98,7 @@ export function updateRequest(
   return db('classified_request').where('id', id).update(newObj)
 }
 
-export function deleteRequestById(
-  requestId: ClassifiedRqDataUpdateBackend,
-  userAuth0Id: string
-) {
+export function deleteRequestById(requestId: number, userAuth0Id: string) {
   return db('classified_request')
     .where('id', requestId)
     .where('user_auth0_id', userAuth0Id)
