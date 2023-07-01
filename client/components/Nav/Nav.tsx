@@ -22,24 +22,36 @@ function Nav(props: Props) {
     <nav className="pt-16 pl-4 flex">
       <ul className="text-3xl">
         <li>
-          <button onClick={() => goTo('/newmarket')}>Home</button>
+          {isAuthenticated
+            ? <button onClick={() => goTo('/newmarket')}>Home</button>
+            : <button onClick={() => goTo('/')}>Home</button>}
         </li>
         <li>
-          <button onClick={() => goTo('/:location/activities')}>
-            Activities
-          </button>
+          {isAuthenticated
+            ? <button onClick={() => goTo('/:location/activities')}>
+              Activities
+            </button>
+            : <button onClick={() => goTo('/')}>Activities</button>}
         </li>
         <li>
-          <button onClick={() => goTo('/newmarket/classifieds')}>Classifieds</button>
+          {isAuthenticated
+            ? <button onClick={() => goTo('/newmarket/classifieds')}>Classifieds</button>
+            : <button onClick={() => goTo('/')}>Classifieds</button>}
         </li>
         <li>
-          <button onClick={() => goTo('/:location/market')}>Market</button>
+          {isAuthenticated
+            ? <button onClick={() => goTo('/:location/market')}>Market</button>
+            : <button onClick={() => goTo('/')}>Market</button>}
         </li>
         <li>
-          <button onClick={() => goTo('/profile')}>Profile</button>
+          {isAuthenticated
+            ? <button onClick={() => goTo('/profile')}>Profile</button>
+            : <button onClick={() => goTo('/')}>Profile</button>}
         </li>
         <li>
-          <button onClick={() => goTo('/my-posts')}>My posts</button>
+          {isAuthenticated
+            ? <button onClick={() => goTo('/my-posts')}>My posts</button>
+            : <button onClick={() => goTo('/')}>My posts</button>}
         </li>
         <li>
           {isAuthenticated && <button onClick={handleLogout}>Sign out</button>}
