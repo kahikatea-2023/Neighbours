@@ -1,5 +1,5 @@
 import { afterEach, expect } from 'vitest'
-import { cleanup, render } from '@testing-library/react'
+import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { RouterProvider, createMemoryRouter } from 'react-router-dom'
 import matchers from '@testing-library/jest-dom/matchers'
@@ -11,7 +11,7 @@ afterEach(cleanup)
 
 export function renderComponent(component: JSX.Element) {
   const user = userEvent.setup()
-  return { user, ...render(component) }
+  return { screen, user, ...render(component) }
 }
 
 export function renderWithRouter(location = '/') {

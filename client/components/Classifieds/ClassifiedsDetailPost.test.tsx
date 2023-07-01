@@ -12,7 +12,6 @@ test('renders ClassifiedDetailPost without errors', () => {
     </MemoryRouter>
   )
 
-  // No error should be thrown during rendering
 })
 
 test('displays the correct post content', async () => {
