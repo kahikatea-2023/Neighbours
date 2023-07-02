@@ -107,72 +107,102 @@ function RegisterUser() {
   // })
 
   return (
-    <div>
-      <div className="text-center text-3xl font-semibold my-5">
-        <h2>Register</h2>
+    <div className="mr-6">
+      <div className="text-center text-2xl font-semibold my-5">
+        <h2>Tell us about yourself</h2>
       </div>
-      <form onSubmit={handleSubmit} className="pl-7 flex flex-col w-3/4">
+      <form onSubmit={handleSubmit} className="flex flex-col drop-shadow-xl">
         <div className="flex flex-col ">
-          <label
-            htmlFor="firstName"
-            className="text-black pl-7 pb-2 font-bold font-xl"
-          >
+          <label htmlFor="firstName" className="pl-7 pb-2 text-lg">
             First Name
           </label>
           <input
             id="firstName"
             type="text"
             name="first_name"
+            placeholder="e.g. Mary"
             value={userData.first_name}
             onChange={handleChange}
-            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           />
         </div>
 
         <div className="flex flex-col ">
-          <label
-            htmlFor="lastName"
-            className="text-black pl-7 pb-2 font-bold font-xl"
-          >
+          <label htmlFor="lastName" className="pl-7 pb-2 text-lg">
             Last Name
           </label>
           <input
             type="text"
             name="last_name"
+            placeholder="e.g. Anne"
             value={userData.last_name}
             onChange={handleChange}
-            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           />
         </div>
-
         <div className="flex flex-col ">
-          <label
-            htmlFor="userName"
-            className="text-black pl-7 pb-2 font-bold font-xl"
-          >
-            User Name
+          <label htmlFor="pronouns" className="pl-7 pb-2 text-lg">
+            Pronouns
           </label>
           <input
             type="text"
-            name="name"
-            value={userData.name}
+            name="pronouns"
+            placeholder="e.g. She/her, He/his, They/them"
+            value={userData.pronouns}
             onChange={handleChange}
-            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           />
         </div>
 
         <div className="flex flex-col ">
-          <label
-            htmlFor="location"
-            className="text-black pl-7 pb-2 font-bold font-xl"
-          >
+          <label htmlFor="bio" className="pl-7 pb-2 text-lg">
+            Bio
+          </label>
+          <input
+            type="text"
+            name="bio"
+            placeholder=""
+            value={userData.bio}
+            onChange={handleChange}
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-sm"
+          />
+        </div>
+
+        <div className="text-center text-2xl font-semibold mb-5">
+          <h2>Find your Neighbours</h2>
+        </div>
+
+        <div className="flex flex-col ">
+          <label htmlFor="location" className="pl-7 pb-2 text-lg">
             Location
           </label>
           <select
             name="location"
             value={userData.location_id}
             onChange={handleSelect}
-            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
+          >
+            <option>New Zealand</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col ">
+          <select
+            name="location"
+            value={userData.location_id}
+            onChange={handleSelect}
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
+          >
+            <option>Auckland</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col ">
+          <select
+            name="location"
+            value={userData.location_id}
+            onChange={handleSelect}
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           >
             <option value="">Select location</option>
             {data.map((suburb) => (
@@ -182,42 +212,9 @@ function RegisterUser() {
             ))}
           </select>
         </div>
-
-        <div className="flex flex-col ">
-          <label
-            htmlFor="pronouns"
-            className="text-black pl-7 pb-2 font-bold font-xl"
-          >
-            Pronouns
-          </label>
-          <input
-            type="text"
-            name="pronouns"
-            value={userData.pronouns}
-            onChange={handleChange}
-            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
-          />
-        </div>
-
-        <div className="flex flex-col ">
-          <label
-            htmlFor="bio"
-            className="text-black pl-7 pb-2 font-bold font-xl"
-          >
-            Bio
-          </label>
-          <input
-            type="text"
-            name="bio"
-            value={userData.bio}
-            onChange={handleChange}
-            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
-          />
-        </div>
-
         <button
           type="submit"
-          className=" bg-lightGreen text-white justify-center text-center font-bold py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C] drop-shadow-2xl"
+          className=" bg-primary text-white justify-center text-center py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#F18A81] drop-shadow-xl"
         >
           Register
         </button>
