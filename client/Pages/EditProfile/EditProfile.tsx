@@ -45,7 +45,6 @@ function EditProfile() {
     enabled: !!user
   })
 
-  console.log(profileQuery.data)
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const name = event.target.name
@@ -77,9 +76,7 @@ function EditProfile() {
     event.preventDefault()
     const token = await getAccessTokenSilently()
     mutations.mutate({ updateUser, token })
-
     navigate(`/profile`)
-    console.log('submitted', updateUser)
   }
 
 
