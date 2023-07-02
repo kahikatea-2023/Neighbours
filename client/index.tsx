@@ -16,14 +16,14 @@ import AppLayout from './components/AppLayout/AppLayout'
 import Error from './Pages/Error/Error'
 import Home from './Pages/Home/Home'
 import AddPostPage from './Pages/AddPostPage/AddPostPage'
-import Profile from './Pages/Profile/Profile'
+import ProfilePage from './Pages/ProfilePage/ProfilePage'
 
 export const routes = createRoutesFromElements(
   <Route>
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Home />} />
       <Route path="register" element={<RegisterUser />} />
-      <Route path="profile" element={<Profile />} />
+      <Route path="profile" element={<ProfilePage />} />
       <Route path="my-posts" element={<Error />} />
       <Route path="newmarket" element={<Community />} />
       <Route

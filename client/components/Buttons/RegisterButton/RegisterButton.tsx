@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
+import Button from '../../UI/Button/Button'
 
-import Button from '../UI/Button/Button'
 
 function RegisterButton() {
   const { loginWithRedirect } = useAuth0()

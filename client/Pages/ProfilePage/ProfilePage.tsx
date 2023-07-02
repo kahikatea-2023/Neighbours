@@ -1,6 +1,10 @@
+
 // import CommunityPost from '../../components/CommunityPost/CommunityPost'
 // import Weather from '../../components/Weather/Weather'
 // import { useAuth0 } from '@auth0/auth0-react'
+
+import Profile from "../../components/Profile/Profile"
+import UserCard from "../../components/Profile/UserCard"
 
 // function Community() {
 //   const { user, isAuthenticated, isLoading } = useAuth0()
@@ -26,12 +30,13 @@
 //   )
 // }
 
-function Profile () {
+function ProfilePage () {
   return (
     <>
+      <UserCard />
       <Profile />
     </>
   )
 }
 
-export default Profile
+export default ProfilePage

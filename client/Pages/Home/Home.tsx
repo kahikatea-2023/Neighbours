@@ -1,5 +1,5 @@
-import LoginButton from '../../components/LoginButton/LoginButton'
-import RegisterButton from '../../components/RegisterButton/RegisterButton'
+import LoginButton from '../../components/Buttons/LoginButton/LoginButton'
+import RegisterButton from '../../components/Buttons/RegisterButton/RegisterButton'
 import Slogan from '../../components/UI/Slogan/Slogan'
 
 function Home() {
