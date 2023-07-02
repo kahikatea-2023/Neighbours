@@ -7,7 +7,7 @@ export async function loadWeatherData(
   setWeatherData: SetWeatherData
 ) {
   try {
-    const city = location.pathname.substring(1) // Get the city from the current URL
+    const city = 'newmarket' // Get the city from the current URL
     const response = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
     )
