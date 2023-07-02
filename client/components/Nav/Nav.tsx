@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 interface Props {
   toggleMenu: () => void
@@ -8,6 +8,7 @@ interface Props {
 function Nav(props: Props) {
   const { isAuthenticated, logout } = useAuth0()
   const navigate = useNavigate()
+  const { locationId } = useParams()
 
   function handleLogout() {
     logout({ logoutParams: { returnTo: window.location.origin } })
@@ -23,14 +24,14 @@ function Nav(props: Props) {
       <ul className="text-3xl">
         <li>
           {isAuthenticated ? (
-            <button onClick={() => goTo('/newmarket')}>Home</button>
+            <button onClick={() => goTo(`/${Number(locationId)}`)}>Home</button>
           ) : (
             <button onClick={() => goTo('/')}>Home</button>
           )}
         </li>
         <li>
           {isAuthenticated ? (
-            <button onClick={() => goTo('/:location/activities')}>
+            <button onClick={() => goTo(`/${Number(locationId)}/activities`)}>
               Activities
             </button>
           ) : (
@@ -39,7 +40,7 @@ function Nav(props: Props) {
         </li>
         <li>
           {isAuthenticated ? (
-            <button onClick={() => goTo('/newmarket/classifieds')}>
+            <button onClick={() => goTo(`/${Number(locationId)}/classifieds`)}>
               Classifieds
             </button>
           ) : (
@@ -48,7 +49,9 @@ function Nav(props: Props) {
         </li>
         <li>
           {isAuthenticated ? (
-            <button onClick={() => goTo('/:location/market')}>Market</button>
+            <button onClick={() => goTo(`/${Number(locationId)}/market`)}>
+              Market
+            </button>
           ) : (
             <button onClick={() => goTo('/error')}>Market</button>
           )}
