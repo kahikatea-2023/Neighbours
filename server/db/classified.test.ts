@@ -1,9 +1,10 @@
 import { describe, it, expect, beforeAll, beforeEach } from 'vitest'
 import db from './connection'
 import {
+  getAllAnswersByRequest,
   getAllClassificationsByLocation,
   getClassificationById,
-  getAllAnswers,
+  
   updateRequest,
 } from './classified'
 import { ClassifiedRqDataBackend, ClassifiedRqDataUpdateBackend } from '../../models/classified'
@@ -43,7 +44,7 @@ it('getClassificationById', async () => {
 
 it('should return an array of answers', async () => {
   const requestId = 1
-  const answers = await getAllAnswers(requestId)
+  const answers = await getAllAnswersByRequest(requestId)
   expect(Array.isArray(answers)).toBe(true)
 })
 

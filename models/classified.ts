@@ -34,6 +34,6 @@ export interface ClassifiedRqCommentData {
   comment: string
 }
 
-export interface ClassifiedRqCommentDataBackend {
+export interface ClassifiedRqCommentDataBackend extends ClassifiedRqCommentData {
   id: number
 }

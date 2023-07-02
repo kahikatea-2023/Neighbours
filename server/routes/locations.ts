@@ -8,17 +8,17 @@ import {
   addRequest,
   updateRequest,
   deleteRequestById,
+  addAnswer,
+  updateAnswer,
+  deleteAnswerById,
 } from '../db/classified'
 import {
   ClassifiedPostRqData,
+  ClassifiedRqCommentDataBackend,
   ClassifiedRqDataUpdateBackend,
 } from '../../models/classified'
 import { validateAccessToken } from './auth0'
 const router = Router()
-
-//get, post, update, delete
-
-// locations
 
 router.get('/', async (req, res) => {
   try {
@@ -54,6 +54,18 @@ router.get('/:id/classified', async (req, res) => {
     res.status(500).json({ message: 'Something went wrong' })
   }
 })
+
+router.get('/:id/classified/:request', async (req, res) => {
+  try {
+    const id = Number(req.params.request)
+    const classification = await getClassificationById(id)
+    res.json({ classification })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
 //add new request
 router.post('/:id/classified', validateAccessToken, async (req, res) => {
   try {
@@ -73,7 +85,6 @@ router.post('/:id/classified', validateAccessToken, async (req, res) => {
 })
 
 //update request
-
 router.patch(
   '/:id/classified/:request',
   validateAccessToken,
@@ -97,7 +108,6 @@ router.patch(
 )
 
 //delete request
-
 router.delete(
   '/:id/classified/:request',
   validateAccessToken,
@@ -120,18 +130,7 @@ router.delete(
   }
 )
 
-router.get('/:id/classified/:request', async (req, res) => {
-  try {
-    const id = Number(req.params.request)
-    const classification = await getClassificationById(id)
-    res.json({ classification })
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
-  }
-})
-
-// classified_request_answers
+//answers
 
 router.get('/:id/classified/:request/answers', async (req, res) => {
   try {
@@ -145,14 +144,79 @@ router.get('/:id/classified/:request/answers', async (req, res) => {
   }
 })
 
-// router.post('/:id/classified/:request/answers', async (req, res) => {
-//   try {
+//post answer
+router.post(
+  '/:id/classified/:request/answers',
+  validateAccessToken,
+  async (req, res) => {
+    try {
+      const newAnswer = req.body
+      const auth0Id = req.auth?.payload.sub
+      if (!auth0Id) {
+        console.error('No auth0Id')
+        return res.status(401).send('Unauthorized')
+      }
 
-//     res.json({ answers })
-//   } catch (error) {
-//     console.log(error)
-//     res.status(500).json({ message: 'Something went wrong' })
-//   }
-// })
+      await addAnswer(newAnswer)
 
+      res.sendStatus(201)
+    } catch (error) {
+      console.error(error)
+      res.status(500).send('Something went wrong')
+    }
+  }
+)
 export default router
+
+//update answer
+router.patch(
+  '/:id/classified/:request/answers/:answer',
+  validateAccessToken,
+  async (req, res) => {
+    try {
+      const updatedAnswer = req.body as ClassifiedRqCommentDataBackend
+      const id = Number(req.params.answer)
+      const auth0Id = req.auth?.payload.sub
+      if (!auth0Id) {
+        console.error('No auth0Id')
+        return res.status(401).send('Unauthorized')
+      }
+      await getAllAnswersByRequest(id)
+      await updateAnswer(updatedAnswer, Number(req.params.answer))
+      res.sendStatus(204)
+    } catch (error) {
+      console.error(error)
+      res.status(500).send('Something went wrong')
+    }
+  }
+)
+
+// delete answer
+router.delete(
+  '/:id/classified/:request/answers/:answer',
+  validateAccessToken,
+  async (req, res) => {
+    try {
+      const requestId = Number(req.params.request)
+      const answerId = Number(req.params.answer)
+      const auth0Id = req.auth?.payload.sub
+
+      if (!auth0Id) {
+        console.error('No auth0Id')
+        return res.status(401).send('Unauthorized')
+      }
+
+      await getAllAnswersByRequest(requestId)
+      await deleteAnswerById(answerId, auth0Id)
+
+      res.sendStatus(200)
+    } catch (error) {
+      console.error(error)
+      res.status(500).send('Something went wrong')
+    }
+  }
+)
+
+// function getAnswersById(id: number) {
+//   throw new Error('Function not implemented.')
+// }
