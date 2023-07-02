@@ -39,5 +39,44 @@ exports.seed = async function (knex) {
       description:
         'I need a math tutor to help me with algebra and calculus. Willing to pay for the lessons.',
     },
+    {
+      id: 4,
+      user_auth0_id: 'auth0|649d005f1506170f44b8c113',
+      location_id: 4,
+      title: 'Math Tutor Needed',
+      type: 'Education',
+      image: 'https://example.com/math-tutor.jpg',
+      date: '2023-09-10',
+      time: '19:00:00',
+      venue: 'Library',
+      description:
+        'I need a math tutor to help me with algebra and calculus. Willing to pay for the lessons.',
+    },
+    {
+      id: 5,
+      user_auth0_id: 'auth0|649d005f1506170f44b8c113',
+      location_id: 4,
+      title: 'Math Tutor Needed',
+      type: 'Education',
+      image: 'https://example.com/math-tutor.jpg',
+      date: '2023-08-10',
+      time: '19:00:00',
+      venue: 'Dev',
+      description:
+        'I need a math tutor to help me with algebra and calculus. Willing to pay for the lessons.',
+    },
+    {
+      id: 6,
+      user_auth0_id: 'auth0|649d005f1506170f44b8c113',
+      location_id: 4,
+      title: 'Math Tutor Needed',
+      type: 'Education',
+      image: 'https://example.com/math-tutor.jpg',
+      date: '2023-07-10',
+      time: '19:00:00',
+      venue: 'Dev',
+      description:
+        'I need a math tutor to help me with algebra and calculus. Willing to pay for the lessons.',
+    },
   ])
 }

@@ -11,6 +11,7 @@ import {
   addAnswer,
   updateAnswer,
   deleteAnswerById,
+  getClassificationByUserAuthId,
 } from '../db/classified'
 import { PostAnswersSchema, PostRequestSchema } from '../../models/classified'
 import { validateAccessToken } from './auth0'
@@ -62,6 +63,18 @@ router.get('/:id/classified/:request', async (req, res) => {
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
+// get classified post by auth0_id
+router.get('/:auth0Id/classifiedposts', async (req, res) => {
+  try {
+    const auth0Id = req.params.auth0Id
+    const userClassifications = await getClassificationByUserAuthId(auth0Id)
+    res.json({ userClassifications })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Something went wrong with getClassificationByUserAuthId' })
   }
 })
 

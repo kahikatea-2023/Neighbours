@@ -12,6 +12,18 @@ export async function fetchClassifiedPost(
     .get(url)
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
-  console.log('I am in the api call', res.body.classifications)
   return res.body.classifications
+}
+
+
+export async function fetchUserClassifiedPost(
+  auth0Id: string,
+  token: string
+): Promise<ClassifiedRqDataBackend[]> {
+  const url = `${rootUrl}locations/${auth0Id}/classifiedposts`
+  const res = await request
+    .get(url)
+    .set('Authorization', `Bearer ${token}`)
+    .set('Content-Type', 'application/json')
+  return res.body.userClassifications
 }

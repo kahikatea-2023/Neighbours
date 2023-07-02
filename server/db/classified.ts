@@ -44,6 +44,29 @@ export async function getClassificationById(id: number) {
     .first()) as ClassifiedRqDataBackend[]
 }
 
+export async function getClassificationByUserAuthId(id: string) {
+  return (await db('classified_request')
+    .where('user_auth0_id', id)
+    .select(
+      'id',
+      'user_auth0_id',
+      'location_id',
+      'title',
+      'type',
+      'image',
+      'date',
+      'time',
+      'venue',
+      'description'
+    )
+  ) as ClassifiedRqDataBackend[]
+}
+
+
+
+
+
+
 export function addRequest(request: ClassifiedPostRqData) {
   const newRequest = {
     user_auth0_id: request.user_auth0_id,
