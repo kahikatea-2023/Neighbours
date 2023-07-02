@@ -3,9 +3,6 @@ import {
   ClassifiedRqCommentDataBackend,
   ClassifiedRqDataBackend,
   ClassifiedPostRqData,
-  ClassifiedRqDataUpdateBackend,
-  ClassifiedRqCommentData,
-  postRequestBackend,
   PostRequest,
   PostAnswers,
 } from '../../models/classified'

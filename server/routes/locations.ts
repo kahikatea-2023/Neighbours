@@ -12,15 +12,7 @@ import {
   updateAnswer,
   deleteAnswerById,
 } from '../db/classified'
-import {
-  ClassifiedPostRqData,
-  ClassifiedRqCommentDataBackend,
-  ClassifiedRqDataUpdateBackend,
-  PostAnswers,
-  PostAnswersSchema,
-  PostRequest,
-  PostRequestSchema,
-} from '../../models/classified'
+import { PostAnswersSchema, PostRequestSchema } from '../../models/classified'
 import { validateAccessToken } from './auth0'
 const router = Router()
 
@@ -59,11 +51,14 @@ router.get('/:id/classified', async (req, res) => {
   }
 })
 
+//get classifications and all its answers
+
 router.get('/:id/classified/:request', async (req, res) => {
   try {
     const id = Number(req.params.request)
     const classification = await getClassificationById(id)
-    res.json({ classification })
+    const answers = await getAllAnswersByRequest(id)
+    res.json({ ...classification, answers })
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
@@ -196,7 +191,7 @@ router.patch(
   '/:id/classified/:request/answers/:answer',
   validateAccessToken,
   async (req, res) => {
-    const updatedAnswer = req.body as PostAnswers
+    const updatedAnswer = req.body
     const id = Number(req.params.answer)
     const auth0Id = req.auth?.payload.sub
     if (!auth0Id) {
