@@ -2,7 +2,7 @@ import { FaArrowLeft } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
 import Comment from '../Comment/Comment'
 
-function ClassifiedsDetailPost() {
+ function ClassifiedsDetailPost() {
   const id = useParams()
   const navigate = useNavigate()
 
@@ -53,6 +53,7 @@ function ClassifiedsDetailPost() {
       replies: [],
     },
   ]
+
 
   function handleGoBack() {
     navigate(-1)

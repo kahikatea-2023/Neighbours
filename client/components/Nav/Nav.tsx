@@ -30,7 +30,7 @@ function Nav(props: Props) {
         </li>
         <li>
           {isAuthenticated ? (
-            <button onClick={() => goTo('/:location/activities')}>
+            <button onClick={() => goTo('/newmarket/activities')}>
               Activities
             </button>
           ) : (
@@ -48,7 +48,7 @@ function Nav(props: Props) {
         </li>
         <li>
           {isAuthenticated ? (
-            <button onClick={() => goTo('/:location/market')}>Market</button>
+            <button onClick={() => goTo('/newmarket/market')}>Market</button>
           ) : (
             <button onClick={() => goTo('/')}>Market</button>
           )}

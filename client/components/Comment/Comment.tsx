@@ -33,11 +33,11 @@ function Comment(props: CommentSectionProps): JSX.Element {
   }
 
   return (
-    <div>
+    <div className='mt-10'>
       {currentUser ? (
         <div>
           {/* Render the comment section */}
-          <h3>Comments</h3>
+          <h3 className='text-xl'>Comments</h3>
           {commentData.map((comment: CommentData) => (
             <div key={comment.comId}>
               <p>
