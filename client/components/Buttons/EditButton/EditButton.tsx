@@ -9,12 +9,14 @@ function EditButton() {
   }
 
   return (
-    <Button
-      className="bg-primary text-lightPink drop-shadow-lg"
-      onClick={handleGoHome}
-    >
-      EDIT
-    </Button>
+      <div className='flex justify-center pt-2'>
+        <Button
+          className="bg-primary text-lightPink drop-shadow-lg w-24"
+          onClick={handleGoHome}
+        >
+          EDIT
+        </Button>
+      </div>
   )
 }
 

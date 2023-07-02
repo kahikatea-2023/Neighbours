@@ -11,17 +11,17 @@ function UserCard() {
   }
 
   return (
-    <div className="bg-primary rounded-lg text-lightPink font-extralight flex flex-col items-center">
+    <div className="bg-primary rounded-lg text-lightPink font-extralight flex flex-col items-center pt-8 mt-6">
       <img
         src={userInfo.user_image}
         alt={userInfo.first_name}
-        className="w-28 rounded-full"
+        className="w-28 h-28 rounded-full border-4 border-lightPink"
       />
       <p className="font-normal">
         {userInfo.first_name} {userInfo.last_name}
       </p>
       <p>{userInfo.location} Neighbour</p>
-      <div className="flex justify-between">
+      <div className="flex justify-around pt-2 pb-4 w-4/5">
         <p>
           <a href="/my-posts" className="font-normal">
             {userInfo.posts}
