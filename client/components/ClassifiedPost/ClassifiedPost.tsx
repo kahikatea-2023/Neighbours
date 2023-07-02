@@ -38,8 +38,43 @@ function ClassifiedPost() {
       time: '6pm',
       venue: 'Dev Academy',
       description: 'Please anyone can come ASAP!'
+    },
+    {
+      id: 4,
+      user_auth0_id: 12345,
+      location_id: 2,
+      title: 'My house is flood',
+      type: "",
+      image: '../../public/images/cockroach.png',
+      date: '06/July',
+      time: '6pm',
+      venue: 'Dev Academy',
+      description: 'Please anyone can come ASAP!'
+    },
+    {
+      id: 5,
+      user_auth0_id: 12345,
+      location_id: 2,
+      title: 'Can someone review my code?',
+      type: "",
+      image: '../../public/images/cockroach.png',
+      date: '06/July',
+      time: '6pm',
+      venue: 'Dev Academy',
+      description: 'Please anyone can come ASAP!'
+    },
+    {
+      id: 6,
+      user_auth0_id: 12345,
+      location_id: 2,
+      title: 'Need babysitting for 3 days',
+      type: "",
+      image: '../../public/images/cockroach.png',
+      date: '06/July',
+      time: '6pm',
+      venue: 'Dev Academy',
+      description: 'Please anyone can come ASAP!'
     }
-
   ]
 
   const classifiedComment = [

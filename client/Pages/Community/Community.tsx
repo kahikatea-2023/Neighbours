@@ -10,7 +10,7 @@ function Community() {
   }
 
   return (
-    <div >
+    <div className='h-screen'>
       <div className="text-lg font-bold pl-7 mt-6 mb-6">
         {isAuthenticated && <h1>Hello, {user?.nickname}🌿</h1>}
         <h2>Find your New Neighbours and Events</h2>
