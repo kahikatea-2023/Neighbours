@@ -74,8 +74,8 @@ function RegisterUser() {
     const location = data?.find(
       (location) => location.id === userData.location_id
     )
-    const lowercaseName = location?.name?.toLowerCase()
-    navigate(`/${lowercaseName}`)
+    const userLocationId = location?.id
+    navigate(`/${userLocationId}`)
     console.log('submitted', userData)
     const token = await getAccessTokenSilently()
     mutations.mutate({ userData, token })

@@ -1,8 +1,4 @@
-import {
-  UpdateUsersDataBackend,
-  UsersData,
-  UsersDataBackend,
-} from '../../models/user'
+import { UpdateUsersDataBackend, UsersDataBackend } from '../../models/user'
 import db from './connection'
 
 //join the table user and
@@ -16,6 +12,7 @@ export async function getUserById(auth0_id: string) {
       'users.name as users_name',
       'email',
       'locations.name as location',
+      'users.location_id as location_id',
       'pronouns',
       'bio'
     )
