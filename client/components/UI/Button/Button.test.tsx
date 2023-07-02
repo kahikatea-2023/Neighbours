@@ -32,7 +32,7 @@ describe('Button', () => {
     const { container } = renderComponent(<Button>Button</Button>)
     const buttonElement = container.querySelector('button') as HTMLButtonElement
     expect(buttonElement).toHaveClass(
-      'w-auto bg-primary text-white font-bold py-2 px-4 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C] drop-shadow-2xl'
+      'w-auto bg-primary text-white font-bold py-2 px-4 rounded-lg hover:shadow-[0px_0px_9px_2px_#F18A81] drop-shadow-xl'
     )
   })
 })
