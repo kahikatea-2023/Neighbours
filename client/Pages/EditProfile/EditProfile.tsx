@@ -4,6 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 
 import { useMutation, useQuery } from 'react-query';
+import { fetchLocations } from '../../apis/registration';
+import { fetchProfiles } from '../../apis/profile';
+
+
 // save for later
 // import { useMutation, useQueryClient } from 'react-query'
 
@@ -15,14 +19,32 @@ function EditProfile() {
   //     queryClient.invalidateQueries('getUsers')
   //   }
   // })
-  const { user } = useAuth0()
+  const { user, getAccessTokenSilently } = useAuth0()
 
+  // const { isLoading, data } = useQuery('fetchLocations', async () => {
+  //   return await fetchLocations()
+  // })
+
+  const { isLoading, data, } = useQuery('fetchLocations', async () => {
+    return await fetchLocations()
+  })
+
+
+  const profileQuery = useQuery({
+    queryKey: 'fetchProfiles',
+    queryFn: async () => {
+      const accessToken = await getAccessTokenSilently()
+      if (user && user.sub) {
+        const response = await fetchProfiles(accessToken)
+        setUserData(response)
+        return response
+      }
+    },
+    enabled: !!user
+  })
   const navigate = useNavigate()
 
-
-
-  const [userData, setUserData] = useState<UsersDataBackend>({
-    auth0_id: '',
+  const initialState = {
     first_name: '',
     last_name: '',
     name: '',
@@ -30,27 +52,34 @@ function EditProfile() {
     location_id: 0,
     pronouns: '',
     bio: '',
-  })
-  useEffect(() => {
-    if (user) {
-      Promise.resolve(user)
-        .then((resolvedUser) => {
-          if (resolvedUser.email && resolvedUser.sub) {
-            const userDraftData: UsersDataBackend = {
-              ...userData,
-              auth0_id: resolvedUser.sub,
-              email: resolvedUser.email,
-            }
+    auth0_id: '',
+  }
 
-            setUserData(userDraftData)
-          }
-        })
-        .catch((error) => {
-          // Handle any error that occurred during the promise chain
-          console.error(error)
-        })
-    }
-  }, [user])
+
+  const [userData, setUserData] = useState<UsersDataBackend>(
+    initialState)
+
+
+  // useEffect(() => {
+  //   if (user) {
+  //     Promise.resolve(user)
+  //       .then((resolvedUser) => {
+  //         if (resolvedUser.email && resolvedUser.sub) {
+  //           const userDraftData: UsersDataBackend = {
+  //             ...userData,
+  //             auth0_id: resolvedUser.sub,
+  //             email: resolvedUser.email,
+  //           }
+
+  //           setUserData(userDraftData)
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         // Handle any error that occurred during the promise chain
+  //         console.error(error)
+  //       })
+  //   }
+  // }, [user])
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const name = event.target.name
@@ -77,35 +106,6 @@ function EditProfile() {
     console.log('submitted', userData)
   }
 
-  // Hardcoded locations data
-  const data = [
-    { id: 1, name: 'Auckland Central' },
-    { id: 2, name: 'Parnell' },
-    { id: 3, name: 'Ponsonby' },
-    { id: 4, name: 'Newmarket' },
-    { id: 5, name: 'Takapuna' },
-    { id: 6, name: 'Devonport' },
-    { id: 7, name: 'Milford' },
-    { id: 8, name: 'Albany' },
-    { id: 9, name: 'Henderson' },
-    { id: 10, name: 'New Lynn' },
-    { id: 11, name: 'Titirangi' },
-    { id: 12, name: 'Massey' },
-    { id: 13, name: 'Manukau' },
-    { id: 14, name: 'Papatoetoe' },
-    { id: 15, name: 'Mangere' },
-    { id: 16, name: 'Otahuhu' },
-    { id: 17, name: 'Howick' },
-    { id: 18, name: 'Pakuranga' },
-    { id: 19, name: 'Botany Downs' },
-    { id: 20, name: 'Half Moon Bay' },
-  ]
-
-  // get location data
-  // const { isLoading, data } = useQuery(['getLocations'], async () => {
-  //   return await getLocations()
-  //   console.log(data)
-  // })
 
   return (
     <div className="mr-6">
@@ -121,8 +121,8 @@ function EditProfile() {
             id="firstName"
             type="text"
             name="first_name"
-            // placeholder="e.g. Mary"
-            value={userData.first_name}
+            placeholder={''}
+            value={userData?.first_name}
             onChange={handleChange}
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           />
@@ -203,7 +203,7 @@ function EditProfile() {
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           >
             <option value="">Select location</option>
-            {data.map((suburb) => (
+            {!isLoading && data && data.map((suburb) => (
               <option key={suburb.id} value={suburb.id}>
                 {suburb.name}
               </option>
