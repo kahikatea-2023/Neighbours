@@ -38,15 +38,15 @@ function EditProfile() {
       const accessToken = await getAccessTokenSilently()
       if (user && user.sub) {
         const response = await fetchProfiles(accessToken)
-        // setupdateUser(response)
+        setupdateUser(response)
         return response
       }
     },
-    // enabled: !!user
+    enabled: !!user
   })
 
-  if (profileQuery.isLoading) return 'Loading...'
-  if (profileQuery.data) return profileQuery.data
+  // if (profileQuery.isLoading) return 'Loading...'
+  // if (profileQuery.data) return profileQuery.data
 
 
 

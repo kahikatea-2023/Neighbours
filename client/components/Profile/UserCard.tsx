@@ -7,7 +7,7 @@ function UserCard() {
   const userInfo = {
     first_name: 'Mary',
     last_name: 'Anne',
-    location: 'Newmarket',
+    location: 'Takapuna',
     posts: '30',
     comments: '149',
     pronouns: 'She/her',
@@ -27,14 +27,12 @@ function UserCard() {
       const accessToken = await getAccessTokenSilently()
       if (user && user.sub) {
         const response = await fetchProfiles(accessToken)
+
         return response
       }
     },
     enabled: !!user
   })
-
-
-
 
 
   return (
@@ -47,7 +45,7 @@ function UserCard() {
       <p className="font-normal">
         {!profileQuery.isLoading && profileQuery.data && profileQuery.data.first_name} {!profileQuery.isLoading && profileQuery.data && profileQuery.data.last_name}
       </p>
-      <p>{userInfo.location} Neighbour</p>
+      <p>{!profileQuery.isLoading && profileQuery.data && profileQuery.data.location} Neighbour</p>
       <div className="flex justify-around pt-2 pb-4 w-4/5">
         <p>
           <a href="/my-posts" className="font-normal">
