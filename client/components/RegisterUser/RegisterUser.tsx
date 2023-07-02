@@ -104,7 +104,7 @@ function RegisterUser() {
             placeholder="e.g. Mary"
             value={userData.first_name}
             onChange={handleChange}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           />
         </div>
 
@@ -118,7 +118,7 @@ function RegisterUser() {
             placeholder="e.g. Anne"
             value={userData.last_name}
             onChange={handleChange}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           />
         </div>
 
@@ -129,9 +129,10 @@ function RegisterUser() {
           <input
             type="text"
             name="pronouns"
+            placeholder="e.g. She/her, He/his, They/them"
             value={userData.pronouns}
             onChange={handleChange}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           />
         </div>
 
@@ -142,9 +143,10 @@ function RegisterUser() {
           <input
             type="text"
             name="bio"
+            placeholder=""
             value={userData.bio}
             onChange={handleChange}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-lg"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-sm"
           />
         </div>
 
@@ -153,27 +155,6 @@ function RegisterUser() {
         </div>
 
         <div className="flex flex-col ">
-          <label htmlFo
-          r="location" className="pl-7 pb-2 text-lg">
-            Location
-          </label>
-          <select
-            name="location"
-            value={userData.location_id}
-            onChange={handleSelect}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
-          >
-            <option disabled>Auckland</option>
-            <option value="">Select location</option>
-            {data.map((suburb) => (
-              <option key={suburb.id} value={suburb.id}>
-                {suburb.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        
-        <div className="flex flex-col ">
           <label htmlFor="location" className="pl-7 pb-2 text-lg">
             Location
           </label>
@@ -181,9 +162,30 @@ function RegisterUser() {
             name="location"
             value={userData.location_id}
             onChange={handleSelect}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           >
-            <option disabled>Auckland</option>
+            <option>New Zealand</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col ">
+          <select
+            name="location"
+            value={userData.location_id}
+            onChange={handleSelect}
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
+          >
+            <option>Auckland</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col ">
+          <select
+            name="location"
+            value={userData.location_id}
+            onChange={handleSelect}
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
+          >
             <option value="">Select location</option>
             {data.map((suburb) => (
               <option key={suburb.id} value={suburb.id}>
@@ -195,7 +197,7 @@ function RegisterUser() {
 
         <button
           type="submit"
-          className=" bg-primary text-white justify-center text-center py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C]"
+          className=" bg-primary text-white justify-center text-center py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#F18A81] drop-shadow-xl"
         >
           Register
         </button>
