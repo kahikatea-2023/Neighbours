@@ -49,6 +49,7 @@ export const routes = createRoutesFromElements(
         element={<AddPostPage />}
       />
       <Route path=":locationId/market" element={<p>Market will be here</p>} />
+      <Route path="error" element={<Error />} />
     </Route>
   </Route>
 )
