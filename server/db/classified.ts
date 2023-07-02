@@ -124,7 +124,7 @@ export function addAnswer(answer: PostAnswers) {
 }
 
 export function updateAnswer(
-  UpdatedAnswer: ClassifiedRqCommentDataBackend,
+  UpdatedAnswer: PostAnswers,
   id: number
 ) {
   const newObj = { ...UpdatedAnswer }

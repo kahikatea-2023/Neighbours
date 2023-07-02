@@ -147,9 +147,6 @@ router.get('/:id/classified/:request/answers', async (req, res) => {
   }
 })
 
-
-
-
 //post answer
 router.post(
   '/:id/classified/:request/answers',
@@ -179,7 +176,7 @@ router.patch(
   validateAccessToken,
   async (req, res) => {
     try {
-      const updatedAnswer = req.body as ClassifiedRqCommentDataBackend
+      const updatedAnswer = req.body as PostAnswers
       const id = Number(req.params.answer)
       const auth0Id = req.auth?.payload.sub
       if (!auth0Id) {
@@ -187,7 +184,8 @@ router.patch(
         return res.status(401).send('Unauthorized')
       }
       await getAllAnswersByRequest(id)
-      await updateAnswer(updatedAnswer, Number(req.params.answer))
+      const updatedComment = { ...updatedAnswer, user_auth0_id: auth0Id }
+      await updateAnswer(updatedComment, id)
       res.sendStatus(204)
     } catch (error) {
       console.error(error)
