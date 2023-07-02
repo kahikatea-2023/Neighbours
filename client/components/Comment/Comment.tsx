@@ -1,74 +1,68 @@
-// import { CommentSectionProps } from '../../../models/comments'
-// import 'react-comments-section/dist/index.css'
-// import { useAuth0 } from '@auth0/auth0-react'
-// import { CommentSection } from 'react-comments-section'
+import { CommentSectionProps, CommentData } from '../../../models/comments'
 
-// function Comment(): JSX.Element {
-//   const { user, loginWithRedirect } = useAuth0()
+function Comment(props: CommentSectionProps): JSX.Element {
+  const {
+    currentUser,
+    commentData,
+    onDeleteComment,
+    onAddComment,
+    onReactToComment,
+  } = props
 
-//   const handleLogin = () => {
-//     loginWithRedirect()
-//   }
+  const handleLogin = () => {
+    // You can implement the login logic here
+    console.log('Logging in...')
+  }
 
-//   const handleDeleteComment = (commentId: string) => {
-//     // Delete comment logic here
-//     console.log('Deleting comment:', commentId)
-//   }
+  const handleDeleteComment = (commentId: string) => {
+    // You can implement the delete comment logic here
+    console.log('Deleting comment:', commentId)
+    onDeleteComment(commentId)
+  }
 
-//   const handleAddComment = (text: string) => {
-//     // Add comment logic here
-//     console.log('Adding comment:', text)
-//   }
+  const handleAddComment = (text: string) => {
+    // You can implement the add comment logic here
+    console.log('Adding comment:', text)
+    onAddComment(text)
+  }
 
-//   const handleReactToComment = (commentId: string, reaction: string) => {
-//     // React to comment logic here
-//     console.log('Reacting to comment:', commentId, 'with reaction:', reaction)
-//   }
+  const handleReactToComment = (commentId: string, reaction: string) => {
+    // You can implement the react to comment logic here
+    console.log('Reacting to comment:', commentId, 'with reaction:', reaction)
+    onReactToComment(commentId, reaction)
+  }
 
-//   const data = [
-//     // Hardcore comment data
-//     {
-//       userId: '02b',
-//       comId: '017',
-//       fullName: 'Lily',
-//       userProfile: 'https://www.linkedin.com/in/riya-negi-8879631a9/',
-//       text: 'I think you have a point🤔',
-//       avatarUrl: 'https://ui-avatars.com/api/name=Lily&background=random',
-//       replies: [],
-//     },
-//   ]
+  return (
+    <div>
+      {currentUser ? (
+        <div>
+          {/* Render the comment section */}
+          <h3>Comments</h3>
+          {commentData.map((comment: CommentData) => (
+            <div key={comment.comId}>
+              <p>
+                <strong>{comment.fullName}</strong>: {comment.text}
+              </p>
+              <button onClick={() => handleDeleteComment(comment.comId)}>
+                Delete
+              </button>
+            </div>
+          ))}
+          <div>
+            <input type="text" placeholder="Add a comment" />
+            <button onClick={() => handleAddComment('New comment')}>
+              Add Comment
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <p>Please log in to add or delete comments.</p>
+          <button onClick={handleLogin}>Log In</button>
+        </div>
+      )}
+    </div>
+  )
+}
 
-//   const commentSectionProps: CommentSectionProps = {
-//     currentUser: {
-//       currentUserId: user?.sub || '',
-//       currentUserImg: user?.picture?.toString() || '',
-//       currentUserProfile: '',
-//       currentUserFullName: user?.name || '',
-//     },
-//     commentData: data,
-//     onDeleteComment: handleDeleteComment,
-//     onAddComment: handleAddComment,
-//     onReactToComment: handleReactToComment,
-//   }
-
-//   return (
-//     <div>
-//       {user ? (
-//         <CommentSection
-//           logIn={{
-//             loginLink: '',
-//             signupLink: '',
-//           }}
-//           {...commentSectionProps}
-//         />
-//       ) : (
-//         <div>
-//           <p>Please log in to add or delete comments.</p>
-//           <button onClick={handleLogin}>Log In</button>
-//         </div>
-//       )}
-//     </div>
-//   )
-// }
-
-// export default Comment
+export default Comment
