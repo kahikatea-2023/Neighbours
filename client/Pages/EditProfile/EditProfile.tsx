@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
-import { UsersDataBackend } from '../../../models/user'
+import { UserData, UsersDataBackend } from '../../../models/user'
 import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useQuery } from 'react-query'
+import { fetchLocations } from '../../apis/registration'
+import { fetchProfiles } from '../../apis/profiles'
 // save for later
 // import { useMutation, useQueryClient } from 'react-query'
 
@@ -18,36 +20,38 @@ function RegisterUser() {
   const { user } = useAuth0()
   const id = user?.sub
   // todo: getUsers
-  const userQuery = useQuery('getUpdateUsers', async () => {
-    return (await getUpdateUsers()).find((user) => user.auth0_id === id)
+  const userQuery = useQuery('fetchProfiles', async () => {
+    return (await fetchProfiles()).find((user) => user.auth0_id === id)
   })
-  // todo: getLocations
-  const locationQuery = useQuery('getLocations', async () => {
-    return await getAllLocations()
+
+  console.log(userQuery.data)
+
+  const locationQuery = useQuery('fetchLocations', async () => {
+    return await fetchLocations()
   })
 
   const navigate = useNavigate()
   const [userData, setUserData] = useState(userQuery.data)
-  useEffect(() => {
-    if (user) {
-      Promise.resolve(user)
-        .then((resolvedUser) => {
-          if (resolvedUser.email && resolvedUser.sub) {
-            const userDraftData: UsersDataBackend = {
-              ...userData,
-              auth0_id: resolvedUser.sub,
-              email: resolvedUser.email,
-            }
+  // useEffect(() => {
+  //   if (user) {
+  //     Promise.resolve(user)
+  //       .then((resolvedUser) => {
+  //         if (resolvedUser.email && resolvedUser.sub) {
+  //           const userDraftData: UsersDataBackend = {
+  //             ...userData,
 
-            setUserData(userDraftData)
-          }
-        })
-        .catch((error) => {
-          // Handle any error that occurred during the promise chain
-          console.error(error)
-        })
-    }
-  }, [user])
+  //             email: resolvedUser.email,
+  //           }
+
+  //           setUserData(userDraftData)
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         // Handle any error that occurred during the promise chain
+  //         console.error(error)
+  //       })
+  //   }
+  // }, [user])
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const name = event.target.name
@@ -58,7 +62,7 @@ function RegisterUser() {
 
   function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
     const value = +event.target.value
-    const currentUserData: UsersDataBackend = {
+    const currentUserData: UserData = {
       ...userData,
       location_id: value,
     }
@@ -73,30 +77,6 @@ function RegisterUser() {
     navigate(`/profile`)
     console.log('submitted', userData)
   }
-
-  // Hardcoded locations data, to be replaced by locationQuery.data
-  const data = [
-    { id: 1, name: 'Auckland Central' },
-    { id: 2, name: 'Parnell' },
-    { id: 3, name: 'Ponsonby' },
-    { id: 4, name: 'Newmarket' },
-    { id: 5, name: 'Takapuna' },
-    { id: 6, name: 'Devonport' },
-    { id: 7, name: 'Milford' },
-    { id: 8, name: 'Albany' },
-    { id: 9, name: 'Henderson' },
-    { id: 10, name: 'New Lynn' },
-    { id: 11, name: 'Titirangi' },
-    { id: 12, name: 'Massey' },
-    { id: 13, name: 'Manukau' },
-    { id: 14, name: 'Papatoetoe' },
-    { id: 15, name: 'Mangere' },
-    { id: 16, name: 'Otahuhu' },
-    { id: 17, name: 'Howick' },
-    { id: 18, name: 'Pakuranga' },
-    { id: 19, name: 'Botany Downs' },
-    { id: 20, name: 'Half Moon Bay' },
-  ]
 
   return (
     <div className="mr-6">
@@ -193,11 +173,13 @@ function RegisterUser() {
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           >
             <option value="">Select location</option>
-            {data.map((suburb) => (
-              <option key={suburb.id} value={suburb.id}>
-                {suburb.name}
-              </option>
-            ))}
+            {!locationQuery.isLoading &&
+              locationQuery.data &&
+              locationQuery.data.map((suburb) => (
+                <option key={suburb.id} value={suburb.id}>
+                  {suburb.name}
+                </option>
+              ))}
           </select>
         </div>
         <button
