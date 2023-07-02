@@ -1,29 +1,20 @@
 import { useEffect, useState } from 'react'
-import { UsersDataBackend } from '../../../models/user'
+import { UserData } from '../../../models/user'
 import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { fetchLocations } from '../../apis/registration'
-import { useQuery } from 'react-query'
-
-// save for later
-// import { useMutation, useQueryClient } from 'react-query'
+import { fetchLocations, upsertProfile } from '../../apis/registration'
+import { useMutation, useQuery } from 'react-query'
 
 function RegisterUser() {
-  // const queryClient = useQueryClient()
-  // const mutations = useMutation(addNewUser, {
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries('getUsers')
-  //   }
-  // })
+  const { user, getAccessTokenSilently } = useAuth0()
+
+  // calls the locations
   const { isLoading, data } = useQuery('fetchLocations', async () => {
     return await fetchLocations()
   })
 
-  const { user } = useAuth0()
-
   const navigate = useNavigate()
-  const [userData, setUserData] = useState<UsersDataBackend>({
-    auth0_id: '',
+  const [userData, setUserData] = useState<UserData>({
     first_name: '',
     last_name: '',
     name: '',
@@ -32,14 +23,23 @@ function RegisterUser() {
     pronouns: '',
     bio: '',
   })
+
+  //data is called and then mutated
+  const mutations = useMutation({
+    mutationFn: ({ userData, token }: { userData: UserData; token: string }) =>
+      upsertProfile(userData, token),
+    onSuccess: async () => {
+      console.log('added, I am in the mutation')
+      // queryClient.invalidateQueries('getUsers')
+    },
+  })
   useEffect(() => {
     if (user) {
       Promise.resolve(user)
         .then((resolvedUser) => {
           if (resolvedUser.email && resolvedUser.sub) {
-            const userDraftData: UsersDataBackend = {
+            const userDraftData: UserData = {
               ...userData,
-              auth0_id: resolvedUser.sub,
               email: resolvedUser.email,
             }
 
@@ -61,24 +61,24 @@ function RegisterUser() {
 
   function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
     const value = +event.target.value
-    const currentUserData: UsersDataBackend = {
+    const currentUserData: UserData = {
       ...userData,
       location_id: value,
     }
     setUserData(currentUserData)
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    // code below save for later
-    // mutations.mutate(userData)
-    //the redirect url need more work
+
     const location = data?.find(
       (location) => location.id === userData.location_id
     )
     const lowercaseName = location?.name?.toLowerCase()
     navigate(`/${lowercaseName}`)
     console.log('submitted', userData)
+    const token = await getAccessTokenSilently()
+    mutations.mutate({ userData, token })
   }
 
   return (
