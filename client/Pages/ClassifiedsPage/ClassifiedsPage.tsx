@@ -2,9 +2,15 @@ import ClassifiedPost from '../../components/ClassifiedPost/ClassifiedPost'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useQuery } from 'react-query'
 import { fetchClassifiedPost } from '../../apis/classifiedPost'
+import { useParams } from 'react-router-dom'
 
 function ClassifiedPage() {
+  const locationId = Number(useParams())
   const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+
+  const classifiedData = fetchClassifiedPost(locationId)
+  console.log(classifiedData, 'I am in the classifiedPost')
+
   // const { isLoading, data } = useQuery('fetchLocations', async () => {
   //   return await fetchClassifiedPost()
   // })

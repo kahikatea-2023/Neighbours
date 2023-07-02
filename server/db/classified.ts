@@ -3,9 +3,6 @@ import {
   ClassifiedRqCommentDataBackend,
   ClassifiedRqDataBackend,
   ClassifiedPostRqData,
-  ClassifiedRqDataUpdateBackend,
-  ClassifiedRqCommentData,
-  postRequestBackend,
   PostRequest,
   PostAnswers,
 } from '../../models/classified'
@@ -123,10 +120,7 @@ export function addAnswer(answer: PostAnswers) {
     .insert(newAnswer)
 }
 
-export function updateAnswer(
-  UpdatedAnswer: PostAnswers,
-  id: number
-) {
+export function updateAnswer(UpdatedAnswer: PostAnswers, id: number) {
   const newObj = { ...UpdatedAnswer }
 
   return db('classified_request_answers').where('id', id).update(newObj)

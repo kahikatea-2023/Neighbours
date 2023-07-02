@@ -34,10 +34,16 @@ export const routes = createRoutesFromElements(
         path="newmarket/activities/:id"
         element={<p>Activities will be here</p>}
       />
-      <Route path="newmarket/classifieds" element={<ClassifiedPage />} />
-      <Route path="newmarket/classifieds/:id" element={<ClassifiedsDetail />} />
-      <Route path="newmarket/classifieds/add-post" element={<AddPostPage />} />
-      <Route path="newmarket/market" element={<p>Market will be here</p>} />
+      <Route path=":locationId/classifieds" element={<ClassifiedPage />} />
+      <Route
+        path=":locationId/classifieds/:id"
+        element={<ClassifiedsDetail />}
+      />
+      <Route
+        path=":locationId/classifieds/add-post"
+        element={<AddPostPage />}
+      />
+      <Route path=":locationId/market" element={<p>Market will be here</p>} />
     </Route>
   </Route>
 )
