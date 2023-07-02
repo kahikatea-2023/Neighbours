@@ -25,7 +25,7 @@ export const routes = createRoutesFromElements(
       <Route path="register" element={<RegisterUser />} />
       <Route path="profile" element={<ProfilePage />} />
       <Route path="my-posts" element={<Error />} />
-      <Route path="newmarket" element={<Community />} />
+      <Route path=":locationId" element={<Community />} />
       <Route
         path="newmarket/activities"
         element={<p>Activities will be here</p>}
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cacheLocation="localstorage"
       authorizationParams={{
         audience: 'https://neighbours/api',
-        redirect_uri: 'http://localhost:5173/newmarket',
+        redirect_uri: `${window.location.origin}/newmarket`,
       }}
     >
       <QueryClientProvider client={queryClient}>

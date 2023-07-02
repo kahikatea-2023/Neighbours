@@ -12,13 +12,7 @@ import {
   updateAnswer,
   deleteAnswerById,
 } from '../db/classified'
-import {
-  ClassifiedPostRqData,
-  ClassifiedRqCommentDataBackend,
-  ClassifiedRqDataUpdateBackend,
-  PostAnswers,
-  PostRequest,
-} from '../../models/classified'
+import { PostAnswers, PostRequest } from '../../models/classified'
 import { validateAccessToken } from './auth0'
 const router = Router()
 

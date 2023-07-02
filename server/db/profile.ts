@@ -1,8 +1,4 @@
-import {
-  UpdateUsersDataBackend,
-  UsersData,
-  UsersDataBackend,
-} from '../../models/user'
+import { UpdateUsersDataBackend, UsersDataBackend } from '../../models/user'
 import db from './connection'
 
 //join the table user and
