@@ -37,3 +37,14 @@ export interface ClassifiedRqCommentData {
 export interface ClassifiedRqCommentDataBackend extends ClassifiedRqCommentData {
   id: number
 }
+
+export interface PostRequest {
+  location_id: number
+  title: string
+  date: string
+  image: string
+  venue: string
+  description: string
+}
+
+
