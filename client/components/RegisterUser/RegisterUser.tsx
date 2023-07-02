@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UsersDataBackend } from '../../../models/user'
 import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -16,19 +16,36 @@ function RegisterUser() {
   const { user } = useAuth0()
 
   const navigate = useNavigate()
-
-  const initialState = {
-    auth0_id: user?.sub,
+  const [userData, setUserData] = useState<UsersDataBackend>({
+    auth0_id: '',
     first_name: '',
     last_name: '',
     name: '',
-    email: user?.email,
+    email: '',
     location_id: 0,
     pronouns: '',
     bio: '',
-  } as UsersDataBackend
+  })
+  useEffect(() => {
+    if (user) {
+      Promise.resolve(user)
+        .then((resolvedUser) => {
+          if (resolvedUser.email && resolvedUser.sub) {
+            const userDraftData: UsersDataBackend = {
+              ...userData,
+              auth0_id: resolvedUser.sub,
+              email: resolvedUser.email,
+            }
 
-  const [userData, setUserData] = useState(initialState)
+            setUserData(userDraftData)
+          }
+        })
+        .catch((error) => {
+          // Handle any error that occurred during the promise chain
+          console.error(error)
+        })
+    }
+  }, [user])
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const name = event.target.name
@@ -56,6 +73,7 @@ function RegisterUser() {
     )
     const lowercaseName = location?.name.toLowerCase()
     navigate(`/${lowercaseName}`)
+    console.log('submitted', userData)
   }
 
   // Hardcoded locations data
@@ -89,62 +107,102 @@ function RegisterUser() {
   // })
 
   return (
-    <div>
-      <div className="text-center text-3xl font-semibold my-5">
-        <h2>Register</h2>
+    <div className="mr-6">
+      <div className="text-center text-2xl font-semibold my-5">
+        <h2>Tell us about yourself</h2>
       </div>
-      <form
-        onSubmit={handleSubmit}
-        className="pl-7 flex flex-col drop-shadow-xl"
-      >
+      <form onSubmit={handleSubmit} className="flex flex-col drop-shadow-xl">
         <div className="flex flex-col ">
-          <label htmlFor="firstName" className=" pl-7 pb-2 font-xl">
+          <label htmlFor="firstName" className="pl-7 pb-2 text-lg">
             First Name
           </label>
           <input
+            id="firstName"
             type="text"
-            name="firstName"
+            name="first_name"
+            placeholder="e.g. Mary"
             value={userData.first_name}
             onChange={handleChange}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           />
         </div>
 
         <div className="flex flex-col ">
-          <label htmlFor="lastName" className="text-black pl-7 pb-2 font-xl">
+          <label htmlFor="lastName" className="pl-7 pb-2 text-lg">
             Last Name
           </label>
           <input
             type="text"
-            name="lastName"
+            name="last_name"
+            placeholder="e.g. Anne"
             value={userData.last_name}
             onChange={handleChange}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           />
         </div>
-
         <div className="flex flex-col ">
-          <label htmlFor="userName" className="text-black pl-7 pb-2 font-xl">
-            User Name
+          <label htmlFor="pronouns" className="pl-7 pb-2 text-lg">
+            Pronouns
           </label>
           <input
             type="text"
-            name="userName"
-            value={userData.name}
+            name="pronouns"
+            placeholder="e.g. She/her, He/his, They/them"
+            value={userData.pronouns}
             onChange={handleChange}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           />
         </div>
 
         <div className="flex flex-col ">
-          <label htmlFor="location" className="text-black pl-7 pb-2 font-xl">
+          <label htmlFor="bio" className="pl-7 pb-2 text-lg">
+            Bio
+          </label>
+          <input
+            type="text"
+            name="bio"
+            placeholder=""
+            value={userData.bio}
+            onChange={handleChange}
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-sm"
+          />
+        </div>
+
+        <div className="text-center text-2xl font-semibold mb-5">
+          <h2>Find your Neighbours</h2>
+        </div>
+
+        <div className="flex flex-col ">
+          <label htmlFor="location" className="pl-7 pb-2 text-lg">
             Location
           </label>
           <select
             name="location"
             value={userData.location_id}
             onChange={handleSelect}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
+          >
+            <option>New Zealand</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col ">
+          <select
+            name="location"
+            value={userData.location_id}
+            onChange={handleSelect}
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
+          >
+            <option>Auckland</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col ">
+          <select
+            name="location"
+            value={userData.location_id}
+            onChange={handleSelect}
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           >
             <option value="">Select location</option>
             {data.map((suburb) => (
@@ -154,36 +212,9 @@ function RegisterUser() {
             ))}
           </select>
         </div>
-
-        <div className="flex flex-col ">
-          <label htmlFor="pronouns" className="text-black pl-7 pb-2 font-xl">
-            Pronouns
-          </label>
-          <input
-            type="text"
-            name="pronouns"
-            value={userData.pronouns}
-            onChange={handleChange}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg"
-          />
-        </div>
-
-        <div className="flex flex-col ">
-          <label htmlFor="bio" className="text-black pl-7 pb-2 font-xl">
-            Bio
-          </label>
-          <input
-            type="text"
-            name="bio"
-            value={userData.bio}
-            onChange={handleChange}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-lg"
-          />
-        </div>
-
         <button
           type="submit"
-          className=" bg-lightGreen text-white justify-center text-center py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C]"
+          className=" bg-primary text-white justify-center text-center py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#F18A81] drop-shadow-xl"
         >
           Register
         </button>
