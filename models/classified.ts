@@ -51,3 +51,13 @@ export interface PostRequest {
 export interface postRequestBackend extends PostRequest {
   id: number
 }
+
+export interface PostAnswers {
+  classified_request_id: number
+  time: string
+  comment: string
+}
+
+export interface PostAnswersBackend extends PostAnswers {
+  id: number
+}

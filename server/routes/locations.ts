@@ -16,6 +16,7 @@ import {
   ClassifiedPostRqData,
   ClassifiedRqCommentDataBackend,
   ClassifiedRqDataUpdateBackend,
+  PostAnswers,
   PostRequest,
 } from '../../models/classified'
 import { validateAccessToken } from './auth0'
@@ -146,20 +147,23 @@ router.get('/:id/classified/:request/answers', async (req, res) => {
   }
 })
 
+
+
+
 //post answer
 router.post(
   '/:id/classified/:request/answers',
   validateAccessToken,
   async (req, res) => {
     try {
-      const newAnswer = req.body
+      const newAnswer = req.body as PostAnswers
       const auth0Id = req.auth?.payload.sub
       if (!auth0Id) {
         console.error('No auth0Id')
         return res.status(401).send('Unauthorized')
       }
-
-      await addAnswer(newAnswer)
+      const newComment = { ...newAnswer, user_auth0_id: auth0Id }
+      await addAnswer(newComment)
 
       res.sendStatus(201)
     } catch (error) {
