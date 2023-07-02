@@ -5,6 +5,8 @@ import {
   ClassifiedPostRqData,
   ClassifiedRqDataUpdateBackend,
   ClassifiedRqCommentData,
+  postRequestBackend,
+  PostRequest,
 } from '../../models/classified'
 
 export async function getAllClassificationsByLocation(locationId: number) {
@@ -72,7 +74,7 @@ export function addRequest(request: ClassifiedPostRqData) {
 }
 
 export function updateRequest(
-  Updatedrequest: ClassifiedRqDataUpdateBackend,
+  Updatedrequest: PostRequest,
   id: number
 ) {
   const newObj = { ...Updatedrequest }
@@ -112,7 +114,7 @@ export function addAnswer(answer: ClassifiedRqCommentData) {
     time: answer.time,
     comment: answer.comment,
   }
-
+  
   return db('classified_request_answers')
     .join(
       'classified_request',

@@ -76,7 +76,7 @@ router.post('/:id/classified', validateAccessToken, async (req, res) => {
       console.error('No auth0Id')
       return res.status(401).send('Unauthorized')
     }
-    const newPost = {...newRequest,user_auth0_id:auth0_id }
+    const newPost = { ...newRequest, user_auth0_id: auth0_id }
     await addRequest(newPost)
     res.sendStatus(201)
   } catch (error) {
@@ -91,7 +91,7 @@ router.patch(
   validateAccessToken,
   async (req, res) => {
     try {
-      const updatedRequest = req.body as ClassifiedRqDataUpdateBackend
+      const updatedRequest = req.body as PostRequest
       const id = Number(req.params.request)
       const auth0Id = req.auth?.payload.sub
       if (!auth0Id) {
@@ -99,7 +99,8 @@ router.patch(
         return res.status(401).send('Unauthorized')
       }
       await getClassificationById(id)
-      await updateRequest(updatedRequest, Number(req.params.request))
+      const updatedPost = { ...updatedRequest, user_auth0_id: auth0Id }
+      await updateRequest(updatedPost, id)
       res.sendStatus(204)
     } catch (error) {
       console.error(error)
@@ -168,7 +169,6 @@ router.post(
   }
 )
 
-
 //update answer
 router.patch(
   '/:id/classified/:request/answers/:answer',
@@ -217,6 +217,5 @@ router.delete(
     }
   }
 )
-
 
 export default router

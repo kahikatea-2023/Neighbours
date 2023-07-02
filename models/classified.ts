@@ -34,7 +34,8 @@ export interface ClassifiedRqCommentData {
   comment: string
 }
 
-export interface ClassifiedRqCommentDataBackend extends ClassifiedRqCommentData {
+export interface ClassifiedRqCommentDataBackend
+  extends ClassifiedRqCommentData {
   id: number
 }
 
@@ -47,4 +48,6 @@ export interface PostRequest {
   description: string
 }
 
-
+export interface postRequestBackend extends PostRequest {
+  id: number
+}
