@@ -45,11 +45,6 @@ function EditProfile() {
     enabled: !!user
   })
 
-  // if (profileQuery.isLoading) return 'Loading...'
-  // if (profileQuery.data) return profileQuery.data
-
-
-
   console.log(profileQuery.data)
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {

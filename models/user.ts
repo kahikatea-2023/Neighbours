@@ -19,6 +19,7 @@ export const updateUserSchema = z.object({
   bio: z.string(),
 })
 
+
 export const updateProfileBackendSchema = updateUserSchema.extend({
   auth0_id: z.string(),
 })
