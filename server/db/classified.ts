@@ -112,7 +112,7 @@ export function addAnswer(answer: ClassifiedRqCommentData) {
     time: answer.time,
     comment: answer.comment,
   }
-  
+
   return db('classified_request_answers')
     .join(
       'classified_request',
