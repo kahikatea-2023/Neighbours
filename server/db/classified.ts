@@ -5,6 +5,9 @@ import {
   ClassifiedPostRqData,
   ClassifiedRqDataUpdateBackend,
   ClassifiedRqCommentData,
+  postRequestBackend,
+  PostRequest,
+  PostAnswers,
 } from '../../models/classified'
 
 export async function getAllClassificationsByLocation(locationId: number) {
@@ -71,10 +74,7 @@ export function addRequest(request: ClassifiedPostRqData) {
     .insert(newRequest)
 }
 
-export function updateRequest(
-  Updatedrequest: ClassifiedRqDataUpdateBackend,
-  id: number
-) {
+export function updateRequest(Updatedrequest: PostRequest, id: number) {
   const newObj = { ...Updatedrequest }
 
   return db('classified_request').where('id', id).update(newObj)
@@ -98,17 +98,16 @@ export async function getAllAnswersByRequest(requestId: number) {
     )
     .where('classified_request_answers.classified_request_id', requestId)
     .select(
-      'classified_request.id as answers_id',
+      'classified_request.id as classified_request_id',
       'classified_request_answers.user_auth0_id',
       'classified_request_answers.time',
       'classified_request_answers.comment'
     )) as ClassifiedRqCommentDataBackend[]
 }
 
-export function addAnswer(answer: ClassifiedRqCommentData) {
+export function addAnswer(answer: PostAnswers) {
   const newAnswer = {
     classified_request_id: answer.classified_request_id,
-    user_auth0_id: answer.user_auth0_id,
     time: answer.time,
     comment: answer.comment,
   }
@@ -125,7 +124,7 @@ export function addAnswer(answer: ClassifiedRqCommentData) {
 }
 
 export function updateAnswer(
-  UpdatedAnswer: ClassifiedRqCommentDataBackend,
+  UpdatedAnswer: PostAnswers,
   id: number
 ) {
   const newObj = { ...UpdatedAnswer }
