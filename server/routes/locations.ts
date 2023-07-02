@@ -166,7 +166,7 @@ router.post(
     }
   }
 )
-export default router
+
 
 //update answer
 router.patch(
@@ -217,6 +217,5 @@ router.delete(
   }
 )
 
-// function getAnswersById(id: number) {
-//   throw new Error('Function not implemented.')
-// }
+
+export default router
