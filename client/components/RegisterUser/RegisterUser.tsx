@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UsersDataBackend } from '../../../models/user'
 import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -16,19 +16,36 @@ function RegisterUser() {
   const { user } = useAuth0()
 
   const navigate = useNavigate()
-
-  const initialState = {
-    auth0_id: user?.sub,
+  const [userData, setUserData] = useState<UsersDataBackend>({
+    auth0_id: '',
     first_name: '',
     last_name: '',
     name: '',
-    email: user?.email,
+    email: '',
     location_id: 0,
     pronouns: '',
     bio: '',
-  } as UsersDataBackend
+  })
+  useEffect(() => {
+    if (user) {
+      Promise.resolve(user)
+        .then((resolvedUser) => {
+          if (resolvedUser.email && resolvedUser.sub) {
+            const userDraftData: UsersDataBackend = {
+              ...userData,
+              auth0_id: resolvedUser.sub,
+              email: resolvedUser.email,
+            }
 
-  const [userData, setUserData] = useState(initialState)
+            setUserData(userDraftData)
+          }
+        })
+        .catch((error) => {
+          // Handle any error that occurred during the promise chain
+          console.error(error)
+        })
+    }
+  }, [user])
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const name = event.target.name
@@ -56,6 +73,7 @@ function RegisterUser() {
     )
     const lowercaseName = location?.name.toLowerCase()
     navigate(`/${lowercaseName}`)
+    console.log('submitted', userData)
   }
 
   // Hardcoded locations data
@@ -99,6 +117,7 @@ function RegisterUser() {
             First Name
           </label>
           <input
+            id="firstName"
             type="text"
             name="first_name"
             placeholder="e.g. Mary"
@@ -121,7 +140,6 @@ function RegisterUser() {
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           />
         </div>
-
         <div className="flex flex-col ">
           <label htmlFor="pronouns" className="pl-7 pb-2 text-lg">
             Pronouns
@@ -194,7 +212,6 @@ function RegisterUser() {
             ))}
           </select>
         </div>
-
         <button
           type="submit"
           className=" bg-primary text-white justify-center text-center py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#F18A81] drop-shadow-xl"
