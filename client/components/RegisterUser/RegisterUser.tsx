@@ -2,17 +2,23 @@ import { useEffect, useState } from 'react'
 import { UsersDataBackend } from '../../../models/user'
 import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
+import { fetchLocations } from '../../apis/registration'
+import { useQuery } from 'react-query'
+
 // save for later
 // import { useMutation, useQueryClient } from 'react-query'
 
 function RegisterUser() {
-  // for later when connect to backend
   // const queryClient = useQueryClient()
   // const mutations = useMutation(addNewUser, {
   //   onSuccess: () => {
   //     queryClient.invalidateQueries('getUsers')
   //   }
   // })
+  const { isLoading, data } = useQuery('fetchLocations', async () => {
+    return await fetchLocations()
+  })
+
   const { user } = useAuth0()
 
   const navigate = useNavigate()
@@ -41,7 +47,6 @@ function RegisterUser() {
           }
         })
         .catch((error) => {
-          // Handle any error that occurred during the promise chain
           console.error(error)
         })
     }
@@ -68,43 +73,13 @@ function RegisterUser() {
     // code below save for later
     // mutations.mutate(userData)
     //the redirect url need more work
-    const location = data.find(
+    const location = data?.find(
       (location) => location.id === userData.location_id
     )
-    const lowercaseName = location?.name.toLowerCase()
+    const lowercaseName = location?.name?.toLowerCase()
     navigate(`/${lowercaseName}`)
     console.log('submitted', userData)
   }
-
-  // Hardcoded locations data
-  const data = [
-    { id: 1, name: 'Auckland Central' },
-    { id: 2, name: 'Parnell' },
-    { id: 3, name: 'Ponsonby' },
-    { id: 4, name: 'Newmarket' },
-    { id: 5, name: 'Takapuna' },
-    { id: 6, name: 'Devonport' },
-    { id: 7, name: 'Milford' },
-    { id: 8, name: 'Albany' },
-    { id: 9, name: 'Henderson' },
-    { id: 10, name: 'New Lynn' },
-    { id: 11, name: 'Titirangi' },
-    { id: 12, name: 'Massey' },
-    { id: 13, name: 'Manukau' },
-    { id: 14, name: 'Papatoetoe' },
-    { id: 15, name: 'Mangere' },
-    { id: 16, name: 'Otahuhu' },
-    { id: 17, name: 'Howick' },
-    { id: 18, name: 'Pakuranga' },
-    { id: 19, name: 'Botany Downs' },
-    { id: 20, name: 'Half Moon Bay' },
-  ]
-
-  // get location data
-  // const { isLoading, data } = useQuery(['getLocations'], async () => {
-  //   return await getLocations()
-  //   console.log(data)
-  // })
 
   return (
     <div className="mr-6">
@@ -132,6 +107,7 @@ function RegisterUser() {
             Last Name
           </label>
           <input
+            id="lastName"
             type="text"
             name="last_name"
             placeholder="e.g. Anne"
@@ -205,11 +181,13 @@ function RegisterUser() {
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           >
             <option value="">Select location</option>
-            {data.map((suburb) => (
-              <option key={suburb.id} value={suburb.id}>
-                {suburb.name}
-              </option>
-            ))}
+            {!isLoading &&
+              data &&
+              data.map((suburb) => (
+                <option key={suburb.id} value={suburb.id}>
+                  {suburb.name}
+                </option>
+              ))}
           </select>
         </div>
         <button
