@@ -1,42 +1,50 @@
-const { join } = require('node:path')
+const path = require('path')
+const dotenv = require('dotenv')
+dotenv.config({ path: path.join(__dirname, '../../.env') })
 
 module.exports = {
   development: {
     client: 'sqlite3',
-    useNullAsDefault: true,
     connection: {
-      filename: join(__dirname, 'dev.sqlite3'),
+      filename: path.join(__dirname, 'dev.sqlite3'),
     },
     pool: {
       afterCreate: (conn, cb) => conn.run('PRAGMA foreign_keys = ON', cb),
+    },
+    useNullAsDefault: true,
+    seeds: {
+      directory: path.join(__dirname, 'seeds'),
+    },
+    migrations: {
+      directory: path.join(__dirname, 'migrations'),
     },
   },
 
   test: {
     client: 'sqlite3',
-    useNullAsDefault: true,
     connection: {
       filename: ':memory:',
     },
-    migrations: {
-      directory: join(__dirname, 'migrations'),
-    },
-    seeds: {
-      directory: join(__dirname, 'seeds'),
-    },
     pool: {
       afterCreate: (conn, cb) => conn.run('PRAGMA foreign_keys = ON', cb),
+    },
+    useNullAsDefault: true,
+    seeds: {
+      directory: path.join(__dirname, 'seeds'),
+    },
+    migrations: {
+      directory: path.join(__dirname, 'migrations'),
     },
   },
 
   production: {
-    client: 'sqlite3',
-    useNullAsDefault: true,
+    client: 'pg',
     connection: {
-      filename: '/app/storage/prod.sqlite3',
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
     },
-    pool: {
-      afterCreate: (conn, cb) => conn.run('PRAGMA foreign_keys = ON', cb),
+    migrations: {
+      tableName: 'knex_migrations',
     },
   },
 }
