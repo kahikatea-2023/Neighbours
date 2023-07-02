@@ -40,6 +40,7 @@ export const routes = createRoutesFromElements(
       <Route path="newmarket/classifieds/:id" element={<ClassifiedsDetail />} />
       <Route path="newmarket/classifieds/add-post" element={<AddPostPage />} />
       <Route path="newmarket/market" element={<p>Market will be here</p>} />
+      <Route path="/error" element={<Error />} />
     </Route>
   </Route>
 )

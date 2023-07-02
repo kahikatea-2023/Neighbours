@@ -30,7 +30,9 @@ function UserCard() {
         return response
       }
     },
+    enabled: !!user
   })
+
 
 
 
@@ -45,7 +47,7 @@ function UserCard() {
       <p className="font-normal">
         {!profileQuery.isLoading && profileQuery.data && profileQuery.data.first_name} {!profileQuery.isLoading && profileQuery.data && profileQuery.data.last_name}
       </p>
-      <p>{ } Neighbour</p>
+      <p>{userInfo.location} Neighbour</p>
       <div className="flex justify-around pt-2 pb-4 w-4/5">
         <p>
           <a href="/my-posts" className="font-normal">

@@ -1,12 +1,24 @@
 import request from 'superagent'
-import { UsersDataBackend } from '../../models/user'
+import { UpdateUsersData, UpdateUsersDataBackend } from '../../models/user'
 
 const rootUrl = '/api/v1/'
 
-export async function fetchProfiles(token: string): Promise<UsersDataBackend> {
+export async function fetchProfiles(token: string): Promise<UpdateUsersDataBackend> {
   const res = await request
     .get(rootUrl + 'profile')
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
   return res.body.profile
+}
+
+export async function updateProfile(
+  updateUser: UpdateUsersData,
+  token: string
+): Promise<void> {
+  await request
+    .patch('/api/v1/profile')
+    .set('Authorization', `Bearer ${token}`)
+    .set('Content-Type', 'application/json')
+    .send(updateUser)
+  console.log('im the api, im working')
 }

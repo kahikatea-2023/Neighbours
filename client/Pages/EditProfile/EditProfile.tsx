@@ -1,54 +1,27 @@
 import { useEffect, useState } from 'react'
-import { UserData, UsersDataBackend } from '../../../models/user'
+import { UpdateUsersData, UpdateUsersDataBackend } from '../../../models/user'
 import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-
 import { useMutation, useQuery } from 'react-query';
 import { fetchLocations } from '../../apis/registration';
-import { fetchProfiles } from '../../apis/profile';
+import { fetchProfiles, updateProfile } from '../../apis/profile';
 
-
-// save for later
-// import { useMutation, useQueryClient } from 'react-query'
 
 function EditProfile() {
-  // for later when connect to backend
-  // const queryClient = useQueryClient()
-  // const mutations = useMutation(addNewUser, {
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries('getUsers')
-  //   }
-  // })
-  const { user, getAccessTokenSilently } = useAuth0()
 
-  // const { isLoading, data } = useQuery('fetchLocations', async () => {
-  //   return await fetchLocations()
-  // })
+  const { user, getAccessTokenSilently } = useAuth0()
+  const navigate = useNavigate()
 
   const { isLoading, data, } = useQuery('fetchLocations', async () => {
     return await fetchLocations()
   })
 
 
-  const profileQuery = useQuery({
-    queryKey: 'fetchProfiles',
-    queryFn: async () => {
-      const accessToken = await getAccessTokenSilently()
-      if (user && user.sub) {
-        const response = await fetchProfiles(accessToken)
-        setUserData(response)
-        return response
-      }
-    },
-    enabled: !!user
-  })
-  const navigate = useNavigate()
 
   const initialState = {
     first_name: '',
     last_name: '',
     name: '',
-    email: '',
     location_id: 0,
     pronouns: '',
     bio: '',
@@ -56,54 +29,62 @@ function EditProfile() {
   }
 
 
-  const [userData, setUserData] = useState<UsersDataBackend>(
+  const [updateUser, setupdateUser] = useState<UpdateUsersDataBackend>(
     initialState)
 
+  const profileQuery = useQuery({
+    queryKey: 'fetchProfiles',
+    queryFn: async () => {
+      const accessToken = await getAccessTokenSilently()
+      if (user && user.sub) {
+        const response = await fetchProfiles(accessToken)
+        // setupdateUser(response)
+        return response
+      }
+    },
+    // enabled: !!user
+  })
 
-  // useEffect(() => {
-  //   if (user) {
-  //     Promise.resolve(user)
-  //       .then((resolvedUser) => {
-  //         if (resolvedUser.email && resolvedUser.sub) {
-  //           const userDraftData: UsersDataBackend = {
-  //             ...userData,
-  //             auth0_id: resolvedUser.sub,
-  //             email: resolvedUser.email,
-  //           }
+  if (profileQuery.isLoading) return 'Loading...'
+  if (profileQuery.data) return profileQuery.data
 
-  //           setUserData(userDraftData)
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         // Handle any error that occurred during the promise chain
-  //         console.error(error)
-  //       })
-  //   }
-  // }, [user])
+
+
+  console.log(profileQuery.data)
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const name = event.target.name
     const value = event.target.value
-    const newUserData = { ...userData, [name]: value }
-    setUserData(newUserData)
+    const newupdateUser = { ...updateUser, [name]: value }
+    setupdateUser(newupdateUser)
   }
 
   function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
     const value = +event.target.value
-    const currentUserData: UsersDataBackend = {
-      ...userData,
+    const currentupdateUser: UpdateUsersDataBackend = {
+      ...updateUser,
       location_id: value,
     }
-    setUserData(currentUserData)
+    setupdateUser(currentupdateUser)
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  //data is called and then mutated
+  const mutations = useMutation({
+    mutationFn: ({ updateUser, token }: { updateUser: UpdateUsersData; token: string }) =>
+      updateProfile(updateUser, token),
+    onSuccess: async () => {
+      await console.log('added, I am in patch the mutation')
+      // queryClient.invalidateQueries('getUsers')
+    },
+  })
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    // code below save for later
-    // mutations.mutate(userData)
-    //the redirect url need more work
+    const token = await getAccessTokenSilently()
+    mutations.mutate({ updateUser, token })
+
     navigate(`/profile`)
-    console.log('submitted', userData)
+    console.log('submitted', updateUser)
   }
 
 
@@ -122,7 +103,7 @@ function EditProfile() {
             type="text"
             name="first_name"
             placeholder={''}
-            value={userData?.first_name}
+            value={updateUser?.first_name}
             onChange={handleChange}
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           />
@@ -137,7 +118,7 @@ function EditProfile() {
             type="text"
             name="last_name"
             // placeholder="e.g. Anne"
-            value={userData.last_name}
+            value={updateUser.last_name}
             onChange={handleChange}
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           />
@@ -150,7 +131,7 @@ function EditProfile() {
             type="text"
             name="pronouns"
             // placeholder="e.g. She/her, He/his, They/them"
-            value={userData.pronouns}
+            value={updateUser.pronouns}
             onChange={handleChange}
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           />
@@ -164,7 +145,7 @@ function EditProfile() {
             type="text"
             name="bio"
             // placeholder=""
-            value={userData.bio}
+            value={updateUser.bio}
             onChange={handleChange}
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-sm"
           />
@@ -176,7 +157,7 @@ function EditProfile() {
           </label>
           <select
             name="location"
-            value={userData.location_id}
+            value={updateUser.location_id}
             onChange={handleSelect}
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           >
@@ -187,7 +168,7 @@ function EditProfile() {
         <div className="flex flex-col ">
           <select
             name="location"
-            value={userData.location_id}
+            value={updateUser.location_id}
             onChange={handleSelect}
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           >
@@ -198,7 +179,7 @@ function EditProfile() {
         <div className="flex flex-col ">
           <select
             name="location"
-            value={userData.location_id}
+            value={updateUser.location_id}
             onChange={handleSelect}
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           >
