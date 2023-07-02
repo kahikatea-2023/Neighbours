@@ -1,4 +1,5 @@
-import GoHomeButton from '../../components/GoHomeButton/GoHomeButton'
+import GoHomeButton from "../../components/Buttons/GoHomeButton/GoHomeButton"
+
 
 function Error() {
   return (

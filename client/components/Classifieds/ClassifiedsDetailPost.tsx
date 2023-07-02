@@ -1,5 +1,6 @@
 import { FaArrowLeft } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
+import Comment from '../Comment/Comment'
 
 function ClassifiedsDetailPost() {
   const id = useParams()
@@ -32,6 +33,27 @@ function ClassifiedsDetailPost() {
     },
   ]
 
+  const hardcodedComments = [
+    {
+      userId: '1',
+      comId: '1',
+      fullName: 'John Doe',
+      userProfile: '',
+      text: 'This is the first comment.',
+      avatarUrl: '',
+      replies: [],
+    },
+    {
+      userId: '2',
+      comId: '2',
+      fullName: 'Jane Smith',
+      userProfile: '',
+      text: 'Here is another comment.',
+      avatarUrl: '',
+      replies: [],
+    },
+  ]
+
   function handleGoBack() {
     navigate(-1)
   }
@@ -61,7 +83,27 @@ function ClassifiedsDetailPost() {
           </p>
         </div>
         <div className="border-slate-400 border-t-2">
-          <p>Comment Component will be located here</p>
+          <Comment
+            currentUser={{
+              currentUserId: '',
+              currentUserImg: '',
+              currentUserProfile: '',
+              currentUserFullName: '',
+            }}
+            commentData={hardcodedComments}
+            onDeleteComment={function (commentId: string): void {
+              throw new Error('Function not implemented.')
+            }}
+            onAddComment={function (text: string): void {
+              throw new Error('Function not implemented.')
+            }}
+            onReactToComment={function (
+              commentId: string,
+              reaction: string
+            ): void {
+              throw new Error('Function not implemented.')
+            }}
+          />
         </div>
       </div>
     </div>
