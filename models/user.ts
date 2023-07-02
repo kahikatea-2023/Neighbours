@@ -9,7 +9,6 @@ export const userDraftSchema = z.object({
   pronouns: z.string(),
   bio: z.string(),
 })
-export type UsersData = z.infer<typeof userDraftSchema>
 
 export const updateUserSchema = z.object({
   first_name: z.string(),
@@ -19,11 +18,10 @@ export const updateUserSchema = z.object({
   pronouns: z.string(),
   bio: z.string(),
 })
+
 export const updateProfileBackendSchema = updateUserSchema.extend({
   auth0_id: z.string(),
 })
-
-export type UpdateUsersData = z.infer<typeof updateUserSchema>
 
 export const usersDataBackendSchema = userDraftSchema.extend({
   auth0_id: z.string(),
@@ -31,4 +29,5 @@ export const usersDataBackendSchema = userDraftSchema.extend({
 
 export type UserData = z.infer<typeof userDraftSchema>
 export type UsersDataBackend = z.infer<typeof usersDataBackendSchema>
+export type UpdateUsersData = z.infer<typeof updateUserSchema>
 export type UpdateUsersDataBackend = z.infer<typeof updateProfileBackendSchema>
