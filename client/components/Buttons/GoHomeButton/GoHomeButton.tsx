@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import Button from '../UI/Button/Button'
+import Button from '../../UI/Button/Button'
 
 function GoHomeButton() {
   const navigate = useNavigate()
