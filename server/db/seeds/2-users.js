@@ -51,6 +51,16 @@ exports.seed = async function (knex) {
       pronouns: 'he/him',
       bio: 'Passionate about punching people.',
     },
+    {
+      auth0_id: 'auth0|649d032ecb6899372f3ccd0e',
+      first_name: 'real',
+      last_name: 'test-user',
+      name: 'test-user',
+      email: 'test_member4@example.com',
+      location_id: 4,
+      pronouns: 'he/him',
+      bio: 'Passionate',
+    },
   ])
   //!!!!!!!!!!!!!!!!!!!1currently these are fake users!!!!!!!!!!!!!!!!!!!!!
 }
