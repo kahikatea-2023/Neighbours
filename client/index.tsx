@@ -13,6 +13,7 @@ import RegisterUser from './components/RegisterUser/RegisterUser'
 import Community from './Pages/Community/Community'
 import ClassifiedPage from './Pages/ClassifiedsPage/ClassifiedsPage'
 import AppLayout from './components/AppLayout/AppLayout'
+import Error from './Pages/Error/Error'
 import Home from './Pages/Home/Home'
 import AddPostPage from './Pages/AddPostPage/AddPostPage'
 
@@ -21,7 +22,7 @@ export const routes = createRoutesFromElements(
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Home />} />
       <Route path="register" element={<RegisterUser />} />
-      <Route path="profile" element={<p>Profile will be here</p>} />
+      <Route path="profile" element={<Error />} />
       <Route path="my-posts" element={<p>Posts will be here</p>} />
       <Route path="newmarket" element={<Community />} />
       <Route

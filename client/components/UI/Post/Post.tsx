@@ -15,7 +15,7 @@ function Post({ imgSource, title, date, className, path, comment }: PostProps) {
   return (
     <div
       className={twMerge(
-        ' bg-lightPink flex flex-row py-2 px-4 mb-2 mx-5 rounded-2xl h-20 drop-shadow-xl',
+        ' bg-lightPink flex flex-row py-2 px-4 mb-2 mx-5 rounded-2xl drop-shadow-xl',
         className
       )}
     >

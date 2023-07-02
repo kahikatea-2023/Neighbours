@@ -19,39 +19,53 @@ function Nav(props: Props) {
   }
 
   return (
-    <nav className="pt-16 pl-4 flex">
+    <nav className="mt-10 pt-16 pl-4 flex">
       <ul className="text-3xl">
         <li>
-          {isAuthenticated
-            ? <button onClick={() => goTo('/newmarket')}>Home</button>
-            : <button onClick={() => goTo('/')}>Home</button>}
+          {isAuthenticated ? (
+            <button onClick={() => goTo('/newmarket')}>Home</button>
+          ) : (
+            <button onClick={() => goTo('/')}>Home</button>
+          )}
         </li>
         <li>
-          {isAuthenticated
-            ? <button onClick={() => goTo('/:location/activities')}>
+          {isAuthenticated ? (
+            <button onClick={() => goTo('/:location/activities')}>
               Activities
             </button>
-            : <button onClick={() => goTo('/')}>Activities</button>}
+          ) : (
+            <button onClick={() => goTo('/')}>Activities</button>
+          )}
         </li>
         <li>
-          {isAuthenticated
-            ? <button onClick={() => goTo('/newmarket/classifieds')}>Classifieds</button>
-            : <button onClick={() => goTo('/')}>Classifieds</button>}
+          {isAuthenticated ? (
+            <button onClick={() => goTo('/newmarket/classifieds')}>
+              Classifieds
+            </button>
+          ) : (
+            <button onClick={() => goTo('/')}>Classifieds</button>
+          )}
         </li>
         <li>
-          {isAuthenticated
-            ? <button onClick={() => goTo('/:location/market')}>Market</button>
-            : <button onClick={() => goTo('/')}>Market</button>}
+          {isAuthenticated ? (
+            <button onClick={() => goTo('/:location/market')}>Market</button>
+          ) : (
+            <button onClick={() => goTo('/')}>Market</button>
+          )}
         </li>
         <li>
-          {isAuthenticated
-            ? <button onClick={() => goTo('/profile')}>Profile</button>
-            : <button onClick={() => goTo('/')}>Profile</button>}
+          {isAuthenticated ? (
+            <button onClick={() => goTo('/profile')}>Profile</button>
+          ) : (
+            <button onClick={() => goTo('/')}>Profile</button>
+          )}
         </li>
         <li>
-          {isAuthenticated
-            ? <button onClick={() => goTo('/my-posts')}>My posts</button>
-            : <button onClick={() => goTo('/')}>My posts</button>}
+          {isAuthenticated ? (
+            <button onClick={() => goTo('/my-posts')}>My posts</button>
+          ) : (
+            <button onClick={() => goTo('/')}>My posts</button>
+          )}
         </li>
         <li>
           {isAuthenticated && <button onClick={handleLogout}>Sign out</button>}
