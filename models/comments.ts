@@ -9,15 +9,10 @@ export const addAnswerSchema = updateAnswerSchema.extend({
   user_name: z.string(),
 })
 
-export const deleteAnswerSchema = z.object({
-  id: z.number(),
-})
-
 export const answersDataBackend = addAnswerSchema.extend({
   id: z.number(),
 })
 
 export type UpdateAnswer = z.infer<typeof updateAnswerSchema>
 export type AddAnswer = z.infer<typeof addAnswerSchema>
-export type DeleteAnswer = z.infer<typeof deleteAnswerSchema>
 export type AnswerDataBackend = z.infer<typeof answersDataBackend>

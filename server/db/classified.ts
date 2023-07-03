@@ -93,12 +93,11 @@ export async function getAllAnswersByRequest(requestId: number) {
       'classified_request.id',
       'classified_request_id'
     )
-    .join('users', 'users.name', 'name')
     .where('classified_request_answers.classified_request_id', requestId)
     .select(
       'classified_request.id as classified_request_id',
       'classified_request_answers.user_auth0_id',
-      'users.name',
+      'classified_request_answers.time',
       'classified_request_answers.comment'
     )) as ClassifiedRqCommentDataBackend[]
 }

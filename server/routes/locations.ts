@@ -59,8 +59,8 @@ router.get('/:id/classified/:request', async (req, res) => {
   try {
     const id = Number(req.params.request)
     const classification = await getClassificationById(id)
-    const answers = await getAllAnswersByRequest(id)
-    res.json({ ...classification, answers })
+    // const answers = await getAllAnswersByRequest(id)
+    res.json({ ...classification })
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
@@ -148,17 +148,17 @@ router.delete(
 
 //answers
 
-// router.get('/:id/classified/:request/answers', async (req, res) => {
-//   try {
-//     const id = Number(req.params.request)
-//     const answers = await getAllAnswersByRequest(id)
+router.get('/:id/classified/:request/answers', async (req, res) => {
+  try {
+    const id = Number(req.params.request)
+    const answers = await getAllAnswersByRequest(id)
 
-//     res.json({ answers })
-//   } catch (error) {
-//     console.log(error)
-//     res.status(500).json({ message: 'Something went wrong' })
-//   }
-// })
+    res.json({ answers })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
 
 //post answer
 router.post(
