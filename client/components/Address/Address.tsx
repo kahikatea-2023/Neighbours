@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import GetAddressAutocomplete from '../../apis/address'
+import React, { useEffect, useRef, useState } from 'react'
+import getAddressAutocomplete from '../../apis/address'
 
 function Address() {
   const [autocompleteResults, setAutocompleteResults] = useState<string[]>([])
@@ -13,11 +13,10 @@ function Address() {
 
     try {
       // Call the address autocomplete API
-      const results = await GetAddressAutocomplete(input)
+      const results = await getAddressAutocomplete(input)
       setAutocompleteResults(results)
     } catch (error) {
-      // Handle the error
-      console.error('Error fetching address autocomplete:', error)
+      console.error('Error:', error)
     }
   }
 

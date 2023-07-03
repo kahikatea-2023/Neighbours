@@ -16,7 +16,7 @@ function Map() {
         container: mapContainer.current,
         style: 'https://api.maptiler.com/maps/streets/style.json?key=' + apiKey,
         center: [174.7633, -36.8485], // Auckland coordinates
-        zoom: 10,
+        zoom: 12,
       })
 
       // Add MapTiler Geolocate Control to the map

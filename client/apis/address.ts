@@ -1,46 +1,24 @@
-import * as L from 'leaflet'
-import '@maptiler/geocoding-control/style.css'
+import axios from 'axios'
 
-import { API_KEY_MAP } from '../components/config'
-import { GeolocateControl } from 'maplibre-gl'
-
-const apiKey = API_KEY_MAP
-
-export default async function getAddressAutocomplete(
-  input: string
-): Promise<string[]> {
-  const endpoint = `https://api.maptiler.com/geocoding/autocomplete?text=${encodeURIComponent(
+async function getAddressAutocomplete(input: string): Promise<string[]> {
+  const url = `http://localhost:5173/api/v1/address-autocomplete?input=${encodeURIComponent(
     input
-  )}&key=${apiKey}`
+  )}`
 
   try {
-    const response = await fetch(endpoint)
-    if (response.ok) {
-      const data = await response.json()
-      const autocompleteResults = data.features.map(
-        (feature: any) => feature.properties.name
+    const response = await axios.get(url)
+
+    if (response.data) {
+      const autocompleteResults = response.data.map(
+        (suggestion: any) => suggestion.text
       )
       return autocompleteResults
-    } else {
-      throw new Error(
-        `Error fetching address autocomplete: ${response.status} ${response.statusText}`
-      )
     }
   } catch (error) {
     console.error('Error fetching address autocomplete:', error)
-    return []
   }
+
+  return []
 }
 
-export function createGeocodingControl(): L.Control {
-  const geocodingControl = new GeolocateControl({
-    apiKey,
-    position: 'topright',
-    expanded: true,
-    autocomplete: true,
-    autocompleteCallback: getAddressAutocomplete,
-    placeholder: 'Enter an address',
-  })
-
-  return geocodingControl
-}
+export default getAddressAutocomplete
