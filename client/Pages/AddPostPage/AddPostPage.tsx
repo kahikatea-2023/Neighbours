@@ -98,7 +98,12 @@ function AddPost() {
               profileQuery.data &&
               profileQuery.data.last_name}
           </p>
-          <p className="font-light">Newmarket Neighbour</p>
+          <p className="font-light">
+            {!profileQuery.isLoading &&
+              profileQuery.data &&
+              profileQuery.data.location}{' '}
+            Neighbour
+          </p>
         </div>
       </div>
       <form onSubmit={handleSubmit} className="flex flex-col mt-4 mx-4">
