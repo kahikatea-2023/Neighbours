@@ -1,6 +1,7 @@
 import {
   UpdateUsersDataBackend,
   UserData,
+  UserEditData,
   UsersDataBackend,
 } from '../../models/user'
 import db from './connection'
@@ -20,7 +21,7 @@ export async function getUserById(auth0_id: string) {
       'pronouns',
       'bio'
     )
-    .first()) as UserData[]
+    .first()) as UserEditData[]
 }
 
 export async function upsertProfile(profile: UsersDataBackend) {
