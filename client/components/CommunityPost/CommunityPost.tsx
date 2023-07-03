@@ -48,7 +48,7 @@ function CommunityPost() {
       <Post
         key={actPost.user_auth0_id}
         title={actPost.title}
-        className="text-black"
+        className="text-black "
         imgSource={actPost.image}
         path={`/${Number(locationId)}/activities/${actPost.user_auth0_id}`}
         date={actPost.date}
