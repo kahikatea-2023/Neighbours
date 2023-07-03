@@ -137,7 +137,7 @@ router.delete(
       }
       await getClassificationById(id)
       await deleteRequestById(id, auth0Id)
-
+      // should delete the answer before delete the
       res.sendStatus(200)
     } catch (error) {
       console.error(error)
