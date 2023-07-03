@@ -13,6 +13,7 @@ export async function fetchClassifiedPost(
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
 
+  console.log(res.body.classifications)
   return res.body.classifications
 }
 
