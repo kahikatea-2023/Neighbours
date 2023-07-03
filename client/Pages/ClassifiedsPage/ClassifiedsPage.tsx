@@ -4,25 +4,31 @@ import { fetchClassifiedPost } from '../../apis/classifiedPost'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
 import AddPostButton from '../../components/Buttons/AddPostButton/AddPostButton'
+import { useQuery } from 'react-query'
 
 function ClassifiedPage() {
-  const locationId = Number(useParams())
-  const { isAuthenticated } = useAuth0()
+  const { locationId } = useParams()
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+
   const [searchTerm, setSearchTerm] = useState('')
 
-  const classifiedData = fetchClassifiedPost(locationId)
-  console.log(classifiedData, 'I am in the classifiedPost')
+  // // const classifiedData = fetchClassifiedPost(locationId)
+  // console.log(classifiedData, 'I am in the classifiedPost')
+  const { isLoading, data } = useQuery(
+    ['fetchLocations', locationId],
+    async () => {
+      const token = await getAccessTokenSilently()
 
-  // const { isLoading, data } = useQuery('fetchLocations', async () => {
-  //   return await fetchClassifiedPost()
-  // })
+      return await fetchClassifiedPost(Number(locationId), token)
+    }
+  )
+  if (isLoading) return 'Loading...'
+  console.log('I am the data in the react query', data)
 
   function handleSearch(e: any) {
     e.preventDefault()
     console.log('search is here: ', searchTerm)
   }
-
- 
 
   return (
     isAuthenticated && (
@@ -33,7 +39,7 @@ function ClassifiedPage() {
             Ask for help to your neighbours
           </h2>
         </div>
-        <ClassifiedPost />
+        {data && <ClassifiedPost data={data} />}
         <form onSubmit={handleSearch}>
           <input
             type="text"
