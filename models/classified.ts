@@ -66,6 +66,7 @@ export const PostAnswersBackendSchema = PostAnswersSchema.extend({
   id: z.number(),
 })
 
+
 export type ClassifiedPostRqData = z.infer<typeof ClassifiedPostRqDataSchema>
 export type ClassifiedRqDataUpdateBackend = z.infer<
   typeof ClassifiedRqDataUpdateBackendSchema

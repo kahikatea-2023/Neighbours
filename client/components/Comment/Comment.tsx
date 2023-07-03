@@ -1,12 +1,12 @@
-import { CommentSectionProps, CommentData } from '../../../models/comments'
+import { CommentSectionProps } from '../../../models/comments'
+import { PostAnswersBackend } from '../../../models/classified'
 
 function Comment(props: CommentSectionProps): JSX.Element {
   const {
-    currentUser,
-    commentData,
-    onDeleteComment,
-    onAddComment,
-    onReactToComment,
+    UsersDataBackend,
+    postAnswersBackend,
+    // onDeleteComment,
+    // onAddComment,
   } = props
 
   const handleLogin = () => {
@@ -14,45 +14,39 @@ function Comment(props: CommentSectionProps): JSX.Element {
     console.log('Logging in...')
   }
 
-  const handleDeleteComment = (commentId: string) => {
-    // You can implement the delete comment logic here
-    console.log('Deleting comment:', commentId)
-    onDeleteComment(commentId)
-  }
+  // const handleDeleteComment = (id: number) => {
+  //   // You can implement the delete comment logic here
+  //   console.log('Deleting comment:', id)
+  //   onDeleteComment(id)
+  // }
 
-  const handleAddComment = (text: string) => {
-    // You can implement the add comment logic here
-    console.log('Adding comment:', text)
-    onAddComment(text)
-  }
-
-  const handleReactToComment = (commentId: string, reaction: string) => {
-    // You can implement the react to comment logic here
-    console.log('Reacting to comment:', commentId, 'with reaction:', reaction)
-    onReactToComment(commentId, reaction)
-  }
+  // const handleAddComment = (text: string) => {
+  //   // You can implement the add comment logic here
+  //   console.log('Adding comment:', text)
+  //   onAddComment(text)
+  // }
 
   return (
     <div>
-      {currentUser ? (
+      {UsersDataBackend ? (
         <div>
           {/* Render the comment section */}
           <h3>Comments</h3>
-          {commentData.map((comment: CommentData) => (
-            <div key={comment.comId}>
+          {postAnswersBackend.map((postAnswer: PostAnswersBackend) => (
+            <div key={postAnswer.id}>
               <p>
-                <strong>{comment.fullName}</strong>: {comment.text}
+                <strong>{UsersDataBackend.name}</strong>
               </p>
-              <button onClick={() => handleDeleteComment(comment.comId)}>
+              {/* <button onClick={() => handleDeleteComment(postAnswers.id)}>
                 Delete
-              </button>
+              </button> */}
             </div>
           ))}
           <div>
             <input type="text" placeholder="Add a comment" />
-            <button onClick={() => handleAddComment('New comment')}>
+            {/* <button onClick={() => handleAddComment('New comment')}>
               Add Comment
-            </button>
+            </button> */}
           </div>
         </div>
       ) : (
