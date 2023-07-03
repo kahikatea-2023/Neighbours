@@ -20,7 +20,7 @@ function ClassifiedPost(props: Props) {
           <Post
             key={post.id}
             title={post.title}
-            path={`/${locationId}/classifieds/${post.user_auth0_id}`}
+            path={`/${locationId}/classifieds/${post.id}`}
             className="text-black"
             imgSource={post.image}
             date={post.date}
