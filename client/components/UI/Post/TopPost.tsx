@@ -23,7 +23,7 @@ function Post({ imgSource, title, date, className, path }: PostProps) {
         <p className="text-black font-semibold text-xs">
           <Link to={path}>{title}</Link>
         </p>
-        <div className='text-slate-600 font-medium text-xs'>
+        <div className="text-slate-600 font-medium text-xs">
           <p>Posted on {date}</p>
           <p>(3) comments</p>
         </div>
