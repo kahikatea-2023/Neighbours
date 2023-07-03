@@ -83,6 +83,6 @@ export type ClassifiedRqCommentDataBackend = z.infer<
 >
 
 export type PostRequest = z.infer<typeof PostRequestSchema>
-export type postRequestBackend = z.infer<typeof PostRequestBackendSchema>
+export type PostRequestBackend = z.infer<typeof PostRequestBackendSchema>
 export type PostAnswers = z.infer<typeof PostAnswersSchema>
 export type PostAnswersBackend = z.infer<typeof PostAnswersBackendSchema>
