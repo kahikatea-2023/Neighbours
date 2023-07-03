@@ -1,59 +1,48 @@
-import React, { useEffect, useRef, useState } from 'react'
-import maplibregl from 'maplibre-gl'
-import { GeocodingControl } from '@maptiler/geocoding-control/maplibregl'
-import '@maptiler/geocoding-control/dist/style.css'
-import 'maplibre-gl/dist/maplibre-gl.css'
-import { loadMapData } from '../../apis/map'
+import React, { useEffect, useRef } from 'react'
+import maplibregl, { GeolocateControl } from 'maplibre-gl'
 import { API_KEY_MAP } from '../config'
-import { useLocation } from 'react-router-dom'
-
-interface MapData {
-  container: string
-  style: string
-  center: [number, number]
-  zoom: number
-}
-
-const mapData: MapData = {
-  container: 'map',
-  style: `https://api.maptiler.com/maps/streets/style.json?key=${API_KEY_MAP}`,
-  center: [16.3, 49.2],
-  zoom: 7,
-}
-
-// Usage:
-console.log(mapData.container) // Access the container property
-console.log(mapData.style) // Access the style property
-
-const apiKey = API_KEY_MAP
-const map = new maplibregl.Map({
-  container: 'map', // id of HTML container element
-  style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
-  center: [16.3, 49.2],
-  zoom: 7,
-})
-
-const gc = new GeocodingControl({ apiKey, maplibregl })
-
-map.addControl(gc)
 
 function Map() {
-  const location = useLocation()
-  const [mapData, setMapaData] = useState<MapData | null>(null)
+  const mapContainer = useRef<HTMLDivElement | null>(null)
+  const map = useRef<maplibregl.Map | null>(null)
 
   useEffect(() => {
-    const fetchMapData = async () => {
-      loadMapData(API_KEY_MAP, setMapaData)
+    // Set your MapTiler API Key here
+    const apiKey = API_KEY_MAP
+
+    // Initialize map if the map container exists
+    if (mapContainer.current) {
+      map.current = new maplibregl.Map({
+        container: mapContainer.current,
+        style: 'https://api.maptiler.com/maps/streets/style.json?key=' + apiKey,
+        center: [174.7633, -36.8485], // Auckland coordinates
+        zoom: 10,
+      })
+
+      // Add MapTiler Geolocate Control to the map
+      const geolocateControl = new GeolocateControl({
+        // Set the position of the geolocate control using CSS
+        positionOptions: {
+          enableHighAccuracy: true,
+          timeout: 5000,
+        },
+        // Fit the map to the geolocation result
+        fitBoundsOptions: {
+          maxZoom: 15,
+        },
+        // Track the user's location on the map
+        trackUserLocation: true,
+      })
+
+      // Add the geolocate control to the map
+      map.current.addControl(geolocateControl)
+
+      // Clean up on unmount
+      return () => map.current?.remove()
     }
+  }, [])
 
-    fetchMapData()
-  }, [location.pathname])
-
-  return (
-    <>
-      <div>{mapData ? <div></div> : <div></div>}</div>
-    </>
-  )
+  return <div ref={mapContainer} style={{ width: '100%', height: '400px' }} />
 }
 
 export default Map
