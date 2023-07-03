@@ -35,7 +35,7 @@ function Nav(props: Props) {
               Activities
             </button>
           ) : (
-            <button onClick={() => goTo('/')}>Activities</button>
+            <button onClick={() => goTo('/error')}>Activities</button>
           )}
         </li>
         <li>
@@ -44,7 +44,7 @@ function Nav(props: Props) {
               Classifieds
             </button>
           ) : (
-            <button onClick={() => goTo('/')}>Classifieds</button>
+            <button onClick={() => goTo('/error')}>Classifieds</button>
           )}
         </li>
         <li>
@@ -53,21 +53,21 @@ function Nav(props: Props) {
               Market
             </button>
           ) : (
-            <button onClick={() => goTo('/')}>Market</button>
+            <button onClick={() => goTo('/error')}>Market</button>
           )}
         </li>
         <li>
           {isAuthenticated ? (
             <button onClick={() => goTo('/profile')}>Profile</button>
           ) : (
-            <button onClick={() => goTo('/')}>Profile</button>
+            <button onClick={() => goTo('/error')}>Profile</button>
           )}
         </li>
         <li>
           {isAuthenticated ? (
             <button onClick={() => goTo('/my-posts')}>My posts</button>
           ) : (
-            <button onClick={() => goTo('/')}>My posts</button>
+            <button onClick={() => goTo('/error')}>My posts</button>
           )}
         </li>
         <li>
