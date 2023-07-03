@@ -18,6 +18,7 @@ import Home from './Pages/Home/Home'
 import AddPostPage from './Pages/AddPostPage/AddPostPage'
 import ProfilePage from './Pages/ProfilePage/ProfilePage'
 import Redirect from './Pages/Redirect/Redirect'
+import EditProfile from './Pages/EditProfile/EditProfile'
 
 export const routes = createRoutesFromElements(
   <Route>
@@ -26,6 +27,7 @@ export const routes = createRoutesFromElements(
       <Route path="redirect" element={<Redirect />} />
       <Route path="register" element={<RegisterUser />} />
       <Route path="profile" element={<ProfilePage />} />
+      <Route path="edit-profile" element={<EditProfile />} />
       <Route path="my-posts" element={<Error />} />
       <Route path="/:locationId" element={<Community />} />
       <Route

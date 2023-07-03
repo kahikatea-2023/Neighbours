@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { updateUserSchema, userDraftSchema } from '../../models/user'
+import { userDraftSchema } from '../../models/user'
 import { getUserById, updateProfile, upsertProfile } from '../db/profile'
 import { validateAccessToken } from './auth0'
 const router = Router()
@@ -57,7 +57,6 @@ router.post('/', validateAccessToken, async (req, res) => {
 })
 
 // update the user Profile
-
 router.patch('/', validateAccessToken, async (req, res) => {
   const form = req.body
   const auth0_id = req.auth?.payload.sub
@@ -73,14 +72,7 @@ router.patch('/', validateAccessToken, async (req, res) => {
   }
 
   try {
-    const updateResult = updateUserSchema.safeParse(form)
-
-    if (!updateResult.success) {
-      res.status(400).json({ message: 'Please provide a valid form' })
-      return
-    }
-
-    const updateUser = { ...updateResult.data, auth0_id: auth0_id }
+    const updateUser = { ...form, auth0_id: auth0_id }
 
     await updateProfile(updateUser)
     res.sendStatus(201)
@@ -89,5 +81,6 @@ router.patch('/', validateAccessToken, async (req, res) => {
     res.status(500).json({ message: 'Unable to insert new user to database' })
   }
 })
+
 
 export default router
