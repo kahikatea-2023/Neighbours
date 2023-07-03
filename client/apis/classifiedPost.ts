@@ -12,6 +12,6 @@ export async function fetchClassifiedPost(
     .get(url)
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
-  console.log('I am in the api call', res.body.classifications)
+
   return res.body.classifications
 }

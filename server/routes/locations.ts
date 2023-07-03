@@ -44,6 +44,8 @@ router.get('/:id/classified', async (req, res) => {
   try {
     const locationId = Number(req.params.id)
     const classifications = await getAllClassificationsByLocation(locationId)
+    console.log(classifications, 'we are in backend')
+
     res.json({ classifications })
   } catch (error) {
     console.log(error)

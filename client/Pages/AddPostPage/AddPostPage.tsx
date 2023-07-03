@@ -2,6 +2,10 @@ import { useState } from 'react'
 import { ActPostData } from '../../../models/activities'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
+import { FaArrowLeft } from 'react-icons/fa'
+import CreateButton from '../../components/Buttons/CreateButton/CreateButton'
+import { useQuery } from 'react-query'
+import { fetchProfiles } from '../../apis/profile'
 // save for later
 // import { useMutation, useQueryClient } from 'react-query'
 
@@ -17,7 +21,9 @@ function AddPost() {
   // const location = useParams().location as string
   // const category = useParams().category as string
 
-  const { user } = useAuth0()
+  const { user, getAccessTokenSilently } = useAuth0()
+  const { locationId } = useParams()
+  console.log(locationId, 'this is location id')
 
   const navigate = useNavigate()
 
@@ -34,6 +40,19 @@ function AddPost() {
     description: '',
   } as ActPostData
 
+  const profileQuery = useQuery({
+    queryKey: 'fetchProfiles',
+    queryFn: async () => {
+      const accessToken = await getAccessTokenSilently()
+      if (user && user.sub) {
+        const response = await fetchProfiles(accessToken)
+
+        return response
+      }
+    },
+    enabled: !!user,
+  })
+
   const [postData, setpostData] = useState(initialState)
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -49,68 +68,100 @@ function AddPost() {
     // mutations.mutate(postData)
     //the redirect url need more work
     // navigate(`/${location}/${category}`)
-    navigate('/newmarket/classifieds')
+    navigate(`/${locationId}/classifieds`)
+  }
 
+  function handleGoBack() {
+    navigate(-1)
   }
 
   return (
-    <div>
-      <div className="w-3/4 text-center text-4xl font-bold mt-6 mb-6">
+    <div className="h-screen">
+      <FaArrowLeft size={30} onClick={handleGoBack} />
+      <div className="text-center text-3xl font-semibold border-slate-300 border-b-1 pb-2">
         <h2>Create Post</h2>
       </div>
-      <div>
-        <img className='w-10' src="../../public/images/cockroach.png" alt="user avatar" />
-        <p>{user?.nickname}</p>
-        <p>Newmarket Neighbour</p>
+      <div className="flex mb-2 mt-6">
+        <div className="mr-2">
+          <img
+            src="../../public/images/userImage.jpg"
+            alt={user?.nickname}
+            className="w-10 h-10 rounded-full border-1 border-black"
+          />
+        </div>
+        <div>
+          <p className="font-normal">
+            {!profileQuery.isLoading &&
+              profileQuery.data &&
+              profileQuery.data.first_name}{' '}
+            {!profileQuery.isLoading &&
+              profileQuery.data &&
+              profileQuery.data.last_name}
+          </p>
+          <p className="font-light">
+            {!profileQuery.isLoading &&
+              profileQuery.data &&
+              profileQuery.data.location}{' '}
+            Neighbour
+          </p>
+        </div>
       </div>
-      <form onSubmit={handleSubmit} className='pl-7 flex flex-col w-3/4'>
-        <div className='flex flex-col '>
-          <label htmlFor='title' className='text-black pl-7 pb-2 font-bold font-xl'>Listing title</label>
+      <form onSubmit={handleSubmit} className="flex flex-col mt-4 mx-4">
+        <div className="flex flex-col ">
+          <label htmlFor="title" className="text-black font-light font-xl mb-1">
+            Listing title
+          </label>
           <input
             type="text"
-            name='title'
+            name="title"
             value={postData.title}
             onChange={handleChange}
-            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 rounded-sm drop-shadow-xl"
           />
         </div>
 
-        <div className='flex flex-col '>
-          <label htmlFor="venue" className='text-black pl-7 pb-2 font-bold font-xl'>Venue</label>
+        <div className="flex flex-col ">
+          <label htmlFor="venue" className="text-black font-light font-xl mb-1">
+            Venue
+          </label>
           <input
             type="text"
-            name='venue'
+            name="venue"
             value={postData.venue}
             onChange={handleChange}
-            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 rounded-sm drop-shadow-xl"
           />
         </div>
 
-        <div className='flex flex-col '>
-          <label htmlFor="image" className='text-black pl-7 pb-2 font-bold font-xl'>Attach Image Link</label>
+        <div className="flex flex-col ">
+          <label htmlFor="image" className="text-black font-light font-xl mb-1">
+            Attach Image Link
+          </label>
           <input
             type="text"
-            name='image'
+            name="image"
             value={postData.image}
             onChange={handleChange}
-            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 rounded-sm drop-shadow-xl"
           />
         </div>
 
-        <div className='flex flex-col '>
-          <label htmlFor="description" className='text-black pl-7 pb-2 font-bold font-xl'>Description</label>
+        <div className="flex flex-col ">
+          <label
+            htmlFor="description"
+            className="text-black font-light font-xl mb-1"
+          >
+            Description
+          </label>
           <input
             type="text"
-            name='description'
+            name="description"
             value={postData.description}
             onChange={handleChange}
-            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 rounded-sm drop-shadow-xl h-40"
           />
         </div>
-
-        <button type="submit" className=' bg-lightGreen text-white justify-center text-center font-bold py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C] drop-shadow-2xl'>
-          Post
-        </button>
+        <CreateButton />
       </form>
     </div>
   )

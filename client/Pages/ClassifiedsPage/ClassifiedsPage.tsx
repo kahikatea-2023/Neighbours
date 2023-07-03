@@ -23,7 +23,6 @@ function ClassifiedPage() {
     }
   )
   if (isLoading) return 'Loading...'
-  console.log('I am the data in the react query', data)
 
   function handleSearch(e: any) {
     e.preventDefault()
@@ -48,7 +47,7 @@ function ClassifiedPage() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </form>
-        <AddPostButton />
+        <AddPostButton/>
       </div>
     )
   )
