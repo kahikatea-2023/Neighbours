@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom'
 import { ClassifiedRqDataBackend } from '../../../models/classified'
 import Post from '../UI/Post/Post'
 
@@ -6,6 +7,7 @@ interface Props {
 }
 function ClassifiedPost(props: Props) {
   const classifiedPosts = props.data
+  const { locationId } = useParams()
 
   return (
     <>
@@ -18,7 +20,7 @@ function ClassifiedPost(props: Props) {
           <Post
             key={post.id}
             title={post.title}
-            path={`/newmarket/classifieds/${post.user_auth0_id}`}
+            path={`/${locationId}/classifieds/${post.user_auth0_id}`}
             className="text-black"
             imgSource={post.image}
             date={post.date}
