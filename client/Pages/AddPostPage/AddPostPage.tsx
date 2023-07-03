@@ -3,6 +3,7 @@ import { ActPostData } from '../../../models/activities'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { FaArrowLeft } from 'react-icons/fa'
+import CreateButton from '../../components/Buttons/CreateButton/CreateButton'
 // save for later
 // import { useMutation, useQueryClient } from 'react-query'
 
@@ -58,7 +59,7 @@ function AddPost() {
   }
 
   return (
-    <div>
+    <div className='h-screen'>
       <FaArrowLeft size={30} onClick={handleGoBack} />
       <div className="text-center text-3xl font-semibold border-slate-300 border-b-1 pb-2">
         <h2>Create Post</h2>
@@ -76,11 +77,11 @@ function AddPost() {
           <p className="font-light">Newmarket Neighbour</p>
         </div>
       </div>
-      <form onSubmit={handleSubmit} className="pl-7 flex flex-col w-3/4">
+      <form onSubmit={handleSubmit} className="flex flex-col">
         <div className="flex flex-col ">
           <label
             htmlFor="title"
-            className="text-black pl-7 pb-2 font-bold font-xl"
+            className="text-black font-light font-xl mb-1"
           >
             Listing title
           </label>
@@ -89,14 +90,14 @@ function AddPost() {
             name="title"
             value={postData.title}
             onChange={handleChange}
-            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 rounded-sm drop-shadow-xl"
           />
         </div>
 
         <div className="flex flex-col ">
           <label
             htmlFor="venue"
-            className="text-black pl-7 pb-2 font-bold font-xl"
+            className="text-black font-light font-xl mb-1"
           >
             Venue
           </label>
@@ -105,14 +106,14 @@ function AddPost() {
             name="venue"
             value={postData.venue}
             onChange={handleChange}
-            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 rounded-sm drop-shadow-xl"
           />
         </div>
 
         <div className="flex flex-col ">
           <label
             htmlFor="image"
-            className="text-black pl-7 pb-2 font-bold font-xl"
+            className="text-black font-light font-xl mb-1"
           >
             Attach Image Link
           </label>
@@ -121,14 +122,14 @@ function AddPost() {
             name="image"
             value={postData.image}
             onChange={handleChange}
-            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 rounded-sm drop-shadow-xl"
           />
         </div>
 
         <div className="flex flex-col ">
           <label
             htmlFor="description"
-            className="text-black pl-7 pb-2 font-bold font-xl"
+            className="text-black font-light font-xl mb-1"
           >
             Description
           </label>
@@ -137,16 +138,10 @@ function AddPost() {
             name="description"
             value={postData.description}
             onChange={handleChange}
-            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 h-20 rounded-sm drop-shadow-xl"
           />
         </div>
-
-        <button
-          type="submit"
-          className=" bg-lightGreen text-white justify-center text-center font-bold py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C] drop-shadow-2xl"
-        >
-          Post
-        </button>
+        <CreateButton />
       </form>
     </div>
   )
