@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect } from 'react'
 import {
   Route,
   RouterProvider,
@@ -17,15 +17,17 @@ import Error from './Pages/Error/Error'
 import Home from './Pages/Home/Home'
 import AddPostPage from './Pages/AddPostPage/AddPostPage'
 import ProfilePage from './Pages/ProfilePage/ProfilePage'
+import Redirect from './Pages/Redirect/Redirect'
 
 export const routes = createRoutesFromElements(
   <Route>
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Home />} />
+      <Route path="redirect" element={<Redirect />} />
       <Route path="register" element={<RegisterUser />} />
       <Route path="profile" element={<ProfilePage />} />
       <Route path="my-posts" element={<Error />} />
-      <Route path=":locationId" element={<Community />} />
+      <Route path="/community/:locationId" element={<Community />} />
       <Route
         path="newmarket/activities"
         element={<p>Activities will be here</p>}
