@@ -42,7 +42,7 @@ function ClassifiedPage() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </form>
-        <AddPostButton />
+        <AddPostButton/>
       </div>
     )
   )
