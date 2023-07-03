@@ -1,15 +1,15 @@
-// export interface CommentSectionProps {
-//   UpdateUsersDataBackend: {
-//     currentUserId: string
-//     currentUserImg: string
-//     currentUserProfile: string
-//     currentUserFullName: string
-//   }
-//   commentData: CommentData[]
-//   onDeleteComment: (commentId: string) => void
-//   onAddComment: (text: string) => void
-//   onReactToComment: (commentId: string, reaction: string) => void
-// }
+  // export interface CommentSectionProps {
+  //   UpdateUsersDataBackend: {
+  //     currentUserId: string
+  //     currentUserImg: string
+  //     currentUserProfile: string
+  //     currentUserFullName: string
+  //   }
+  //   commentData: CommentData[]
+  //   onDeleteComment: (commentId: string) => void
+  //   onAddComment: (text: string) => void
+  //   onReactToComment: (commentId: string, reaction: string) => void
+  // }
 
 // export interface CommentData {
 //   userId: string

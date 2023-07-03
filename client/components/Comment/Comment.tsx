@@ -26,6 +26,11 @@ function Comment(props: CommentSectionProps): JSX.Element {
   //   onAddComment(text)
   // }
 
+  // const handleReactToComment = (commentId: string, reaction: string) => {
+  //   // You can implement the react to comment logic here
+  //   console.log('Reacting to comment:', commentId, 'with reaction:', reaction)
+  //   onReactToComment(commentId, reaction)
+
   return (
     <div>
       {UsersDataBackend ? (
@@ -43,7 +48,7 @@ function Comment(props: CommentSectionProps): JSX.Element {
             </div>
           ))}
           <div>
-            <input type="text" placeholder="Add a comment" />
+            {/* <input type="text" placeholder="Add a comment" /> */}
             {/* <button onClick={() => handleAddComment('New comment')}>
               Add Comment
             </button> */}
