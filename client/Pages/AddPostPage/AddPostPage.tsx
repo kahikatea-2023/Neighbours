@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { FaArrowLeft } from 'react-icons/fa'
 import CreateButton from '../../components/Buttons/CreateButton/CreateButton'
+import { useQuery } from 'react-query'
+import { fetchProfiles } from '../../apis/profile'
 // save for later
 // import { useMutation, useQueryClient } from 'react-query'
 
@@ -19,7 +21,9 @@ function AddPost() {
   // const location = useParams().location as string
   // const category = useParams().category as string
 
-  const { user } = useAuth0()
+  const { user, getAccessTokenSilently } = useAuth0()
+  const { locationId } = useParams()
+  console.log(locationId, 'this is location id')
 
   const navigate = useNavigate()
 
@@ -36,6 +40,19 @@ function AddPost() {
     description: '',
   } as ActPostData
 
+  const profileQuery = useQuery({
+    queryKey: 'fetchProfiles',
+    queryFn: async () => {
+      const accessToken = await getAccessTokenSilently()
+      if (user && user.sub) {
+        const response = await fetchProfiles(accessToken)
+
+        return response
+      }
+    },
+    enabled: !!user,
+  })
+
   const [postData, setpostData] = useState(initialState)
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -51,7 +68,7 @@ function AddPost() {
     // mutations.mutate(postData)
     //the redirect url need more work
     // navigate(`/${location}/${category}`)
-    navigate('/newmarket/classifieds')
+    navigate(`/${locationId}/classifieds`)
   }
 
   function handleGoBack() {
@@ -59,7 +76,7 @@ function AddPost() {
   }
 
   return (
-    <div className='h-screen'>
+    <div className="h-screen">
       <FaArrowLeft size={30} onClick={handleGoBack} />
       <div className="text-center text-3xl font-semibold border-slate-300 border-b-1 pb-2">
         <h2>Create Post</h2>
@@ -73,16 +90,20 @@ function AddPost() {
           />
         </div>
         <div>
-          <p className="font-normal">{user?.nickname}</p>
+          <p className="font-normal">
+            {!profileQuery.isLoading &&
+              profileQuery.data &&
+              profileQuery.data.first_name}{' '}
+            {!profileQuery.isLoading &&
+              profileQuery.data &&
+              profileQuery.data.last_name}
+          </p>
           <p className="font-light">Newmarket Neighbour</p>
         </div>
       </div>
       <form onSubmit={handleSubmit} className="flex flex-col mt-4 mx-4">
         <div className="flex flex-col ">
-          <label
-            htmlFor="title"
-            className="text-black font-light font-xl mb-1"
-          >
+          <label htmlFor="title" className="text-black font-light font-xl mb-1">
             Listing title
           </label>
           <input
@@ -95,10 +116,7 @@ function AddPost() {
         </div>
 
         <div className="flex flex-col ">
-          <label
-            htmlFor="venue"
-            className="text-black font-light font-xl mb-1"
-          >
+          <label htmlFor="venue" className="text-black font-light font-xl mb-1">
             Venue
           </label>
           <input
@@ -111,10 +129,7 @@ function AddPost() {
         </div>
 
         <div className="flex flex-col ">
-          <label
-            htmlFor="image"
-            className="text-black font-light font-xl mb-1"
-          >
+          <label htmlFor="image" className="text-black font-light font-xl mb-1">
             Attach Image Link
           </label>
           <input

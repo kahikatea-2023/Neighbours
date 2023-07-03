@@ -1,11 +1,13 @@
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import Button from '../../UI/Button/Button'
 
 function AddPostButton() {
   const navigate = useNavigate()
+  const { locationId } = useParams()
+  
   function handleAddPost() {
     console.log('clicked')
-    navigate('/:locationId/classifieds/add-post')
+    navigate(`/${locationId}/classifieds/add-post`)
   }
 
   return (
