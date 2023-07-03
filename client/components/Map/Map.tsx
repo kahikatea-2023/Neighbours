@@ -14,7 +14,7 @@ interface MapData {
   zoom: number
 }
 
-const map: MapData = {
+const mapData: MapData = {
   container: 'map',
   style: `https://api.maptiler.com/maps/streets/style.json?key=${API_KEY_MAP}`,
   center: [16.3, 49.2],
@@ -22,8 +22,20 @@ const map: MapData = {
 }
 
 // Usage:
-console.log(map.container) // Access the container property
-console.log(map.style) // Access the style property
+console.log(mapData.container) // Access the container property
+console.log(mapData.style) // Access the style property
+
+const apiKey = API_KEY_MAP
+const map = new maplibregl.Map({
+  container: 'map', // id of HTML container element
+  style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
+  center: [16.3, 49.2],
+  zoom: 7,
+})
+
+const gc = new GeocodingControl({ apiKey, maplibregl })
+
+map.addControl(gc)
 
 function Map() {
   const location = useLocation()
