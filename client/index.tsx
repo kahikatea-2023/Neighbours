@@ -27,7 +27,7 @@ export const routes = createRoutesFromElements(
       <Route path="register" element={<RegisterUser />} />
       <Route path="profile" element={<ProfilePage />} />
       <Route path="my-posts" element={<Error />} />
-      <Route path="/community/:locationId" element={<Community />} />
+      <Route path="/:locationId" element={<Community />} />
       <Route
         path="newmarket/activities"
         element={<p>Activities will be here</p>}

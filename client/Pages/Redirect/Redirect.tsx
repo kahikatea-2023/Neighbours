@@ -12,7 +12,7 @@ function Redirect() {
       try {
         const token = await getAccessTokenSilently()
         const user = await fetchProfiles(token)
-        navigate(`/community/${user.location}`, { replace: true })
+        navigate(`/${user.location_id}`, { replace: true })
       } catch (error) {
         console.error(error)
       }
