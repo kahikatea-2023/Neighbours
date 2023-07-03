@@ -15,3 +15,15 @@ export async function fetchClassifiedPost(
 
   return res.body.classifications
 }
+
+export async function fetchClassifiedPostById(token: string, id: number) {
+  const url = `${rootUrl}locations/4/classified/${id}`
+  const res = await request
+    .get(url)
+    .set('Authorization', `Bearer ${token}`)
+    .set('Content-Type', 'application/json')
+
+  console.log(res.body.classifications)
+
+  return res.body.classifications
+}
