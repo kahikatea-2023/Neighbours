@@ -9,6 +9,8 @@ function ClassifiedPost(props: Props) {
   const classifiedPosts = props.data
   const { locationId } = useParams()
 
+  console.log(classifiedPosts)
+
   return (
     <>
       {classifiedPosts.map((post) => {
