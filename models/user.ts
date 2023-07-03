@@ -28,6 +28,8 @@ export const updateUserSchema = z.object({
   pronouns: z.string(),
   bio: z.string(),
 })
+
+
 export const updateProfileBackendSchema = updateUserSchema.extend({
   auth0_id: z.string(),
 })
