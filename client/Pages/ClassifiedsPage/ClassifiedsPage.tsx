@@ -9,11 +9,6 @@ import { useQuery } from 'react-query'
 function ClassifiedPage() {
   const { locationId } = useParams()
   const { isAuthenticated, getAccessTokenSilently } = useAuth0()
-
-  const [searchTerm, setSearchTerm] = useState('')
-
-  // // const classifiedData = fetchClassifiedPost(locationId)
-  // console.log(classifiedData, 'I am in the classifiedPost')
   const { isLoading, data } = useQuery(
     ['fetchLocations', locationId],
     async () => {
@@ -23,11 +18,6 @@ function ClassifiedPage() {
     }
   )
   if (isLoading) return 'Loading...'
-
-  function handleSearch(e: any) {
-    e.preventDefault()
-    console.log('search is here: ', searchTerm)
-  }
 
   return (
     isAuthenticated && (
@@ -39,14 +29,6 @@ function ClassifiedPage() {
           </h2>
         </div>
         {data && <ClassifiedPost data={data} />}
-        <form onSubmit={handleSearch}>
-          <input
-            type="text"
-            placeholder="Search posts..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </form>
         <AddPostButton/>
       </div>
     )
