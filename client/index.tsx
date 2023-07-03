@@ -18,6 +18,7 @@ import Home from './Pages/Home/Home'
 import AddPostPage from './Pages/AddPostPage/AddPostPage'
 import ProfilePage from './Pages/ProfilePage/ProfilePage'
 import Redirect from './Pages/Redirect/Redirect'
+import EditProfile from './Pages/EditProfile/EditProfile'
 
 export const routes = createRoutesFromElements(
   <Route>
@@ -26,6 +27,7 @@ export const routes = createRoutesFromElements(
       <Route path="redirect" element={<Redirect />} />
       <Route path="register" element={<RegisterUser />} />
       <Route path="profile" element={<ProfilePage />} />
+      <Route path="edit-profile" element={<EditProfile />} />
       <Route path="my-posts" element={<Error />} />
       <Route path="/:locationId" element={<Community />} />
       <Route
@@ -38,7 +40,7 @@ export const routes = createRoutesFromElements(
       />
       <Route path=":locationId/classifieds" element={<ClassifiedPage />} />
       <Route
-        path=":locationId/classifieds/:id"
+        path=":locationId/classifieds/:postId"
         element={<ClassifiedsDetail />}
       />
       <Route
@@ -46,6 +48,7 @@ export const routes = createRoutesFromElements(
         element={<AddPostPage />}
       />
       <Route path=":locationId/market" element={<p>Market will be here</p>} />
+      <Route path="error" element={<Error />} />
     </Route>
   </Route>
 )

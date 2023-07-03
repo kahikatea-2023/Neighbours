@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
     res.json({ locations })
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({ message: 'Something went wrong to get locations' })
   }
 })
 
@@ -45,9 +45,10 @@ router.get('/:id/classified', async (req, res) => {
   try {
     const locationId = Number(req.params.id)
     const classifications = await getAllClassificationsByLocation(locationId)
+
     res.json({ classifications })
   } catch (error) {
-    console.log(error)
+    console.error(error)
     res.status(500).json({ message: 'Something went wrong' })
   }
 })
@@ -58,8 +59,8 @@ router.get('/:id/classified/:request', async (req, res) => {
   try {
     const id = Number(req.params.request)
     const classification = await getClassificationById(id)
-    const answers = await getAllAnswersByRequest(id)
-    res.json({ ...classification, answers })
+    // const answers = await getAllAnswersByRequest(id)
+    res.json({ ...classification })
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })

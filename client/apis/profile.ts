@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { UserData, UsersDataBackend } from '../../models/user'
+import { UpdateUsersData, UsersDataBackend } from '../../models/user'
 
 const rootUrl = '/api/v1/'
 
@@ -12,7 +12,7 @@ export async function fetchProfiles(token: string): Promise<UsersDataBackend> {
 }
 
 export async function updateProfile(
-  updateUser: UserData,
+  updateUser: UpdateUsersData,
   token: string
 ): Promise<void> {
   await request
