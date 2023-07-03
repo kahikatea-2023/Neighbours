@@ -3,13 +3,14 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { fetchClassifiedPost } from '../../apis/classifiedPost'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
+import AddPostButton from '../../components/Buttons/AddPostButton/AddPostButton'
 
 function ClassifiedPage() {
   const locationId = Number(useParams())
   const { isAuthenticated } = useAuth0()
-  const [ searchTerm, setSearchTerm ] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
 
-  const classifiedData =  fetchClassifiedPost(locationId)
+  const classifiedData = fetchClassifiedPost(locationId)
   console.log(classifiedData, 'I am in the classifiedPost')
 
   // const { isLoading, data } = useQuery('fetchLocations', async () => {
@@ -20,6 +21,8 @@ function ClassifiedPage() {
     e.preventDefault()
     console.log('search is here: ', searchTerm)
   }
+
+ 
 
   return (
     isAuthenticated && (
@@ -39,6 +42,7 @@ function ClassifiedPage() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </form>
+        <AddPostButton />
       </div>
     )
   )
