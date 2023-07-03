@@ -65,6 +65,13 @@ export const PostAnswersSchema = z.object({
 export const PostAnswersBackendSchema = PostAnswersSchema.extend({
   id: z.number(),
 })
+export const AddPostDraftSchema = z.object({
+  tile: z.string(),
+  venue: z.string(),
+  image: z.string(),
+  description: z.string(),
+  location_id: z.number(),
+})
 
 export type ClassifiedPostRqData = z.infer<typeof ClassifiedPostRqDataSchema>
 export type ClassifiedRqDataUpdateBackend = z.infer<
@@ -80,7 +87,7 @@ export type ClassifiedRqCommentData = z.infer<
 export type ClassifiedRqCommentDataBackend = z.infer<
   typeof ClassifiedRqCommentDataSchema
 >
-
+export type AddPostDataDraft = z.infer<typeof AddPostDraftSchema>
 export type PostRequest = z.infer<typeof PostRequestSchema>
 export type PostRequestBackend = z.infer<typeof PostRequestBackendSchema>
 export type PostAnswers = z.infer<typeof PostAnswersSchema>

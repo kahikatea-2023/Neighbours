@@ -14,6 +14,7 @@ import {
 } from '../db/classified'
 import { PostAnswersSchema, PostRequestSchema } from '../../models/classified'
 import { validateAccessToken } from './auth0'
+import { AddPostDraftSchema } from '../../models/activities'
 const router = Router()
 
 router.get('/', async (req, res) => {
@@ -74,12 +75,13 @@ router.post('/:id/classified', validateAccessToken, async (req, res) => {
     return res.status(401).send('Unauthorized')
   }
   try {
-    const userResult = PostRequestSchema.safeParse(newRequest)
+    // Need to fixed the zod
+    // const userResult = AddPostDraftSchema.safeParse(newRequest)
 
-    if (!userResult.success) {
-      res.status(400).json({ message: 'Please provide a valid form' })
-      return
-    }
+    // if (!userResult.success) {
+    //   res.status(400).json({ message: 'Please provide a valid form' })
+    //   return
+    // }
 
     const newPost = { ...newRequest, user_auth0_id: auth0_id }
     await addRequest(newPost)

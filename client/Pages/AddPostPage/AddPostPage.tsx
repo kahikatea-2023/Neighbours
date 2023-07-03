@@ -2,37 +2,47 @@ import { useState } from 'react'
 import { ActPostData } from '../../../models/activities'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useMutation, useQueryClient } from 'react-query'
+import { addClassifiedPost } from '../../apis/classifiedPost'
+import { AddPostDataDraft } from '../../../models/classified'
 // save for later
 // import { useMutation, useQueryClient } from 'react-query'
 
 function AddPost() {
   // for later when connect to backend
-  // const queryClient = useQueryClient()
-  // const mutations = useMutation(addPost, {
+  const queryClient = useQueryClient()
+  // const mutations = useMutation(addClassifiedPost, {
   //   onSuccess: () => {
-  //     queryClient.invalidateQueries('getPosts')
-  //   }
+  //     queryClient.invalidateQueries('fetchClassifiedPost')
+  //   },
   // })
+  const mutations = useMutation({
+    mutationFn: ({
+      postData,
+      token,
+      locationId,
+    }: {
+      postData: AddPostDataDraft
+      token: string
+    }) => addClassifiedPost(postData, token, locationId),
+    onSuccess: async () => {
+      console.log('added, I am in the mutation')
+      // queryClient.invalidateQueries('getUsers')
+    },
+  })
 
   // const location = useParams().location as string
   // const category = useParams().category as string
 
-  const { user } = useAuth0()
-
   const navigate = useNavigate()
 
   const initialState = {
-    user_auth0_id: user?.sub,
-    location_id: 0,
-    title: '',
-    type: '',
-    image: '',
-    date: '',
-    time: '',
+    tile: '',
     venue: '',
-    attendees: '',
+    image: '',
     description: '',
-  } as ActPostData
+    location_id: 0,
+  } as AddPostDataDraft
 
   const [postData, setpostData] = useState(initialState)
 
@@ -50,7 +60,6 @@ function AddPost() {
     //the redirect url need more work
     // navigate(`/${location}/${category}`)
     navigate('/newmarket/classifieds')
-
   }
 
   return (
@@ -59,56 +68,83 @@ function AddPost() {
         <h2>Create Post</h2>
       </div>
       <div>
-        <img className='w-10' src="../../public/images/cockroach.png" alt="user avatar" />
+        <img
+          className="w-10"
+          src="../../public/images/cockroach.png"
+          alt="user avatar"
+        />
         <p>{user?.nickname}</p>
         <p>Newmarket Neighbour</p>
       </div>
-      <form onSubmit={handleSubmit} className='pl-7 flex flex-col w-3/4'>
-        <div className='flex flex-col '>
-          <label htmlFor='title' className='text-black pl-7 pb-2 font-bold font-xl'>Listing title</label>
+      <form onSubmit={handleSubmit} className="pl-7 flex flex-col w-3/4">
+        <div className="flex flex-col ">
+          <label
+            htmlFor="title"
+            className="text-black pl-7 pb-2 font-bold font-xl"
+          >
+            Listing title
+          </label>
           <input
             type="text"
-            name='title'
+            name="title"
             value={postData.title}
             onChange={handleChange}
-            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
           />
         </div>
 
-        <div className='flex flex-col '>
-          <label htmlFor="venue" className='text-black pl-7 pb-2 font-bold font-xl'>Venue</label>
+        <div className="flex flex-col ">
+          <label
+            htmlFor="venue"
+            className="text-black pl-7 pb-2 font-bold font-xl"
+          >
+            Venue
+          </label>
           <input
             type="text"
-            name='venue'
+            name="venue"
             value={postData.venue}
             onChange={handleChange}
-            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
           />
         </div>
 
-        <div className='flex flex-col '>
-          <label htmlFor="image" className='text-black pl-7 pb-2 font-bold font-xl'>Attach Image Link</label>
+        <div className="flex flex-col ">
+          <label
+            htmlFor="image"
+            className="text-black pl-7 pb-2 font-bold font-xl"
+          >
+            Attach Image Link
+          </label>
           <input
             type="text"
-            name='image'
+            name="image"
             value={postData.image}
             onChange={handleChange}
-            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
           />
         </div>
 
-        <div className='flex flex-col '>
-          <label htmlFor="description" className='text-black pl-7 pb-2 font-bold font-xl'>Description</label>
+        <div className="flex flex-col ">
+          <label
+            htmlFor="description"
+            className="text-black pl-7 pb-2 font-bold font-xl"
+          >
+            Description
+          </label>
           <input
             type="text"
-            name='description'
+            name="description"
             value={postData.description}
             onChange={handleChange}
-            className=' bg-primary flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-lg drop-shadow-[0px_0px_10px_#65768C]'
+            className=" bg-primary flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-lg drop-shadow-[0px_0px_10px_#65768C]"
           />
         </div>
 
-        <button type="submit" className=' bg-lightGreen text-white justify-center text-center font-bold py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C] drop-shadow-2xl'>
+        <button
+          type="submit"
+          className=" bg-lightGreen text-white justify-center text-center font-bold py-2 px-4 mb-6 ml-6 mt-10 rounded-lg hover:shadow-[0px_0px_9px_2px_#65768C] drop-shadow-2xl"
+        >
           Post
         </button>
       </form>
