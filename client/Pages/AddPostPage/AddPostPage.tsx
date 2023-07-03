@@ -64,7 +64,7 @@ function AddPost() {
       <div className="text-center text-3xl font-semibold border-slate-300 border-b-1 pb-2">
         <h2>Create Post</h2>
       </div>
-      <div className="flex my-2">
+      <div className="flex mb-2 mt-6">
         <div className="mr-2">
           <img
             src="../../public/images/userImage.jpg"
@@ -77,7 +77,7 @@ function AddPost() {
           <p className="font-light">Newmarket Neighbour</p>
         </div>
       </div>
-      <form onSubmit={handleSubmit} className="flex flex-col">
+      <form onSubmit={handleSubmit} className="flex flex-col mt-4 mx-4">
         <div className="flex flex-col ">
           <label
             htmlFor="title"
@@ -138,7 +138,7 @@ function AddPost() {
             name="description"
             value={postData.description}
             onChange={handleChange}
-            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 h-20 rounded-sm drop-shadow-xl"
+            className=" bg-lightPink flex flex-row py-2 px-4 mb-6 rounded-sm drop-shadow-xl h-40"
           />
         </div>
         <CreateButton />

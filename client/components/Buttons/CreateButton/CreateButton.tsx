@@ -2,8 +2,8 @@ import Button from '../../UI/Button/Button'
 
 function CreateButton() {
   return (
-    <div>
-      <Button className="w-11/12 bg-pink">Post</Button>
+    <div className='flex justify-center'>
+      <Button className="w-full bg-pink rounded-sm">Post</Button>
     </div>
   )
 }
