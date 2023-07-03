@@ -31,6 +31,7 @@ export const ActPostCommentDataBackendSchema = ActPostCommentDataSchema.extend({
 })
 
 export type ActPostData = z.infer<typeof ActPostDataSchema>
+
 export type ActPostDataBackend = z.infer<typeof ActPostDataBackendSchema>
 export type ActPostCommentData = z.infer<typeof ActPostCommentDataSchema>
 export type ActPostCommentDataBackend = z.infer<
