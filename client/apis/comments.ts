@@ -5,16 +5,34 @@ const rootUrl = '/api/v1/'
 
 export async function fetchComments(
   locationId: number,
-  request: number,
+  postId: number,
   token: string
 ): Promise<AnswerDataBackend[]> {
-  const url = `${rootUrl}locations/${locationId}/classifieds/${request}`
-  const res = await request
-    .get(url)
-    .set('Authorization', `Bearer ${token}`)
-    .set('Content-Type', 'application/json')
-  console.log('I am in the api call', res.body.comments)
-    return res.body.comments
+  return Promise.resolve([
+    {
+      userId: '1',
+      id: '1',
+      user_name: 'John Doe',
+      comment: 'This is the first comment.',
+      avatarUrl: '',
+      replies: [],
+    },
+    {
+      userId: '2',
+      id: '2',
+      user_name: 'Jane',
+      comment: 'Here is another comment.',
+      avatarUrl: '',
+      replies: [],
+    },
+  ])
+  // const url = `${rootUrl}locations/${locationId}/classifieds/${postId}`
+  // const res = await request
+  //   .get(url)
+  //   .set('Authorization', `Bearer ${token}`)
+  //   .set('Content-Type', 'application/json')
+  // console.log('I am in the api call', res.body.comments)
+  //   return res.body.comments
 }
 
 // comment: string;

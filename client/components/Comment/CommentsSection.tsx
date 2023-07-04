@@ -6,96 +6,47 @@ import { AnswerDataBackend } from '../../../models/comments'
 import { fetchClassifiedPost } from '../../apis/classifiedPost'
 import { fetchComments } from '../../apis/comments'
 
-function CommentsSection() {
-  const { locationId } = useParams()
-  const { request } = useParams()
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+interface Props {
+  postId: string,
+  locationId: string
+}
 
-  const [addComment, setAddComment] = useState('')
+function CommentsSection({postId, locationId} : Props) {
+  const { getAccessTokenSilently } = useAuth0()
 
   const { isLoading, data } = useQuery(
-    ['fetchLocations', locationId],
+    ['comments', postId],
     async () => {
       const token = await getAccessTokenSilently()
 
-      return await fetchComments(Number(locationId), Number(request), token)
+      return await fetchComments(Number(locationId), Number(postId), token)
     }
   )
-}
 
-function Comment(props: AnswerDataBackend): JSX.Element {
-  // const {
-  //   currentUser,
-  //   commentData,
-  //   onDeleteComment,
-  //   onAddComment,
-  //   onReactToComment,
-  // } = props
 
-  const { comment, classified_request_id, user_name, id } = props
-
-  // const {
-  //   currentUser,
-  //   commentData,
-  //   onDeleteComment,
-  //   onAddComment,
-  //   onReactToComment,
-  // } = props
-
-  const handleLogin = () => {
-    // You can implement the login logic here
-    console.log('Logging in...')
-  }
-
-  const handleDeleteComment = (commentId: string) => {
-    // You can implement the delete comment logic here
-    console.log('Deleting comment:', commentId)
-    onDeleteComment(commentId)
-  }
-
-  const handleAddComment = (text: string) => {
-    // You can implement the add comment logic here
-    console.log('Adding comment:', text)
-    onAddComment(text)
-  }
-
-  const handleReactToComment = (commentId: string, reaction: string) => {
-    // You can implement the react to comment logic here
-    console.log('Reacting to comment:', commentId, 'with reaction:', reaction)
-    onReactToComment(commentId, reaction)
-  }
 
   return (
-    <div>
-      {currentUser ? (
-        <div>
+     <div>
           {/* Render the comment section */}
           <h3>Comments</h3>
-          {props.map((comment: comment) => (
-            <div key={comment.comId}>
+          {data && data.map((comment) => (
+            <div key={comment.id}>
               <p>
-                <strong>{comment.fullName}</strong>: {comment.text}
+                <strong>{comment.user_name}</strong>: {comment.comment}
               </p>
-              <button onClick={() => handleDeleteComment(comment.comId)}>
+              <button onClick={() => {}}>
                 Delete
               </button>
             </div>
           ))}
           <div>
             <input type="text" placeholder="Add a comment" />
-            <button onClick={() => handleAddComment('New comment')}>
+            <button onClick={() => {}}>
               Add Comment
             </button>
           </div>
         </div>
-      ) : (
-        <div>
-          <p>Please log in to add or delete comments.</p>
-          <button onClick={handleLogin}>Log In</button>
-        </div>
-      )}
-    </div>
   )
 }
 
-export default Comment
+export default CommentsSection
