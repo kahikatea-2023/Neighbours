@@ -18,6 +18,7 @@ import {
   newRequestToBackend,
   PostAnswersSchema,
   PostRequestSchema,
+  updateClaRequestSchema,
 } from '../../models/classified'
 import { validateAccessToken } from './auth0'
 import { AddPostDraftSchema } from '../../models/activities'
@@ -118,21 +119,33 @@ router.patch(
   async (req, res) => {
     const updatedRequest = req.body
     const id = Number(req.params.request)
+    const location_id = Number(req.params.id)
     const auth0Id = req.auth?.payload.sub
+
+    const updateResult = {
+      user_auth0_id: auth0Id,
+      location_id: location_id,
+      title: updatedRequest.title,
+      date: updatedRequest.date,
+      venue: updatedRequest.venue,
+      description: updatedRequest.description,
+      image: updatedRequest.image,
+    } as newRequestToBackend
+
     if (!auth0Id) {
       console.error('No auth0Id')
       return res.status(401).send('Unauthorized')
     }
+
     try {
-      const userResult = PostRequestSchema.safeParse(updatedRequest)
+      const userResult = updateClaRequestSchema.safeParse(updatedRequest)
 
       if (!userResult.success) {
         res.status(400).json({ message: 'Please provide a valid form' })
         return
       }
-      await getClassificationById(id)
-      const updatedPost = { ...updatedRequest, user_auth0_id: auth0Id }
-      await updateRequest(updatedPost, id)
+
+      await updateRequest(updateResult, id)
       res.sendStatus(204)
     } catch (error) {
       console.error(error)
