@@ -1,12 +1,24 @@
 import { FaArrowLeft } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
 import Comment from '../Comment/Comment'
-import { fetchClassifiedPostById } from '../../apis/classifiedPost'
+import { fetchClassifiedPostDetails } from '../../apis/classifiedPost'
 import { useQuery } from 'react-query'
 import { useAuth0 } from '@auth0/auth0-react'
 
 function ClassifiedsDetailPost() {
+  const { getAccessTokenSilently } = useAuth0()
   const navigate = useNavigate()
+  const locationId = Number(useParams().locationId)
+  const postId = Number(useParams().postId)
+
+  const { isLoading, data } = useQuery(
+    ['fetchClassifiedPostDetails', locationId, postId],
+    async () => {
+      const token = await getAccessTokenSilently()
+      const response = await fetchClassifiedPostDetails(locationId, postId, token)
+      return response
+    }
+  )
 
   const hardCodedData = {
     id: 1,
@@ -48,12 +60,14 @@ function ClassifiedsDetailPost() {
     navigate(-1)
   }
 
+
+
   return (
     <div className="p-5">
       <FaArrowLeft size={30} onClick={handleGoBack} />
       <img
         className="w-96 m-auto mt-4"
-        src={hardCodedData.image}
+        src={!isLoading && data && data.image}
         alt="cockroach"
       />
       <div className="flex my-2">
@@ -65,20 +79,21 @@ function ClassifiedsDetailPost() {
           />
         </div>
         <div>
-          <p className="font-normal">{hardCodedData.user_name}</p>
+          <p className="font-normal">{!isLoading && data && data.user_name}</p>
           <p className="font-light">Newmarket Neighbour</p>
         </div>
       </div>
-      <h1 className="font-black text-xl mb-0">{hardCodedData.title}</h1>
-      <p className="font-light mt-0">Posted on {hardCodedData.date}</p>
+      <h1 className="font-black text-xl mb-0">{!isLoading && data && data.title}</h1>
+      <p className="font-light mt-0">Posted on {!isLoading && data && data.date}</p>
       <div
         className="px-2 pt-2 pb-4
       "
       >
         <p>
           <strong>Venue: </strong>
-          {hardCodedData.venue}        </p>
-        <p className="pt-1">{hardCodedData.description}</p>
+          {!isLoading && data && data.venue}
+        </p>
+        <p className="pt-1">{!isLoading && data && data.description}</p>
       </div>
       <div>
         <div className="border-slate-400 border-t-2">
@@ -110,3 +125,7 @@ function ClassifiedsDetailPost() {
 }
 
 export default ClassifiedsDetailPost
+function getAccessTokenSilently() {
+  throw new Error('Function not implemented.')
+}
+

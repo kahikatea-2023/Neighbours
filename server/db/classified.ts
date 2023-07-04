@@ -37,7 +37,8 @@ export async function getClassificationById(id: number) {
       'classified_request.venue',
       'classified_request.description'
     )
-    .first()) as ClaRequestDataBackend[]
+    .first()
+  ) as ClaRequestDataBackend
 }
 
 export async function getClassificationByUserAuthId(id: string) {

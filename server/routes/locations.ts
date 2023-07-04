@@ -66,9 +66,9 @@ router.get('/:id/classified', async (req, res) => {
 router.get('/:id/classified/:request', async (req, res) => {
   try {
     const id = Number(req.params.request)
-    const classification = await getClassificationById(id)
+    const classificationDetails = await getClassificationById(id)
     // const answers = await getAllAnswersByRequest(id)
-    res.json({ ...classification })
+    res.json({ classificationDetails })
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })

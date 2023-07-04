@@ -1,7 +1,6 @@
 import request from 'superagent'
 import {
-  AddPostDataDraft,
-  ClassifiedRqDataBackend,
+  ClaRequestDataBackend,
 } from '../../models/classified'
 
 const rootUrl = '/api/v1/'
@@ -10,7 +9,7 @@ const rootUrl = '/api/v1/'
 export async function fetchClassifiedPost(
   locationId: number,
   token: string
-): Promise<ClassifiedRqDataBackend[]> {
+): Promise<ClaRequestDataBackend[]> {
   const url = `${rootUrl}locations/${locationId}/classified`
   const res = await request
     .get(url)
@@ -20,11 +19,23 @@ export async function fetchClassifiedPost(
   return res.body.classifications
 }
 
+export async function fetchClassifiedPostDetails(
+  locationId: number,
+  postId: number,
+  token: string
+): Promise<ClaRequestDataBackend> {
+  const url = `${rootUrl}locations/${locationId}/classified/${postId}`
+  const res = await request
+    .get(url)
+    .set('Authorization', `Bearer ${token}`)
+    .set('Content-Type', 'application/json')
+  return res.body.classificationDetails
+}
 
 export async function fetchUserClassifiedPost(
   auth0Id: string,
   token: string
-): Promise<ClassifiedRqDataBackend[]> {
+): Promise<ClaRequestDataBackend[]> {
   const url = `${rootUrl}locations/${auth0Id}/classifiedposts`
   const res = await request
     .get(url)
