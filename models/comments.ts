@@ -13,6 +13,7 @@ export const answersDataBackend = addAnswerSchema.extend({
   id: z.number(),
 })
 
+
 export type UpdateAnswer = z.infer<typeof updateAnswerSchema>
 export type AddAnswer = z.infer<typeof addAnswerSchema>
 export type AnswerDataBackend = z.infer<typeof answersDataBackend>
