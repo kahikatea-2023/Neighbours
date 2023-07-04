@@ -10,9 +10,9 @@ export default function ActivityPost() {
     {
       id: 1,
       user_auth0_id: 'auth0_1',
-      title: 'Yoga Workshop',
+      title: 'Zumba class',
       type: 'Workshop',
-      image: '/public/images/yoga.png',
+      image: '/public/images/zumba.png',
       date: '2023-07-15',
       time: '15:00:00',
       venue: 'Community Center',
@@ -24,7 +24,7 @@ export default function ActivityPost() {
       id: 2,
       user_auth0_id: 'auth0_2',
       location_id: 4,
-      title: 'Painting Class',
+      title: 'Yoga Workshop',
       type: 'Class',
       image: '/public/images/yoga.png',
       date: '2023-08-05',
@@ -92,7 +92,7 @@ export default function ActivityPost() {
     },
   ]
 
-  const firstTwoPosts = fakeData.slice(0,2)
+  const firstTwoPosts = fakeData.slice(0, 2)
   const remainingPosts = fakeData.slice(2)
 
   //Search bar section
@@ -101,17 +101,16 @@ export default function ActivityPost() {
     e.preventDefault()
   }
 
-
   return (
     <>
-      <div className='mx-2'>
+      <div className="mx-2">
         <div className="flex justify-between mb-4 w-full">
           {firstTwoPosts.map((post) => {
             return (
               <TopPost
                 key={post.id}
                 title={post.title}
-                path={`/${locationId}/classifieds/${post.id}`}
+                path={`/${locationId}/activities/${post.id}`}
                 className="text-black w-42"
                 imgSource={post.image}
                 date={post.date}
@@ -119,9 +118,13 @@ export default function ActivityPost() {
             )
           })}
         </div>
-        <div className='border-pink border-2 rounded-full flex items-center h-8'>
-          <img src="/public/images/search-icon.png" alt="search-icon" className='w-10 pl-4'/>
-          <form onSubmit={handleSearch} className='pl-4'>
+        <div className="border-pink border-2 rounded-full flex items-center h-8">
+          <img
+            src="/public/images/search-icon.png"
+            alt="search-icon"
+            className="w-10 pl-4"
+          />
+          <form onSubmit={handleSearch} className="pl-4">
             <input
               type="text"
               placeholder="Search"

@@ -39,7 +39,7 @@ export const routes = createRoutesFromElements(
       />
       <Route
         path=":locationId/activities/:id"
-        element={<p>Activities will be here</p>}
+        element={<ActivitiesDetailPost />}
       />
       <Route path=":locationId/classifieds" element={<ClassifiedPage />} />
       <Route

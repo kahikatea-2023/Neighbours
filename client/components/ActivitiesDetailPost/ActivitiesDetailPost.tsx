@@ -9,9 +9,9 @@ function ActivitiesDetailPost() {
     id: 1,
     user_auth0_id: 'auth0_1',
     user_name: 'Sarah',
-    title: 'Yoga Workshop',
+    title: 'Zumba class',
     type: 'Workshop',
-    image: 'public/images/yogaoutside.jpg',
+    image: '/public/images/zumba-class.jpg',
     date: '2023-07-15',
     time: '15:00:00',
     venue: 'Community Center',
@@ -48,20 +48,20 @@ function ActivitiesDetailPost() {
   return (
     <div className="p-5 h-screen">
       <FaArrowLeft size={30} onClick={handleGoBack} />
-      <img className="w-96 m-auto mt-4" src={fakeData.image} alt="yoga class" />
       <div className="flex my-2">
-        <div className="mr-2">
+        <div className="flex">
           <img
-            src="../../public/images/userImage.jpg"
+            src="../../public/images/user.png"
             alt={fakeData.user_name}
-            className="w-10 h-10 rounded-full border-1 border-black"
+            className="w-10 h-10 rounded-full border-1 border-black mr-2"
           />
-        </div>
         <div>
           <p className="font-normal">{fakeData.user_name}</p>
           <p className="font-light">Newmarket Neighbour</p>
         </div>
+        </div>
       </div>
+      <img className="w-96 m-auto mt-2" src={fakeData.image} alt="zumba class" />
       <h1 className="font-black text-xl mb-0">{fakeData.title}</h1>
       <p className="font-light mt-0">Posted on {fakeData.date}</p>
       <div
