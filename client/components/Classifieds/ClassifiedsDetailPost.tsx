@@ -1,6 +1,6 @@
 import { FaArrowLeft } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
-import Comment from '../Comment/Comment'
+import CommentsSection from '../Comment/CommentsSection'
 import { fetchClassifiedPostById } from '../../apis/classifiedPost'
 import { useQuery } from 'react-query'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -84,7 +84,7 @@ function ClassifiedsDetailPost() {
       </div>
       <div>
         <div className="border-slate-400 border-t-2">
-          <Comment
+          <CommentsSection
             currentUser={{
               currentUserId: '',
               currentUserImg: '',

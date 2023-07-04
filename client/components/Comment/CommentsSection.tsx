@@ -6,7 +6,7 @@ import { AnswerDataBackend } from '../../../models/comments'
 import { fetchClassifiedPost } from '../../apis/classifiedPost'
 import { fetchComments } from '../../apis/comments'
 
-function AddComment() {
+function CommentsSection() {
   const { locationId } = useParams()
   const { request } = useParams()
   const { isAuthenticated, getAccessTokenSilently } = useAuth0()
