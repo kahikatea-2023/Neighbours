@@ -1,9 +1,7 @@
 import axios from 'axios'
 
 async function getAddressAutocomplete(input: string): Promise<string[]> {
-  const url = `http://localhost:5173/api/v1/address-autocomplete?input=${encodeURIComponent(
-    input
-  )}`
+  const url = `/api/v1/address-autocomplete?input=${encodeURIComponent(input)}`
 
   try {
     const response = await axios.get(url)
