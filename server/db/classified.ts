@@ -73,7 +73,7 @@ export async function getAllAnswersByRequest(requestId: number) {
       'classified_request_answers.id',
       'users.name',
       'classified_request_answers.comment'
-    ) 
+    )
 }
 
 export function addAnswer(answer: PostAnswers) {
@@ -100,9 +100,14 @@ export function updateAnswer(UpdatedAnswer: PostAnswers, id: number) {
   return db('classified_request_answers').where('id', id).update(newObj)
 }
 
-export function deleteAnswerById(answerId: number, userAuth0Id: string) {
-  return db('classified_request_answers')
+export async function deleteAnswerById(answerId: number, userAuth0Id: string) {
+  const comment = await db('classified_request_answers')
+    .select('user_auth0_id')
     .where('id', answerId)
-    .where('user_auth0_id', userAuth0Id)
-    .delete()
+    .first()
+  if (comment.user_auth0_id !== userAuth0Id) {
+    throw new Error('Unauthorized, user is not author of comment')
+  }
+
+  await db('classified_request_answers').where('id', answerId).del()
 }
