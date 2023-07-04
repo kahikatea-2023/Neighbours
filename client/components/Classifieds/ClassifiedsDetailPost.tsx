@@ -1,5 +1,5 @@
 import { FaArrowLeft } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Comment from '../Comment/Comment'
 import { fetchClassifiedPostDetails } from '../../apis/classifiedPost'
 import { useQuery } from 'react-query'

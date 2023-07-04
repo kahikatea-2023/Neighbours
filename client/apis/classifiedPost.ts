@@ -8,41 +8,40 @@ export async function fetchClassifiedPost(
   locationId: number,
   token: string
 ): Promise<ClaRequestDataBackend[]> {
-): Promise < ClaRequestDataBackend[] > {
-    const url = `${rootUrl}locations/${locationId}/classified`
+  const url = `${rootUrl}locations/${locationId}/classified`
   const res = await request
-      .get(url)
-      .set('Authorization', `Bearer ${token}`)
-      .set('Content-Type', 'application/json')
+    .get(url)
+    .set('Authorization', `Bearer ${token}`)
+    .set('Content-Type', 'application/json')
 
 
   return res.body.classifications
-  }
+}
 
-  export async function fetchClassifiedPostDetails(
-    locationId: number,
-    postId: number,
-    token: string
-  ): Promise<ClaRequestDataBackend> {
-    const url = `${rootUrl}locations/${locationId}/classified/${postId}`
-    const res = await request
-      .get(url)
-      .set('Authorization', `Bearer ${token}`)
-      .set('Content-Type', 'application/json')
-    return res.body.classificationDetails
-  }
+export async function fetchClassifiedPostDetails(
+  locationId: number,
+  postId: number,
+  token: string
+): Promise<ClaRequestDataBackend> {
+  const url = `${rootUrl}locations/${locationId}/classified/${postId}`
+  const res = await request
+    .get(url)
+    .set('Authorization', `Bearer ${token}`)
+    .set('Content-Type', 'application/json')
+  return res.body.classificationDetails
+}
 
-  export async function fetchUserClassifiedPost(
-    auth0Id: string,
-    token: string
-  ): Promise<ClaRequestDataBackend[]> {
-    const url = `${rootUrl}locations/${auth0Id}/classifiedposts`
-    const res = await request
-      .get(url)
-      .set('Authorization', `Bearer ${token}`)
-      .set('Content-Type', 'application/json')
-    return res.body.userClassifications
-  }
+export async function fetchUserClassifiedPost(
+  auth0Id: string,
+  token: string
+): Promise<ClaRequestDataBackend[]> {
+  const url = `${rootUrl}locations/${auth0Id}/classifiedposts`
+  const res = await request
+    .get(url)
+    .set('Authorization', `Bearer ${token}`)
+    .set('Content-Type', 'application/json')
+  return res.body.userClassifications
+}
 // export async function addClassifiedPost(
 //   locationId: number,
 //   newPost: AddPostDataDraft,
