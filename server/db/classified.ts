@@ -4,6 +4,7 @@ import {
   ClaRequestDataBackend,
   newRequestToBackend,
 } from '../../models/classified'
+import { AnswersToBackend } from '../../models/comments'
 
 export async function getAllClassificationsByLocation(locationId: number) {
   return (await db('classified_request')
@@ -70,10 +71,9 @@ export async function getAllAnswersByRequest(requestId: number) {
     .where('classified_request_answers.classified_request_id', requestId)
     .select(
       'classified_request.id as classified_request_id',
-      'classified_request_answers.user_auth0_id',
       'users.name',
       'classified_request_answers.comment'
-    )
+    ) as AnswersToBackend
 }
 
 export function addAnswer(answer: PostAnswers) {
