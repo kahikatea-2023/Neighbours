@@ -14,12 +14,12 @@ function Post({ imgSource, title, date, className, path }: PostProps) {
   return (
     <div
       className={twMerge(
-        ' bg-lightPink flex flex-row py-2 px-4 mb-2 items-center border-b-1 border-slate-500',
+        'w-full bg-lightPink flex py-2 mb-2 items-center border-b-1 border-slate-500',
         className
       )}
     >
       <img className="h-12 w-12" src={imgSource} alt={title} />
-      <div className="flex flex-col pl-4 pt-2">
+      <div className="flex flex-col pl-4 pt-2 w-full">
         <p className="text-black font-bold text-sm">
           <Link to={path}>{title}</Link>
         </p>

@@ -34,7 +34,7 @@ function ClassifiedPost(props: Props) {
               key={post.id}
               title={post.title}
               path={`/${locationId}/classifieds/${post.id}`}
-              className="text-black w-44"
+              className="text-black w-42"
               imgSource={post.image}
               date={post.date}
             />
