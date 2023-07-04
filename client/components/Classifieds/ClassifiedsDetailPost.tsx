@@ -6,6 +6,7 @@ import { useQuery } from 'react-query'
 import { useAuth0 } from '@auth0/auth0-react'
 
 function ClassifiedsDetailPost() {
+  const { postId } = useParams()
   const navigate = useNavigate()
 
   const hardCodedData = {
@@ -77,7 +78,8 @@ function ClassifiedsDetailPost() {
       >
         <p>
           <strong>Venue: </strong>
-          {hardCodedData.venue}        </p>
+          {hardCodedData.venue}{' '}
+        </p>
         <p className="pt-1">{hardCodedData.description}</p>
       </div>
       <div>
