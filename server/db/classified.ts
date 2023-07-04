@@ -12,7 +12,7 @@ export async function getAllClassificationsByLocation(locationId: number) {
     .where('locations.id', locationId)
     .select(
       'classified_request.id',
-      'users.name as user_name',
+      'users.first_name as user_name',
       'locations.name as location',
       'classified_request.title',
       'classified_request.image',
@@ -29,7 +29,7 @@ export async function getClassificationById(id: number) {
     .where('classified_request.id', id)
     .select(
       'classified_request.id',
-      'users.name as user_name',
+      'users.first_name as user_name',
       'locations.name as location',
       'classified_request.title',
       'classified_request.image',
@@ -48,7 +48,7 @@ export async function getClassificationByUserAuthId(id: string) {
     .where('user_auth0_id', id)
     .select(
       'classified_request.id',
-      'users.name as user_name',
+      'users.first_name as user_name',
       'locations.name as location',
       'classified_request.title',
       'classified_request.image',
