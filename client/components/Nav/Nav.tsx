@@ -9,6 +9,7 @@ function Nav(props: Props) {
   const { isAuthenticated, logout } = useAuth0()
   const navigate = useNavigate()
   const { locationId } = useParams()
+  console.log(locationId)
 
   function handleLogout() {
     logout({ logoutParams: { returnTo: window.location.origin } })
