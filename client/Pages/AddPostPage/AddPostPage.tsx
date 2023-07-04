@@ -3,61 +3,53 @@ import { ActPostData } from '../../../models/activities'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useMutation, useQueryClient } from 'react-query'
-import { AddPostDataDraft } from '../../../models/classified'
+import { AddClaRequest, AddPostDataDraft } from '../../../models/classified'
 import { FaArrowLeft } from 'react-icons/fa'
 import CreateButton from '../../components/Buttons/CreateButton/CreateButton'
 import { useQuery } from 'react-query'
 import { fetchProfiles } from '../../apis/profile'
-
-// save for later
-// import { useMutation, useQueryClient } from 'react-query'
+import { addClassifiedReqest } from '../../apis/addPost'
 
 function AddPost() {
-  // for later when connect to backend
+  const locationId = useParams().locationId
+  const location_id = Number(locationId)
   const queryClient = useQueryClient()
-  // const mutations = useMutation(addClassifiedPost, {
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries('fetchClassifiedPost')
-  //   },
-  // })
   const mutations = useMutation({
-    mutationFn: ({
+    mutationFn: async ({
       postData,
       token,
-      locationId,
+      location_id,
     }: {
-      postData: AddPostDataDraft
+      postData: AddClaRequest
       token: string
-    }) => addClassifiedPost(postData, token, locationId),
+      location_id: number
+    }) => addClassifiedReqest(location_id, postData, token),
     onSuccess: async () => {
-      console.log('added, I am in the mutation')
-      // queryClient.invalidateQueries('getUsers')
+      console.log('the add post in react query work')
+      queryClient.invalidateQueries('fetchClassifiedPost')
     },
   })
 
-  // const location = useParams().location as string
-  // const category = useParams().category as string
-
   const { user, getAccessTokenSilently } = useAuth0()
-  const { locationId } = useParams()
-  console.log(locationId, 'this is location id')
-
   const navigate = useNavigate()
 
   const initialState = {
-    tile: '',
+    title: '',
+    date: '',
     venue: '',
-    image: '',
     description: '',
-    location_id: 0,
-  } as AddPostDataDraft
+    image: '',
+    user_name: '',
+    location: '',
+  } as AddClaRequest
 
+  //get the data from the user table
   const profileQuery = useQuery({
     queryKey: 'fetchProfiles',
     queryFn: async () => {
-      const accessToken = await getAccessTokenSilently()
       if (user && user.sub) {
-        const response = await fetchProfiles(accessToken)
+        const token = await getAccessTokenSilently()
+        const response = await fetchProfiles(token)
 
         return response
       }
@@ -74,12 +66,13 @@ function AddPost() {
     setpostData(newpostData)
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    // code below save for later
-    // mutations.mutate(postData)
-    //the redirect url need more work
-    // navigate(`/${location}/${category}`)
+    const token = await getAccessTokenSilently()
+
+    console.log('I am in the postComponent', postData)
+
+    mutations.mutate({ postData, token, location_id })
 
     navigate(`/${locationId}/classifieds`)
   }
