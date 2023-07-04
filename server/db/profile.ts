@@ -1,6 +1,5 @@
 import {
   UpdateUsersDataBackend,
-  UserData,
   UserEditData,
   UsersDataBackend,
 } from '../../models/user'

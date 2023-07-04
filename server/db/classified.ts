@@ -37,8 +37,28 @@ export async function getClassificationById(id: number) {
       'classified_request.venue',
       'classified_request.description'
     )
-    .first()) as ClaRequestDataBackend[]
+    .first()
+  ) as ClaRequestDataBackend
 }
+
+export async function getClassificationByUserAuthId(id: string) {
+  return (await db('classified_request')
+    .join('locations', 'locations.id', 'classified_request.location_id')
+    .join('users', 'users.auth0_id', 'classified_request.user_auth0_id')
+    .where('user_auth0_id', id)
+    .select(
+      'classified_request.id',
+      'users.name as user_name',
+      'locations.name as location',
+      'classified_request.title',
+      'classified_request.image',
+      'classified_request.date',
+      'classified_request.venue',
+      'classified_request.description'
+    )) as ClaRequestDataBackend[]
+}
+
+
 
 export function addRequest(request: newRequestToBackend) {
   return db('classified_request').insert(request)
