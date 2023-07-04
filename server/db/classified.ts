@@ -1,11 +1,5 @@
 import db from './connection'
-import {
-  ClassifiedRqCommentDataBackend,
-  ClassifiedRqDataBackend,
-  ClassifiedPostRqData,
-  PostRequest,
-  PostAnswers,
-} from '../../models/classified'
+import { ClaRequestDataBackend } from '../../models/classified'
 
 export async function getAllClassificationsByLocation(locationId: number) {
   return (await db('classified_request')
@@ -14,20 +8,19 @@ export async function getAllClassificationsByLocation(locationId: number) {
     .where('locations.id', locationId)
     .select(
       'classified_request.id',
-      'classified_request.user_auth0_id',
-      'classified_request.location_id',
+      'users.name as user_name',
+      'locations.name as location',
       'classified_request.title',
-      'classified_request.type',
       'classified_request.image',
       'classified_request.date',
-      'classified_request.time',
       'classified_request.venue',
       'classified_request.description'
-    )) as ClassifiedRqDataBackend[]
+    )) as ClaRequestDataBackend[]
 }
 
 export async function getClassificationById(id: number) {
   return (await db('classified_request')
+    .join('users', 'users.auth0_id', 'classified_request.user_auth0_id')
     .where('id', id)
     .select(
       'id',

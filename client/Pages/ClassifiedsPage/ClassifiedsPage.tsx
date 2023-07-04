@@ -12,8 +12,8 @@ function ClassifiedPage() {
 
   const [searchTerm, setSearchTerm] = useState('')
 
-  // // const classifiedData = fetchClassifiedPost(locationId)
-  // console.log(classifiedData, 'I am in the classifiedPost')
+  // const classifiedData = fetchClassifiedPost(locationId)
+
   const { isLoading, data } = useQuery(
     ['fetchLocations', locationId],
     async () => {
@@ -28,7 +28,7 @@ function ClassifiedPage() {
     e.preventDefault()
     console.log('search is here: ', searchTerm)
   }
-
+  console.log(data, 'I am in the classifiedPost')
   return (
     isAuthenticated && (
       <div className="h-screen">
@@ -47,7 +47,7 @@ function ClassifiedPage() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </form>
-        <AddPostButton/>
+        <AddPostButton />
       </div>
     )
   )
