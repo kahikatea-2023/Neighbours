@@ -1,13 +1,46 @@
-import { CommentSectionProps, CommentData } from '../../../models/comments'
+import { useAuth0 } from '@auth0/auth0-react'
+import { useState } from 'react'
+import { useQuery } from 'react-query'
+import { useParams } from 'react-router-dom'
+import { AnswerDataBackend } from '../../../models/comments'
+import { fetchClassifiedPost } from '../../apis/classifiedPost'
+import { fetchComments } from '../../apis/comments'
 
-function Comment(props: CommentSectionProps): JSX.Element {
-  const {
-    currentUser,
-    commentData,
-    onDeleteComment,
-    onAddComment,
-    onReactToComment,
-  } = props
+function AddComment() {
+  const { locationId } = useParams()
+  const { request } = useParams()
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+
+  const [addComment, setAddComment] = useState('')
+
+  const { isLoading, data } = useQuery(
+    ['fetchLocations', locationId],
+    async () => {
+      const token = await getAccessTokenSilently()
+
+      return await fetchComments(Number(locationId), Number(request), token)
+    }
+  )
+}
+
+function Comment(props: AnswerDataBackend): JSX.Element {
+  // const {
+  //   currentUser,
+  //   commentData,
+  //   onDeleteComment,
+  //   onAddComment,
+  //   onReactToComment,
+  // } = props
+
+  const { comment, classified_request_id, user_name, id } = props
+
+  // const {
+  //   currentUser,
+  //   commentData,
+  //   onDeleteComment,
+  //   onAddComment,
+  //   onReactToComment,
+  // } = props
 
   const handleLogin = () => {
     // You can implement the login logic here
@@ -38,7 +71,7 @@ function Comment(props: CommentSectionProps): JSX.Element {
         <div>
           {/* Render the comment section */}
           <h3>Comments</h3>
-          {commentData.map((comment: CommentData) => (
+          {props.map((comment: comment) => (
             <div key={comment.comId}>
               <p>
                 <strong>{comment.fullName}</strong>: {comment.text}

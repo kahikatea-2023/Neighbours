@@ -1,19 +1,33 @@
 import request from 'superagent'
-import { answersDataBackendSchema } from '../../models/comments'
+import { AnswerDataBackend } from '../../models/comments'
 
 const rootUrl = '/api/v1/'
 
-export async function fetchClassifiedComments(
+export async function fetchComments(
   locationId: number,
-  id: number,
+  request: number,
   token: string
-): Promise<answersDataBackendSchema[]> {
-  const url = ${rootUrl}locations/${locationId}/classified/${id}/requests
+): Promise<AnswerDataBackend[]> {
+  const url = `${rootUrl}locations/${locationId}/classifieds/${request}`
   const res = await request
     .get(url)
-    .set('Authorization', Bearer ${token})
+    .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
-  console.log('I am in the api call', res.body.classifications)
-  console.log(id)
-  return res.body.classifications
+  console.log('I am in the api call', res.body.comments)
+    return res.body.comments
 }
+
+// comment: string;
+// classified_request_id: number;
+// user_name: string;
+// id: number;
+
+
+// export async function fetchComments(token: string,locationId:number, request:number) {
+//   const res = await request
+//   res.get(`/api/v1/${locationId}/classifieds/${request}`)
+//     .set('Authorization', `Bearer ${token}`)
+//     .set('Content-Type', 'application/json')
+
+//   return res.body.comments as []
+// }
