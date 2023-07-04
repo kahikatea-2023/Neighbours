@@ -20,21 +20,20 @@ export async function getAllClassificationsByLocation(locationId: number) {
 
 export async function getClassificationById(id: number) {
   return (await db('classified_request')
+    .join('locations', 'locations.id', 'classified_request.location_id')
     .join('users', 'users.auth0_id', 'classified_request.user_auth0_id')
-    .where('id', id)
+    .where('classified_request.id', id)
     .select(
-      'id',
-      'user_auth0_id',
-      'location_id',
-      'title',
-      'type',
-      'image',
-      'date',
-      'time',
-      'venue',
-      'description'
+      'classified_request.id',
+      'users.name as user_name',
+      'locations.name as location',
+      'classified_request.title',
+      'classified_request.image',
+      'classified_request.date',
+      'classified_request.venue',
+      'classified_request.description'
     )
-    .first()) as ClassifiedRqDataBackend[]
+    .first()) as ClaRequestDataBackend[]
 }
 
 export function addRequest(request: ClassifiedPostRqData) {
