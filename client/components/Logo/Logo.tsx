@@ -1,9 +1,29 @@
-import { Link } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
-function Logo() {
-  return (
-    <Link to="/">
-      <img src="/images/Neighbours-logo.png" alt="Logo" className="w-44" />
+interface Props {
+  toggleMenu: () => void
+}
+
+function Logo(props: Props) {
+  const { isAuthenticated } = useAuth0()
+
+  function handleLogoClick() {
+    props.toggleMenu()
+  }
+
+  return isAuthenticated ? (
+    <Link to="/community">
+      <button onClick={handleLogoClick}>
+        <img src="/images/Neighbours-logo.png" alt="Logo" className="w-44" />
+      </button>
+    </Link>
+  ) : (
+    <Link to="/home">
+      <button onClick={handleLogoClick}>
+        <img src="/images/Neighbours-logo.png" alt="Logo" className="w-44" />
+      </button>
     </Link>
   )
 }
