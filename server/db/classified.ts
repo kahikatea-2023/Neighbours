@@ -73,7 +73,7 @@ export async function getAllAnswersByRequest(requestId: number) {
       'classified_request_answers.id',
       'users.name',
       'classified_request_answers.comment'
-    ) as AnswersToBackend
+    ) 
 }
 
 export function addAnswer(answer: PostAnswers) {
