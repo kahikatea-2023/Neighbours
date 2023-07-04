@@ -23,7 +23,9 @@ function CommentsSection({postId, locationId} : Props) {
     }
   )
 
-
+function handleDelete(commentId: number) {
+ console.log(commentId)
+}
 
   return (
      <div>
@@ -34,7 +36,7 @@ function CommentsSection({postId, locationId} : Props) {
               <p>
                 <strong>{comment.user_name}</strong>: {comment.comment}
               </p>
-              <button onClick={() => {}}>
+              <button onClick={() => handleDelete(comment.id)}>
                 Delete
               </button>
             </div>
