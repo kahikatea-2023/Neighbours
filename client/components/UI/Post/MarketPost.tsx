@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 
-
 // type DivProps = HtmlHTMLAttributes<HTMLDivElement>
 interface PostProps {
   imgSource: string
@@ -9,13 +8,14 @@ interface PostProps {
   date: string
   className: string
   path: string
+  price: number
 }
 
-function Post({ imgSource, title, date, className, path }: PostProps) {
+function MarketPost({ imgSource, title, className, path, price }: PostProps) {
   return (
     <div
       className={twMerge(
-        ' bg-lightPink flex flex-row py-2 px-4 mb-2 mx-5 rounded-2xl drop-shadow-xl',
+        ' bg-lightPink flex flex-row py-2 px-4 mb-2 mx-5 rounded-sm drop-shadow-xl',
         className
       )}
     >
@@ -25,7 +25,7 @@ function Post({ imgSource, title, date, className, path }: PostProps) {
           <Link to={path}>{title}</Link>
         </p>
         <div className="flex flex-row space-x-10 text-grey font-base">
-          <p>Posted on {date}</p>
+          <p>${price}</p>
           {/* <p>({comment}) comments</p> */}
         </div>
       </div>
@@ -33,4 +33,4 @@ function Post({ imgSource, title, date, className, path }: PostProps) {
   )
 }
 
-export default Post
+export default MarketPost

@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import Post from '../UI/Post/Post'
-import TopPost from '../UI/Post/TopPost'
 import { useState } from 'react'
+import MarketPost from '../UI/Post/MarketPost'
 
 export default function Market() {
   const { locationId } = useParams()
@@ -11,7 +11,7 @@ export default function Market() {
       id: 1,
       market_advertisement_id: 1,
       title: `Ahmad's Banana`,
-      price: '100',
+      price: 100,
       image: '/public/images/banana.png',
       user_auth0_id: 'auth0_3',
       time: '2023-07-16 09:30:00',
@@ -22,7 +22,7 @@ export default function Market() {
       id: 2,
       market_advertisement_id: 1,
       title: `Finger`,
-      price: '4',
+      price: 4,
       image: '/public/images/banana.png',
       user_auth0_id: 'auth0_1',
       time: '2023-07-16 10:15:00',
@@ -33,7 +33,7 @@ export default function Market() {
       id: 3,
       market_advertisement_id: 2,
       title: `Rolex`,
-      price: '17,000',
+      price: 17000,
       image: '/public/images/banana.png',
       user_auth0_id: 'auth0_3',
       time: '2023-08-05 19:45:00',
@@ -45,7 +45,7 @@ export default function Market() {
       id: 4,
       market_advertisement_id: 3,
       title: `My husband`,
-      price: '0',
+      price: 0,
       image: '/public/images/banana.png',
       user_auth0_id: 'auth0_2',
       time: '2023-09-10 20:30:00',
@@ -53,9 +53,6 @@ export default function Market() {
       comment: "I'm a big fan of vinyl records! Are they in good condition?",
     },
   ]
-
-  const firstTwoPosts = fakeData.slice(0, 2)
-  const remainingPosts = fakeData.slice(2)
 
   //Search bar section
   const [searchTerm, setSearchTerm] = useState('')
@@ -65,48 +62,38 @@ export default function Market() {
 
   return (
     <>
-      <div className="mx-2">
+      <div className="border-pink border-2 rounded-full flex items-center h-8">
+        <img
+          src="/public/images/search-icon.png"
+          alt="search-icon"
+          className="w-10 pl-4"
+        />
+        <form onSubmit={handleSearch} className="pl-4">
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </form>
+      </div>
+      <h1 className="text-center font-semibold mb-2">All items</h1>
+      <div className="mx-2 grid-cols-2">
         <div className="flex justify-between mb-4 w-full">
-          {firstTwoPosts.map((post) => {
+          {fakeData.map((post) => {
             return (
-              <TopPost
+              <MarketPost
                 key={post.id}
                 title={post.title}
-                path={`/${locationId}/activities/${post.id}`}
+                path={`/${locationId}/market/${post.id}`}
                 className="text-black w-42"
                 imgSource={post.image}
-                date={post.price}
+                price={post.price}
+                date={''}
               />
             )
           })}
         </div>
-        <div className="border-pink border-2 rounded-full flex items-center h-8">
-          <img
-            src="/public/images/search-icon.png"
-            alt="search-icon"
-            className="w-10 pl-4"
-          />
-          <form onSubmit={handleSearch} className="pl-4">
-            <input
-              type="text"
-              placeholder="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </form>
-        </div>
-        {remainingPosts.map((post) => {
-          return (
-            <Post
-              key={post.id}
-              title={post.title}
-              path={`/${locationId}/classifieds/${post.id}`}
-              className="text-black"
-              imgSource={post.image}
-              date={post.price}
-            />
-          )
-        })}
       </div>
     </>
   )

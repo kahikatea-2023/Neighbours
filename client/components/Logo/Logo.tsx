@@ -14,7 +14,7 @@ function Logo(props: Props) {
   }
 
   return isAuthenticated ? (
-    <Link to="/:locationId">
+    <Link to="/4">
       <button onClick={handleLogoClick}>
         <img src="/images/Neighbours-logo.png" alt="Logo" className="w-44" />
       </button>
