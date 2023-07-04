@@ -29,9 +29,10 @@ function ClassifiedPage() {
     console.log('search is here: ', searchTerm)
   }
   console.log(data, 'I am in the classifiedPost')
+
   return (
     isAuthenticated && (
-      <div className="h-screen">
+      <div className="h-screen bg-lightPink">
         <div className="w-3/4 text-center text-4xl font-bold pl-7 mt-2 mb-6">
           <h1 className="font-semibold text-2xl text-start">Classifieds</h1>
           <h2 className="font-light text-base text-start">
@@ -39,14 +40,6 @@ function ClassifiedPage() {
           </h2>
         </div>
         {data && <ClassifiedPost data={data} />}
-        <form onSubmit={handleSearch}>
-          <input
-            type="text"
-            placeholder="Search posts..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </form>
         <AddPostButton />
       </div>
     )
