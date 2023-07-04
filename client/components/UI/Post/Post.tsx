@@ -24,7 +24,7 @@ function Post({ imgSource, title, date, className, path }: PostProps) {
           <Link to={path}>{title}</Link>
         </p>
         <div className="text-sm">
-          <p>Posted on {date}</p>
+          <p>${date}</p>
           <p className="text-end pt-1">(5) comments</p>
         </div>
       </div>
