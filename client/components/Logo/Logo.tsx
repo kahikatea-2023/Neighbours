@@ -20,7 +20,7 @@ function Logo(props: Props) {
       </button>
     </Link>
   ) : (
-    <Link to="/home">
+    <Link to="/">
       <button onClick={handleLogoClick}>
         <img src="/images/Neighbours-logo.png" alt="Logo" className="w-44" />
       </button>
