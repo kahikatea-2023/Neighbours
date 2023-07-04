@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import Post from '../UI/Post/Post'
+import MainPost from '../UI/Post/MainPost'
 
 function CommunityPost() {
   const { locationId } = useParams()
@@ -45,7 +46,7 @@ function CommunityPost() {
           View All Activities
         </Link>
       </div>
-      <Post
+      <MainPost
         key={actPost.user_auth0_id}
         title={actPost.title}
         className="text-black"
@@ -61,7 +62,7 @@ function CommunityPost() {
           View All Classification
         </Link>
       </div>
-      <Post
+      <MainPost
         key={classifiedPost.user_auth0_id}
         title={classifiedPost.title}
         className="text-black"
@@ -79,7 +80,7 @@ function CommunityPost() {
           View All Market
         </Link>
       </div>
-      <Post
+      <MainPost
         key={marketPost.user_auth0_id}
         title={marketPost.title}
         className="text-black"
