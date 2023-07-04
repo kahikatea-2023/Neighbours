@@ -25,7 +25,7 @@ function Post({ imgSource, title, date, className, path }: PostProps) {
           <Link to={path}>{title}</Link>
         </p>
         <div className="flex flex-row space-x-10 text-grey font-base">
-          <p>{date}</p>
+          <p>Posted on {date}</p>
           {/* <p>({comment}) comments</p> */}
         </div>
       </div>
