@@ -77,8 +77,7 @@ function ClassifiedsDetailPost() {
       >
         <p>
           <strong>Venue: </strong>
-          {hardCodedData.venue}
-        </p>
+          {hardCodedData.venue}        </p>
         <p className="pt-1">{hardCodedData.description}</p>
       </div>
       <div>
