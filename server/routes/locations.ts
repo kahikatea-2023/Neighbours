@@ -14,6 +14,8 @@ import {
 } from '../db/classified'
 import {
   AddClaRequest,
+  addClaRequestSchema,
+  newRequestToBackend,
   PostAnswersSchema,
   PostRequestSchema,
 } from '../../models/classified'
@@ -94,12 +96,12 @@ router.post('/:id/classified', validateAccessToken, async (req, res) => {
   }
   try {
     // Need to fixed the zod
-    // const userResult = AddPostDraftSchema.safeParse(newRequest)
+    const userResult = addClaRequestSchema.safeParse(Request)
 
-    // if (!userResult.success) {
-    //   res.status(400).json({ message: 'Please provide a valid form' })
-    //   return
-    // }
+    if (!userResult.success) {
+      res.status(400).json({ message: 'Please provide a valid form' })
+      return
+    }
 
     await addRequest(newRequest)
     res.sendStatus(201)
