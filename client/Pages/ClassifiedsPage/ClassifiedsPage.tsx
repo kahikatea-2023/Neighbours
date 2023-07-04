@@ -28,7 +28,6 @@ function ClassifiedPage() {
     e.preventDefault()
     console.log('search is here: ', searchTerm)
   }
-  console.log(data, 'I am in the classifiedPost')
 
   return (
     isAuthenticated && (

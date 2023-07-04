@@ -1,18 +1,18 @@
 import request from 'superagent'
-import { ClaRequestDataBackend } from '../../models/classified'
-
+import { AddClaRequest } from '../../models/classified'
 const rootUrl = '/api/v1/'
 
-//Sarah's fetchClassified
-export async function fetchClassifiedPost(
+export async function addClassifiedReqest(
   locationId: number,
+  newPost: AddClaRequest,
   token: string
-): Promise<ClaRequestDataBackend[]> {
+): Promise<void> {
   const url = `${rootUrl}locations/${locationId}/classified`
-  const res = await request
-    .get(url)
+  await request
+    .post(url)
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
+    .send(newPost)
 
-  return res.body.classifications
+  //need to fixed the console.log
 }
