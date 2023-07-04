@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 
+
+// type DivProps = HtmlHTMLAttributes<HTMLDivElement>
 interface PostProps {
   imgSource: string
   title: string

@@ -2,21 +2,17 @@ import { useEffect, useState } from 'react'
 import { UpdateUsersData, UpdateUsersDataBackend } from '../../../models/user'
 import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useMutation, useQuery } from 'react-query';
-import { fetchLocations } from '../../apis/registration';
-import { fetchProfiles, updateProfile } from '../../apis/profile';
-
+import { useMutation, useQuery } from 'react-query'
+import { fetchLocations } from '../../apis/registration'
+import { fetchProfiles, updateProfile } from '../../apis/profile'
 
 function EditProfile() {
-
   const { user, getAccessTokenSilently } = useAuth0()
   const navigate = useNavigate()
 
-  const { isLoading, data, } = useQuery('fetchLocations', async () => {
+  const { isLoading, data } = useQuery('fetchLocations', async () => {
     return await fetchLocations()
   })
-
-
 
   const initialState = {
     first_name: '',
@@ -28,9 +24,8 @@ function EditProfile() {
     auth0_id: '',
   }
 
-
-  const [updateUser, setupdateUser] = useState<UpdateUsersDataBackend>(
-    initialState)
+  const [updateUser, setupdateUser] =
+    useState<UpdateUsersDataBackend>(initialState)
 
   const profileQuery = useQuery({
     queryKey: 'fetchProfiles',
@@ -42,9 +37,8 @@ function EditProfile() {
         return response
       }
     },
-    enabled: !!user
+    enabled: !!user,
   })
-
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const name = event.target.name
@@ -64,8 +58,13 @@ function EditProfile() {
 
   //data is called and then mutated
   const mutations = useMutation({
-    mutationFn: ({ updateUser, token }: { updateUser: UpdateUsersData; token: string }) =>
-      updateProfile(updateUser, token),
+    mutationFn: ({
+      updateUser,
+      token,
+    }: {
+      updateUser: UpdateUsersData
+      token: string
+    }) => updateProfile(updateUser, token),
     onSuccess: async () => {
       await console.log('added, I am in patch the mutation')
       // queryClient.invalidateQueries('getUsers')
@@ -78,7 +77,6 @@ function EditProfile() {
     mutations.mutate({ updateUser, token })
     navigate(`/profile`)
   }
-
 
   return (
     <div className="mr-6">
@@ -106,7 +104,7 @@ function EditProfile() {
             Last Name
           </label>
           <input
-            id='lastName'
+            id="lastName"
             type="text"
             name="last_name"
             // placeholder="e.g. Anne"
@@ -176,11 +174,13 @@ function EditProfile() {
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 rounded-sm"
           >
             <option value="">Select location</option>
-            {!isLoading && data && data.map((suburb) => (
-              <option key={suburb.id} value={suburb.id}>
-                {suburb.name}
-              </option>
-            ))}
+            {!isLoading &&
+              data &&
+              data.map((suburb) => (
+                <option key={suburb.id} value={suburb.id}>
+                  {suburb.name}
+                </option>
+              ))}
           </select>
         </div>
         <button
@@ -195,4 +195,3 @@ function EditProfile() {
 }
 
 export default EditProfile
-

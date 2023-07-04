@@ -49,7 +49,7 @@ function CommunityPost() {
       <MainPost
         key={actPost.user_auth0_id}
         title={actPost.title}
-        className="text-black"
+        className="text-black "
         imgSource={actPost.image}
         path={`/${Number(locationId)}/activities/${actPost.user_auth0_id}`}
         date={actPost.date}
@@ -75,7 +75,7 @@ function CommunityPost() {
       <div>
         <Link
           className="mx-5 flex justify-end text-base hover:text-primary hover:underline-offset-4 hover:underline"
-          to={`/${Number(locationId)}/classifieds`}
+          to={`/${Number(locationId)}/Market`}
         >
           View All Market
         </Link>

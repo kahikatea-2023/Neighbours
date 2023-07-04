@@ -12,7 +12,14 @@ import {
   updateAnswer,
   deleteAnswerById,
 } from '../db/classified'
-import { PostAnswersSchema, PostRequestSchema } from '../../models/classified'
+import {
+  AddClaRequest,
+  addClaRequestSchema,
+  newRequestToBackend,
+  PostAnswersSchema,
+  PostRequestSchema,
+  updateClaRequestSchema,
+} from '../../models/classified'
 import { validateAccessToken } from './auth0'
 import { AddPostDraftSchema } from '../../models/activities'
 const router = Router()
@@ -69,23 +76,35 @@ router.get('/:id/classified/:request', async (req, res) => {
 
 //add new request
 router.post('/:id/classified', validateAccessToken, async (req, res) => {
-  const newRequest = req.body
+  const location_id = Number(req.params.id)
   const auth0_id = req.auth?.payload.sub
+  const Request = req.body
+  // as AddClaRequest
+
+  const newRequest = {
+    user_auth0_id: auth0_id,
+    location_id: location_id,
+    title: Request.title,
+    date: Request.date,
+    venue: Request.venue,
+    description: Request.description,
+    image: Request.image,
+  } as newRequestToBackend
+
   if (!auth0_id) {
     console.error('No auth0Id')
     return res.status(401).send('Unauthorized')
   }
   try {
     // Need to fixed the zod
-    // const userResult = AddPostDraftSchema.safeParse(newRequest)
+    const userResult = addClaRequestSchema.safeParse(Request)
 
-    // if (!userResult.success) {
-    //   res.status(400).json({ message: 'Please provide a valid form' })
-    //   return
-    // }
+    if (!userResult.success) {
+      res.status(400).json({ message: 'Please provide a valid form' })
+      return
+    }
 
-    const newPost = { ...newRequest, user_auth0_id: auth0_id }
-    await addRequest(newPost)
+    await addRequest(newRequest)
     res.sendStatus(201)
   } catch (error) {
     console.error(error)
@@ -100,21 +119,33 @@ router.patch(
   async (req, res) => {
     const updatedRequest = req.body
     const id = Number(req.params.request)
+    const location_id = Number(req.params.id)
     const auth0Id = req.auth?.payload.sub
+
+    const updateResult = {
+      user_auth0_id: auth0Id,
+      location_id: location_id,
+      title: updatedRequest.title,
+      date: updatedRequest.date,
+      venue: updatedRequest.venue,
+      description: updatedRequest.description,
+      image: updatedRequest.image,
+    } as newRequestToBackend
+
     if (!auth0Id) {
       console.error('No auth0Id')
       return res.status(401).send('Unauthorized')
     }
+
     try {
-      const userResult = PostRequestSchema.safeParse(updatedRequest)
+      const userResult = updateClaRequestSchema.safeParse(updatedRequest)
 
       if (!userResult.success) {
         res.status(400).json({ message: 'Please provide a valid form' })
         return
       }
-      await getClassificationById(id)
-      const updatedPost = { ...updatedRequest, user_auth0_id: auth0Id }
-      await updateRequest(updatedPost, id)
+
+      await updateRequest(updateResult, id)
       res.sendStatus(204)
     } catch (error) {
       console.error(error)
@@ -137,7 +168,7 @@ router.delete(
       }
       await getClassificationById(id)
       await deleteRequestById(id, auth0Id)
-
+      // should delete the answer before delete the
       res.sendStatus(200)
     } catch (error) {
       console.error(error)
