@@ -1,8 +1,8 @@
-import ClassifiedPost from '../../components/ClassifiedPost/ClassifiedPost'
 import { useAuth0 } from '@auth0/auth0-react'
 import { fetchUserClassifiedPost } from '../../apis/classifiedPost'
 import AddPostButton from '../../components/Buttons/AddPostButton/AddPostButton'
 import { useQuery } from 'react-query'
+import MyPost from '../../components/MyPost/MyPost'
 
 function MyPostsPage() {
 
@@ -28,7 +28,7 @@ function MyPostsPage() {
             My Posts
           </h1>
         </div>
-        {!isLoading && data && <ClassifiedPost data={data} />}
+        {!isLoading && data && <MyPost data={data} />}
         <AddPostButton />
       </div>
     )
