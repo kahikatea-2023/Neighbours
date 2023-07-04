@@ -23,7 +23,7 @@ function ClassifiedPost(props: Props) {
   return (
     <>
     <div className='mx-2'>
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between mb-4 w-full">
         {firstTwoPosts.map((post) => {
           // const postCommentArray = classifiedComment.filter(
           //   (comment) => comment.classified_request_id === post.id
@@ -34,7 +34,7 @@ function ClassifiedPost(props: Props) {
               key={post.id}
               title={post.title}
               path={`/${locationId}/classifieds/${post.id}`}
-              className="text-black"
+              className="text-black w-44"
               imgSource={post.image}
               date={post.date}
             />

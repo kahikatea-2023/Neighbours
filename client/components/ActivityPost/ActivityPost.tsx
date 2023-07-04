@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom'
 import Post from '../UI/Post/Post'
+import TopPost from '../UI/Post/TopPost'
+import { useState } from 'react'
 
 export default function ActivityPost() {
   const { locationId } = useParams()
@@ -90,18 +92,57 @@ export default function ActivityPost() {
     },
   ]
 
+  const firstTwoPosts = fakeData.slice(0,2)
+  const remainingPosts = fakeData.slice(2)
+
+  //Search bar section
+  const [searchTerm, setSearchTerm] = useState('')
+  function handleSearch(e: any) {
+    e.preventDefault()
+  }
+
+
   return (
     <>
-      {fakeData.map((post, index) => (
-        <Post
-          key={index}
-          title={post.title}
-          className="text-black"
-          imgSource={post.image}
-          date={post.date}
-          path={`/${locationId}/activities/${post.id}`}
-        />
-      ))}
+      <div className='mx-2'>
+        <div className="flex justify-between mb-4 w-full">
+          {firstTwoPosts.map((post) => {
+            return (
+              <TopPost
+                key={post.id}
+                title={post.title}
+                path={`/${locationId}/classifieds/${post.id}`}
+                className="text-black w-42"
+                imgSource={post.image}
+                date={post.date}
+              />
+            )
+          })}
+        </div>
+        <div className='border-pink border-2 rounded-full flex items-center h-8'>
+          <img src="/public/images/search-icon.png" alt="search-icon" className='w-10 pl-4'/>
+          <form onSubmit={handleSearch} className='pl-4'>
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </form>
+        </div>
+        {remainingPosts.map((post) => {
+          return (
+            <Post
+              key={post.id}
+              title={post.title}
+              path={`/${locationId}/classifieds/${post.id}`}
+              className="text-black"
+              imgSource={post.image}
+              date={post.date}
+            />
+          )
+        })}
+      </div>
     </>
   )
 }
