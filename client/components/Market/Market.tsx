@@ -20,10 +20,10 @@ export default function Market() {
     },
     {
       id: 2,
-      market_advertisement_id: 1,
-      title: `Finger`,
-      price: 4,
-      image: '/public/images/banana.png',
+      market_advertisement_id: 2,
+      title: `2021 Tesla`,
+      price: 38500,
+      image: '/public/images/tesla.png',
       user_auth0_id: 'auth0_1',
       time: '2023-07-16 10:15:00',
       description: 'Premium Banana only for $100 per 100g!',
@@ -31,10 +31,10 @@ export default function Market() {
     },
     {
       id: 3,
-      market_advertisement_id: 2,
-      title: `Rolex`,
-      price: 17000,
-      image: '/public/images/banana.png',
+      market_advertisement_id: 3,
+      title: `Sell my partner`,
+      price: 0,
+      image: '/public/images/man-smiling.jpeg',
       user_auth0_id: 'auth0_3',
       time: '2023-08-05 19:45:00',
       description: 'Premium Banana only for $100 per 100g!',
@@ -43,10 +43,10 @@ export default function Market() {
     },
     {
       id: 4,
-      market_advertisement_id: 3,
-      title: `My husband`,
-      price: 0,
-      image: '/public/images/banana.png',
+      market_advertisement_id: 4,
+      title: `*UNUSED* Macbook`,
+      price: 2800,
+      image: '/public/images/macbook.webp',
       user_auth0_id: 'auth0_2',
       time: '2023-09-10 20:30:00',
       description: 'Premium Banana only for $100 per 100g!',
@@ -55,38 +55,21 @@ export default function Market() {
   ]
 
   //Search bar section
-  const [searchTerm, setSearchTerm] = useState('')
-  function handleSearch(e: any) {
-    e.preventDefault()
-  }
+ 
 
   return (
     <>
-      <div className="border-pink border-2 rounded-full flex items-center h-8">
-        <img
-          src="/public/images/search-icon.png"
-          alt="search-icon"
-          className="w-10 pl-4"
-        />
-        <form onSubmit={handleSearch} className="pl-4">
-          <input
-            type="text"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </form>
-      </div>
+      
       <h1 className="text-center font-semibold mb-2">All items</h1>
       <div className="mx-2 grid-cols-2">
-        <div className="flex justify-between mb-4 w-full">
+        <div className="mb-4 grid-rows-2 grid grid-cols-2">
           {fakeData.map((post) => {
             return (
               <MarketPost
                 key={post.id}
                 title={post.title}
                 path={`/${locationId}/market/${post.id}`}
-                className="text-black w-42"
+                className="text-black w-44 h-48 h bg-lightPink"
                 imgSource={post.image}
                 price={post.price}
                 date={''}
