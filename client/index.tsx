@@ -19,6 +19,8 @@ import AddPostPage from './Pages/AddPostPage/AddPostPage'
 import ProfilePage from './Pages/ProfilePage/ProfilePage'
 import Redirect from './Pages/Redirect/Redirect'
 import EditProfile from './Pages/EditProfile/EditProfile'
+import ActivitiesPage from './Pages/ActivitiesPage/ActivitiesPage'
+import ActivitiesDetailPost from './components/ActivitiesDetailPost/ActivitiesDetailPost'
 import MyPostsPage from './Pages/MyPostsPage/MyPostsPage'
 
 export const routes = createRoutesFromElements(
@@ -31,13 +33,14 @@ export const routes = createRoutesFromElements(
       <Route path="edit-profile" element={<EditProfile />} />
       <Route path="my-posts" element={<MyPostsPage />} />
       <Route path="/:locationId" element={<Community />} />
+      <Route path=":locationId/activities" element={<ActivitiesPage />} />
       <Route
         path=":locationId/activities"
-        element={<p>Activities will be here</p>}
+        element={<ActivitiesDetailPost />}
       />
       <Route
         path=":locationId/activities/:id"
-        element={<p>Activities will be here</p>}
+        element={<ActivitiesDetailPost />}
       />
       <Route path=":locationId/classifieds" element={<ClassifiedPage />} />
       <Route

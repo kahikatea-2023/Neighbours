@@ -1,38 +1,23 @@
 import { FaArrowLeft } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import Comment from '../Comment/Comment'
-import { fetchClassifiedPostDetails } from '../../apis/classifiedPost'
-import { useQuery } from 'react-query'
-import { useAuth0 } from '@auth0/auth0-react'
 
-function ClassifiedsDetailPost() {
-  const { getAccessTokenSilently } = useAuth0()
+function ActivitiesDetailPost() {
   const navigate = useNavigate()
-  const locationId = Number(useParams().locationId)
-  const postId = Number(useParams().postId)
 
-  const { isLoading, data } = useQuery(
-    ['fetchClassifiedPostDetails', locationId, postId],
-    async () => {
-      const token = await getAccessTokenSilently()
-      const response = await fetchClassifiedPostDetails(locationId, postId, token)
-      return response
-    }
-  )
-
-  const hardCodedData = {
+  const fakeData = {
     id: 1,
     user_auth0_id: 'auth0_1',
-    location_id: 4,
     user_name: 'Sarah',
-    title: 'Help Needed: Cockroach in House',
-    type: 'Household',
-    image: '../../public/images/cockroach.png',
+    title: 'Zumba class',
+    type: 'Workshop',
+    image: '/public/images/zumba-class.jpg',
     date: '2023-07-15',
     time: '15:00:00',
-    venue: 'My House',
+    venue: 'Community Center',
+    attendees: '5/10',
     description:
-      "There is a cockroach in my house, and I need someone's help to get rid of it!",
+      'Join us for a rejuvenating yoga workshop aimed at all skill levels. Relax, stretch, and find your inner peace.',
   }
 
   const hardcodedComments = [
@@ -60,40 +45,34 @@ function ClassifiedsDetailPost() {
     navigate(-1)
   }
 
-
-
   return (
-    <div className="p-5">
+    <div className="p-5 h-screen">
       <FaArrowLeft size={30} onClick={handleGoBack} />
-      <img
-        className="w-96 m-auto mt-4"
-        src={!isLoading && data && data.image}
-        alt="cockroach"
-      />
       <div className="flex my-2">
-        <div className="mr-2">
+        <div className="flex">
           <img
-            src="../../public/images/userImage.jpg"
-            alt={hardCodedData.user_name}
-            className="w-10 h-10 rounded-full border-1 border-black"
+            src="../../public/images/user.png"
+            alt={fakeData.user_name}
+            className="w-10 h-10 rounded-full border-1 border-black mr-2"
           />
-        </div>
         <div>
-          <p className="font-normal">{!isLoading && data && data.user_name}</p>
+          <p className="font-normal">{fakeData.user_name}</p>
           <p className="font-light">Newmarket Neighbour</p>
         </div>
+        </div>
       </div>
-      <h1 className="font-black text-xl mb-0">{!isLoading && data && data.title}</h1>
-      <p className="font-light mt-0">Posted on {!isLoading && data && data.date}</p>
+      <img className="w-96 m-auto mt-2" src={fakeData.image} alt="zumba class" />
+      <h1 className="font-black text-xl mb-0">{fakeData.title}</h1>
+      <p className="font-light mt-0">Posted on {fakeData.date}</p>
       <div
         className="px-2 pt-2 pb-4
       "
       >
         <p>
           <strong>Venue: </strong>
-          {!isLoading && data && data.venue}
+          {fakeData.venue}{' '}
         </p>
-        <p className="pt-1">{!isLoading && data && data.description}</p>
+        <p className="pt-1">{fakeData.description}</p>
       </div>
       <div>
         <div className="border-slate-400 border-t-2">
@@ -124,8 +103,4 @@ function ClassifiedsDetailPost() {
   )
 }
 
-export default ClassifiedsDetailPost
-function getAccessTokenSilently() {
-  throw new Error('Function not implemented.')
-}
-
+export default ActivitiesDetailPost
