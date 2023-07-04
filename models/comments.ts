@@ -1,5 +1,4 @@
 import * as z from 'zod'
-import { object } from 'zod'
 
 export const updateAnswerSchema = z.object({
   comment: z.string(),

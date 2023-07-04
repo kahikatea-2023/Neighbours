@@ -45,7 +45,7 @@ export function addRequest(request: newRequestToBackend) {
   return db('classified_request').insert(request)
 }
 
-export function updateRequest(Updatedrequest: PostRequest, id: number) {
+export function updateRequest(Updatedrequest: newRequestToBackend, id: number) {
   const newObj = { ...Updatedrequest }
 
   return db('classified_request').where('id', id).update(newObj)
