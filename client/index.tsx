@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect } from 'react'
 import {
   Route,
   RouterProvider,
@@ -17,27 +17,42 @@ import Error from './Pages/Error/Error'
 import Home from './Pages/Home/Home'
 import AddPostPage from './Pages/AddPostPage/AddPostPage'
 import ProfilePage from './Pages/ProfilePage/ProfilePage'
+import Redirect from './Pages/Redirect/Redirect'
+import EditProfile from './Pages/EditProfile/EditProfile'
+import ActivitiesPage from './Pages/ActivitiesPage/ActivitiesPage'
+import ActivitiesDetailPost from './components/ActivitiesDetailPost/ActivitiesDetailPost'
+import MyPostsPage from './Pages/MyPostsPage/MyPostsPage'
 
 export const routes = createRoutesFromElements(
   <Route>
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Home />} />
+      <Route path="redirect" element={<Redirect />} />
       <Route path="register" element={<RegisterUser />} />
       <Route path="profile" element={<ProfilePage />} />
-      <Route path="my-posts" element={<Error />} />
-      <Route path="newmarket" element={<Community />} />
+      <Route path="edit-profile" element={<EditProfile />} />
+      <Route path="my-posts" element={<MyPostsPage />} />
+      <Route path="/:locationId" element={<Community />} />
+      <Route path=":locationId/activities" element={<ActivitiesPage />} />
       <Route
-        path="newmarket/activities"
-        element={<p>Activities will be here</p>}
+        path=":locationId/activities"
+        element={<ActivitiesDetailPost />}
       />
       <Route
-        path="newmarket/activities/:id"
-        element={<p>Activities will be here</p>}
+        path=":locationId/activities/:id"
+        element={<ActivitiesDetailPost />}
       />
-      <Route path="newmarket/classifieds" element={<ClassifiedPage />} />
-      <Route path="newmarket/classifieds/:id" element={<ClassifiedsDetail />} />
-      <Route path="newmarket/classifieds/add-post" element={<AddPostPage />} />
-      <Route path="newmarket/market" element={<p>Market will be here</p>} />
+      <Route path=":locationId/classifieds" element={<ClassifiedPage />} />
+      <Route
+        path=":locationId/classifieds/:postId"
+        element={<ClassifiedsDetail />}
+      />
+      <Route
+        path=":locationId/classifieds/add-post"
+        element={<AddPostPage />}
+      />
+      <Route path=":locationId/market" element={<p>Market will be here</p>} />
+      <Route path="error" element={<Error />} />
     </Route>
   </Route>
 )
@@ -55,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cacheLocation="localstorage"
       authorizationParams={{
         audience: 'https://neighbours/api',
-        redirect_uri: 'http://localhost:5173/newmarket',
+        redirect_uri: `${window.location.origin}/newmarket`,
       }}
     >
       <QueryClientProvider client={queryClient}>

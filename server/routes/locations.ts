@@ -11,9 +11,18 @@ import {
   addAnswer,
   updateAnswer,
   deleteAnswerById,
+  getClassificationByUserAuthId,
 } from '../db/classified'
-import { PostAnswersSchema, PostRequestSchema } from '../../models/classified'
+import {
+  AddClaRequest,
+  addClaRequestSchema,
+  newRequestToBackend,
+  PostAnswersSchema,
+  PostRequestSchema,
+  updateClaRequestSchema,
+} from '../../models/classified'
 import { validateAccessToken } from './auth0'
+import { AddPostDraftSchema } from '../../models/activities'
 const router = Router()
 
 router.get('/', async (req, res) => {
@@ -22,7 +31,7 @@ router.get('/', async (req, res) => {
     res.json({ locations })
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({ message: 'Something went wrong to get locations' })
   }
 })
 
@@ -44,9 +53,10 @@ router.get('/:id/classified', async (req, res) => {
   try {
     const locationId = Number(req.params.id)
     const classifications = await getAllClassificationsByLocation(locationId)
+
     res.json({ classifications })
   } catch (error) {
-    console.log(error)
+    console.error(error)
     res.status(500).json({ message: 'Something went wrong' })
   }
 })
@@ -56,33 +66,58 @@ router.get('/:id/classified', async (req, res) => {
 router.get('/:id/classified/:request', async (req, res) => {
   try {
     const id = Number(req.params.request)
-    const classification = await getClassificationById(id)
-    const answers = await getAllAnswersByRequest(id)
-    res.json({ ...classification, answers })
+    const classificationDetails = await getClassificationById(id)
+    // const answers = await getAllAnswersByRequest(id)
+    res.json({ classificationDetails })
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
   }
 })
 
+// get classified post by auth0_id
+router.get('/:auth0Id/classifiedposts', async (req, res) => {
+  try {
+    const auth0Id = req.params.auth0Id
+    const userClassifications = await getClassificationByUserAuthId(auth0Id)
+    res.json({ userClassifications })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Something went wrong with getClassificationByUserAuthId' })
+  }
+})
+
 //add new request
 router.post('/:id/classified', validateAccessToken, async (req, res) => {
-  const newRequest = req.body
+  const location_id = Number(req.params.id)
   const auth0_id = req.auth?.payload.sub
+  const Request = req.body
+  // as AddClaRequest
+
+  const newRequest = {
+    user_auth0_id: auth0_id,
+    location_id: location_id,
+    title: Request.title,
+    date: Request.date,
+    venue: Request.venue,
+    description: Request.description,
+    image: Request.image,
+  } as newRequestToBackend
+
   if (!auth0_id) {
     console.error('No auth0Id')
     return res.status(401).send('Unauthorized')
   }
   try {
-    const userResult = PostRequestSchema.safeParse(newRequest)
+    // Need to fixed the zod
+    const userResult = addClaRequestSchema.safeParse(Request)
 
     if (!userResult.success) {
       res.status(400).json({ message: 'Please provide a valid form' })
       return
     }
 
-    const newPost = { ...newRequest, user_auth0_id: auth0_id }
-    await addRequest(newPost)
+    await addRequest(newRequest)
     res.sendStatus(201)
   } catch (error) {
     console.error(error)
@@ -97,21 +132,33 @@ router.patch(
   async (req, res) => {
     const updatedRequest = req.body
     const id = Number(req.params.request)
+    const location_id = Number(req.params.id)
     const auth0Id = req.auth?.payload.sub
+
+    const updateResult = {
+      user_auth0_id: auth0Id,
+      location_id: location_id,
+      title: updatedRequest.title,
+      date: updatedRequest.date,
+      venue: updatedRequest.venue,
+      description: updatedRequest.description,
+      image: updatedRequest.image,
+    } as newRequestToBackend
+
     if (!auth0Id) {
       console.error('No auth0Id')
       return res.status(401).send('Unauthorized')
     }
+
     try {
-      const userResult = PostRequestSchema.safeParse(updatedRequest)
+      const userResult = updateClaRequestSchema.safeParse(updatedRequest)
 
       if (!userResult.success) {
         res.status(400).json({ message: 'Please provide a valid form' })
         return
       }
-      await getClassificationById(id)
-      const updatedPost = { ...updatedRequest, user_auth0_id: auth0Id }
-      await updateRequest(updatedPost, id)
+
+      await updateRequest(updateResult, id)
       res.sendStatus(204)
     } catch (error) {
       console.error(error)
@@ -134,7 +181,7 @@ router.delete(
       }
       await getClassificationById(id)
       await deleteRequestById(id, auth0Id)
-
+      // should delete the answer before delete the
       res.sendStatus(200)
     } catch (error) {
       console.error(error)

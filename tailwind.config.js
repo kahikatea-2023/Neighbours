@@ -21,6 +21,9 @@ module.exports = {
         1: '1px',
         3: '3px',
       },
+      width: {
+        42: '168px',
+      },
     },
   },
   variants: {
@@ -28,5 +31,3 @@ module.exports = {
   },
   plugins: [],
 }
-
-

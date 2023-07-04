@@ -1,22 +1,24 @@
-export interface CommentSectionProps {
-  currentUser: {
-    currentUserId: string
-    currentUserImg: string
-    currentUserProfile: string
-    currentUserFullName: string
-  }
-  commentData: CommentData[]
-  onDeleteComment: (commentId: string) => void
-  onAddComment: (text: string) => void
-  onReactToComment: (commentId: string, reaction: string) => void
-}
+import * as z from 'zod'
 
-export interface CommentData {
-  userId: string
-  comId: string
-  fullName: string
-  userProfile: string
-  text: string
-  avatarUrl: string
-  replies: never[]
-}
+export const updateAnswerSchema = z.object({
+  comment: z.string(),
+})
+
+export const addAnswerSchema = updateAnswerSchema.extend({
+  classified_request_id: z.number(),
+  user_name: z.string(),
+})
+
+export const answersDataBackendSchema = addAnswerSchema.extend({
+  id: z.number(),
+})
+
+export const answersToBackendSchema = updateAnswerSchema.extend({
+  classified_request_id: z.number(),
+  user_auth0_id: z.string(),
+})
+
+export type UpdateAnswer = z.infer<typeof updateAnswerSchema>
+export type AddAnswer = z.infer<typeof addAnswerSchema>
+export type AnswersToBackend = z.infer<typeof answersToBackendSchema>
+export type AnswerDataBackend = z.infer<typeof answersDataBackendSchema>
