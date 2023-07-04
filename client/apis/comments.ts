@@ -18,9 +18,9 @@ export async function fetchComments(
 }
 
 export async function deleteComment(commentId: number, token: string) {
-  const url = `${rootUrl}/comments/${commentId}`
+  const url = `${rootUrl}comments/${commentId}`
   await request
-    .get(url)
+    .delete(url)
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
 }
