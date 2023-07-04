@@ -1,18 +1,16 @@
 import ClassifiedPost from '../../components/ClassifiedPost/ClassifiedPost'
 import { useAuth0 } from '@auth0/auth0-react'
 import { fetchClassifiedPost } from '../../apis/classifiedPost'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import AddPostButton from '../../components/Buttons/AddPostButton/AddPostButton'
 import { useQuery } from 'react-query'
+import { FaArrowLeft } from 'react-icons/fa'
 
 function ClassifiedPage() {
   const { locationId } = useParams()
   const { isAuthenticated, getAccessTokenSilently } = useAuth0()
-
-  const [searchTerm, setSearchTerm] = useState('')
-
-  // const classifiedData = fetchClassifiedPost(locationId)
+  const navigate = useNavigate()
 
   const { isLoading, data } = useQuery(
     ['fetchLocations', locationId],
@@ -24,18 +22,17 @@ function ClassifiedPage() {
   )
   if (isLoading) return 'Loading...'
 
-  function handleSearch(e: any) {
-    e.preventDefault()
-    console.log('search is here: ', searchTerm)
+  function handleGoBack() {
+    navigate(-1)
   }
-  console.log(data, 'I am in the classifiedPost')
 
   return (
     isAuthenticated && (
-      <div className="h-screen bg-lightPink">
-        <div className="w-3/4 text-center text-4xl font-bold pl-7 mt-2 mb-6">
+      <div className="h-screen bg-lightPink p-2 mt-1">
+        <FaArrowLeft size={28} onClick={handleGoBack} />
+        <div className="text-center text-4xl font-bold pl-4 mt-2 mb-1">
           <h1 className="font-semibold text-2xl text-start">Classifieds</h1>
-          <h2 className="font-light text-base text-start">
+          <h2 className="font-light text-base text-start w-full">
             Ask for help to your neighbours
           </h2>
         </div>
