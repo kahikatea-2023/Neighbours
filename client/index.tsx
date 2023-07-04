@@ -32,16 +32,16 @@ export const routes = createRoutesFromElements(
       <Route path="my-posts" element={<MyPostsPage />} />
       <Route path="/:locationId" element={<Community />} />
       <Route
-        path="newmarket/activities"
+        path=":locationId/activities"
         element={<p>Activities will be here</p>}
       />
       <Route
-        path="newmarket/activities/:id"
+        path=":locationId/activities/:id"
         element={<p>Activities will be here</p>}
       />
       <Route path=":locationId/classifieds" element={<ClassifiedPage />} />
       <Route
-        path=":locationId/classifieds/:id"
+        path=":locationId/classifieds/:postId"
         element={<ClassifiedsDetail />}
       />
       <Route

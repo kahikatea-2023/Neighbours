@@ -2,21 +2,38 @@ import { useState } from 'react'
 import { ActPostData } from '../../../models/activities'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useMutation, useQueryClient } from 'react-query'
+import { AddPostDataDraft } from '../../../models/classified'
 import { FaArrowLeft } from 'react-icons/fa'
 import CreateButton from '../../components/Buttons/CreateButton/CreateButton'
 import { useQuery } from 'react-query'
 import { fetchProfiles } from '../../apis/profile'
+
 // save for later
 // import { useMutation, useQueryClient } from 'react-query'
 
 function AddPost() {
   // for later when connect to backend
-  // const queryClient = useQueryClient()
-  // const mutations = useMutation(addPost, {
+  const queryClient = useQueryClient()
+  // const mutations = useMutation(addClassifiedPost, {
   //   onSuccess: () => {
-  //     queryClient.invalidateQueries('getPosts')
-  //   }
+  //     queryClient.invalidateQueries('fetchClassifiedPost')
+  //   },
   // })
+  const mutations = useMutation({
+    mutationFn: ({
+      postData,
+      token,
+      locationId,
+    }: {
+      postData: AddPostDataDraft
+      token: string
+    }) => addClassifiedPost(postData, token, locationId),
+    onSuccess: async () => {
+      console.log('added, I am in the mutation')
+      // queryClient.invalidateQueries('getUsers')
+    },
+  })
 
   // const location = useParams().location as string
   // const category = useParams().category as string
@@ -28,17 +45,12 @@ function AddPost() {
   const navigate = useNavigate()
 
   const initialState = {
-    user_auth0_id: user?.sub,
-    location_id: 0,
-    title: '',
-    type: '',
-    image: '',
-    date: '',
-    time: '',
+    tile: '',
     venue: '',
-    attendees: '',
+    image: '',
     description: '',
-  } as ActPostData
+    location_id: 0,
+  } as AddPostDataDraft
 
   const profileQuery = useQuery({
     queryKey: 'fetchProfiles',
@@ -68,6 +80,7 @@ function AddPost() {
     // mutations.mutate(postData)
     //the redirect url need more work
     // navigate(`/${location}/${category}`)
+
     navigate(`/${locationId}/classifieds`)
   }
 
@@ -81,6 +94,7 @@ function AddPost() {
       <div className="text-center text-3xl font-semibold border-slate-300 border-b-1 pb-2">
         <h2>Create Post</h2>
       </div>
+
       <div className="flex mb-2 mt-6">
         <div className="mr-2">
           <img
