@@ -21,7 +21,9 @@ import Redirect from './Pages/Redirect/Redirect'
 import EditProfile from './Pages/EditProfile/EditProfile'
 import ActivitiesPage from './Pages/ActivitiesPage/ActivitiesPage'
 import ActivitiesDetailPost from './components/ActivitiesDetailPost/ActivitiesDetailPost'
+import MarketPage from './Pages/MarketPage/MarketPage'
 import MyPostsPage from './Pages/MyPostsPage/MyPostsPage'
+import MarketDetail from './Pages/MarketDetail/MarketDetail'
 
 export const routes = createRoutesFromElements(
   <Route>
@@ -34,10 +36,7 @@ export const routes = createRoutesFromElements(
       <Route path=":locationId/my-posts" element={<MyPostsPage />} />
       <Route path="/:locationId" element={<Community />} />
       <Route path=":locationId/activities" element={<ActivitiesPage />} />
-      <Route
-        path=":locationId/activities"
-        element={<ActivitiesDetailPost />}
-      />
+      <Route path=":locationId/activities" element={<ActivitiesDetailPost />} />
       <Route
         path=":locationId/activities/:id"
         element={<ActivitiesDetailPost />}
@@ -51,7 +50,8 @@ export const routes = createRoutesFromElements(
         path=":locationId/classifieds/add-post"
         element={<AddPostPage />}
       />
-      <Route path=":locationId/market" element={<p>Market will be here</p>} />
+      <Route path=":locationId/market" element={<MarketPage />} />
+      <Route path=":locationId/market/:id" element={<MarketDetail />} />
       <Route path="error" element={<Error />} />
     </Route>
   </Route>

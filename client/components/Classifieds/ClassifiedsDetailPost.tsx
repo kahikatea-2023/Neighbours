@@ -27,7 +27,7 @@ function ClassifiedsDetailPost() {
     user_name: 'Sarah',
     title: 'Help Needed: Cockroach in House',
     type: 'Household',
-    image: '../../public/images/cockroach.png',
+    image: '../../public/images/banana.png',
     date: '2023-07-15',
     time: '15:00:00',
     venue: 'My House',
@@ -68,7 +68,7 @@ function ClassifiedsDetailPost() {
       <img
         className="w-96 m-auto mt-4"
         src={!isLoading && data && data.image}
-        alt="cockroach"
+        alt=""
       />
       <div className="flex my-2">
         <div className="mr-2">
