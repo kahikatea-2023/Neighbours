@@ -74,44 +74,6 @@ router.get('/:id/classifieds/:request', async (req, res) => {
   }
 })
 
-//add new request
-router.post('/:id/classified', validateAccessToken, async (req, res) => {
-  const location_id = Number(req.params.id)
-  const auth0_id = req.auth?.payload.sub
-  const Request = req.body
-  // as AddClaRequest
-
-  const newRequest = {
-    user_auth0_id: auth0_id,
-    location_id: location_id,
-    title: Request.title,
-    date: Request.date,
-    venue: Request.venue,
-    description: Request.description,
-    image: Request.image,
-  } as newRequestToBackend
-
-  if (!auth0_id) {
-    console.error('No auth0Id')
-    return res.status(401).send('Unauthorized')
-  }
-  try {
-    // Need to fixed the zod
-    const userResult = addClaRequestSchema.safeParse(Request)
-
-    if (!userResult.success) {
-      res.status(400).json({ message: 'Please provide a valid form' })
-      return
-    }
-
-    await addRequest(newRequest)
-    res.sendStatus(201)
-  } catch (error) {
-    console.error(error)
-    res.status(500).send('Something went wrong')
-  }
-})
-
 //update request
 router.patch(
   '/:id/classified/:request',
