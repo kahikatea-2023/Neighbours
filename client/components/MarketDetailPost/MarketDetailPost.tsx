@@ -11,9 +11,10 @@ function ActivitiesDetailPost() {
     title: `Ahmad's Banana`,
     price: '100',
     image: '/public/images/banana.png',
-    user_auth0_id: 'auth0_3',
+    first_name: 'David',
+    last_name: 'King',
     time: '2023-07-16 09:30:00',
-    description: 'Premium Banana only for $100 per 100g!',
+    description: `Available at the exclusive price of $100 per 100g. Elevate your senses and experience pure luxury with the Exquisite Gold Banana. Hurry, this limited edition delight won't last long!`,
     comment: "Your organic vegetables look amazing! Can't wait to try them!",
   }
 
@@ -49,11 +50,13 @@ function ActivitiesDetailPost() {
         <div className="flex">
           <img
             src="../../public/images/user.png"
-            alt={fakeData.id}
+            alt={fakeData.image}
             className="w-10 h-10 rounded-full border-1 border-black mr-2"
           />
           <div>
-            <p className="font-normal">{fakeData.user_auth0_id}</p>
+            <p className="font-normal">
+              {fakeData.first_name} {fakeData.last_name}
+            </p>
             <p className="font-light">Newmarket Neighbour</p>
           </div>
         </div>

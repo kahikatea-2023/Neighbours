@@ -23,6 +23,7 @@ import ActivitiesPage from './Pages/ActivitiesPage/ActivitiesPage'
 import ActivitiesDetailPost from './components/ActivitiesDetailPost/ActivitiesDetailPost'
 import MarketPage from './Pages/MarketPage/MarketPage'
 import MyPostsPage from './Pages/MyPostsPage/MyPostsPage'
+import MarketDetail from './Pages/MarketDetail/MarketDetail'
 
 export const routes = createRoutesFromElements(
   <Route>
@@ -50,7 +51,7 @@ export const routes = createRoutesFromElements(
         element={<AddPostPage />}
       />
       <Route path=":locationId/market" element={<MarketPage />} />
-      <Route path=":locationId/market/:id" element={<MarketPage />} />
+      <Route path=":locationId/market/:id" element={<MarketDetail />} />
       <Route path="error" element={<Error />} />
     </Route>
   </Route>
