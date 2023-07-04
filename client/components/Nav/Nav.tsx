@@ -58,14 +58,14 @@ function Nav(props: Props) {
         </li>
         <li>
           {isAuthenticated ? (
-            <button onClick={() => goTo('/profile')}>Profile</button>
+            <button onClick={() => goTo(`/${Number(locationId)}/profile`)}>Profile</button>
           ) : (
             <button onClick={() => goTo('/error')}>Profile</button>
           )}
         </li>
         <li>
           {isAuthenticated ? (
-            <button onClick={() => goTo('/my-posts')}>My posts</button>
+            <button onClick={() => goTo(`/${Number(locationId)}/my-posts`)}>My posts</button>
           ) : (
             <button onClick={() => goTo('/error')}>My posts</button>
           )}
