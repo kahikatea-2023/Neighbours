@@ -76,22 +76,8 @@ export async function getAllAnswersByRequest(requestId: number) {
     )
 }
 
-export function addAnswer(answer: PostAnswers) {
-  const newAnswer = {
-    classified_request_id: answer.classified_request_id,
-    time: answer.time,
-    comment: answer.comment,
-  }
-
-  return db('classified_request_answers')
-    .join(
-      'classified_request',
-      'classified_request.user_auth0_id',
-      'classified_request_answers.classified_request_id'
-    )
-    .where('classified_request.id', answer.classified_request_id)
-    .select()
-    .insert(newAnswer)
+export function addAnswer(answer: AnswersToBackend) {
+  return db('classified_request_answers').insert(answer)
 }
 
 export function updateAnswer(UpdatedAnswer: PostAnswers, id: number) {

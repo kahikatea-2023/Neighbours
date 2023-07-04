@@ -23,6 +23,20 @@ function CommentsSection({ postId, locationId }: Props) {
     client.invalidateQueries(['comments'])
   }
 
+  async function handleAdd(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const comment = formData.get('comment') as string
+    
+    const data = {
+      comment
+    }
+
+    const token = await getAccessTokenSilently()
+    await postComment(data, token)
+    client.invalidateQueries(['comments'])
+  }
+
   return (
     <div>
       {/* Render the comment section */}
@@ -36,10 +50,10 @@ function CommentsSection({ postId, locationId }: Props) {
             <button onClick={() => handleDelete(comment.id)}>Delete</button>
           </div>
         ))}
-      <div>
-        <input type="text" placeholder="Add a comment" />
-        <button onClick={() => {}}>Add Comment</button>
-      </div>
+      <form onSubmit={handleAdd}>
+        <input type="text" name="comment" placeholder="Add a comment" />
+        <button type="submit">Add Comment</button>
+      </form>
     </div>
   )
 }

@@ -24,3 +24,11 @@ export async function deleteComment(commentId: number, token: string) {
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
 }
+
+export async function postComment(commentId: number, token: string) {
+  const url = `${rootUrl}comments/${commentId}`
+  await request
+    .post(url)
+    .set('Authorization', `Bearer ${token}`)
+    .set('Content-Type', 'application/json')
+}

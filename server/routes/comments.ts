@@ -1,9 +1,44 @@
 import { Router } from 'express'
-
+import {
+  AddAnswer,
+  AnswersToBackend,
+  addAnswerSchema,
+} from '../../models/comments'
 import * as db from '../db/classified'
 import { validateAccessToken } from './auth0'
+import { addAnswer } from '../db/classified'
 
 const router = Router()
+
+router.post('/', validateAccessToken, async (req, res) => {
+  console.log('post route hit')
+  const newAnswer = req.body as AddAnswer
+  const auth0Id = req.auth?.payload.sub
+  const newComment = {
+    comment: newAnswer.comment,
+    classified_request_id: newAnswer.classified_request_id,
+    user_auth0_id: auth0Id,
+  } as AnswersToBackend
+
+  if (!auth0Id) {
+    console.error('No auth0Id')
+    return res.status(401).send('Unauthorized')
+  }
+
+  try {
+    const userResult = addAnswerSchema.safeParse(newAnswer)
+
+    if (!userResult.success) {
+      res.status(400).json({ message: 'Please provide a valid form' })
+      return
+    }
+    await addAnswer(newComment)
+    res.sendStatus(201)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Something went wrong')
+  }
+})
 
 router.delete('/:id', validateAccessToken, async (req, res) => {
   try {
