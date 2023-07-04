@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { UpdateUsersData, UpdateUsersDataBackend } from '../../../models/user'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useMutation, useQuery } from 'react-query'
 import { fetchLocations } from '../../apis/registration'
@@ -9,6 +9,7 @@ import { fetchProfiles, updateProfile } from '../../apis/profile'
 function EditProfile() {
   const { user, getAccessTokenSilently } = useAuth0()
   const navigate = useNavigate()
+  const { locationId } = useParams()
 
   const { isLoading, data } = useQuery('fetchLocations', async () => {
     return await fetchLocations()
@@ -75,7 +76,7 @@ function EditProfile() {
     event.preventDefault()
     const token = await getAccessTokenSilently()
     mutations.mutate({ updateUser, token })
-    navigate(`/profile`)
+    navigate(`/${Number(locationId)}/profile`)
   }
 
   return (

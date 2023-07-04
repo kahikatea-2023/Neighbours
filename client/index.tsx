@@ -29,9 +29,9 @@ export const routes = createRoutesFromElements(
       <Route index element={<Home />} />
       <Route path="redirect" element={<Redirect />} />
       <Route path="register" element={<RegisterUser />} />
-      <Route path="profile" element={<ProfilePage />} />
-      <Route path="edit-profile" element={<EditProfile />} />
-      <Route path="my-posts" element={<MyPostsPage />} />
+      <Route path=":locationId/profile" element={<ProfilePage />} />
+      <Route path=":locationId/edit-profile" element={<EditProfile />} />
+      <Route path=":locationId/my-posts" element={<MyPostsPage />} />
       <Route path="/:locationId" element={<Community />} />
       <Route path=":locationId/activities" element={<ActivitiesPage />} />
       <Route
