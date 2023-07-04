@@ -15,7 +15,7 @@ module.exports = {
         body: ['"Open Sans"'],
       },
       backgroundImage: {
-        neighbours: "url('public/images/background-image.png')",
+        neighbours: "url('/images/background-image.png')",
       },
       borderWidth: {
         1: '1px',
