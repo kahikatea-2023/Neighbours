@@ -29,6 +29,7 @@ router.post('/', validateAccessToken, async (req, res) => {
     const userResult = addAnswerSchema.safeParse(req.body)
 
     if (!userResult.success) {
+      console.log(JSON.stringify(userResult.error))
       res.status(400).json({ message: 'Please provide a valid form' })
       return
     }

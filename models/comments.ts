@@ -18,7 +18,6 @@ export const answersToBackendSchema = updateAnswerSchema.extend({
   user_auth0_id: z.string(),
 })
 
-export type UpdateAnswer = z.infer<typeof updateAnswerSchema>
 export type AddAnswer = z.infer<typeof addAnswerSchema>
 export type AnswersToBackend = z.infer<typeof answersToBackendSchema>
 export type AnswerDataBackend = z.infer<typeof answersDataBackendSchema>

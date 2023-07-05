@@ -1,8 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { useQuery, useQueryClient } from 'react-query'
 import { deleteComment, fetchComments, postComment } from '../../apis/comments'
-import { AddAnswer } from '../../../models/comments'
-import { useState } from 'react'
+
 interface Props {
   postId: string
   locationId: string
@@ -10,7 +9,6 @@ interface Props {
 
 function CommentsSection({ postId, locationId }: Props) {
   const { getAccessTokenSilently } = useAuth0()
-
   const client = useQueryClient()
   const { data } = useQuery(['comments', postId], async () => {
     const token = await getAccessTokenSilently()
@@ -23,6 +21,8 @@ function CommentsSection({ postId, locationId }: Props) {
     await deleteComment(commentId, token)
     client.invalidateQueries(['comments'])
   }
+
+  //mutation for addComment
 
   async function handleAdd(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
