@@ -12,7 +12,7 @@ function ActivitiesDetailPost() {
     title: 'Zumba class',
     type: 'Workshop',
     image: '/public/images/zumba-class.jpg',
-    date: '2023-07-15',
+    date: '06/07/2023',
     time: '15:00:00',
     venue: 'Community Center',
     attendees: '5/10',
@@ -55,13 +55,17 @@ function ActivitiesDetailPost() {
             alt={fakeData.user_name}
             className="w-10 h-10 rounded-full border-1 border-black mr-2"
           />
-        <div>
-          <p className="font-normal">{fakeData.user_name}</p>
-          <p className="font-light">Newmarket Neighbour</p>
-        </div>
+          <div>
+            <p className="font-normal">{fakeData.user_name}</p>
+            <p className="font-light">Newmarket Neighbour</p>
+          </div>
         </div>
       </div>
-      <img className="w-96 m-auto mt-2" src={fakeData.image} alt="zumba class" />
+      <img
+        className="w-96 m-auto mt-2"
+        src={fakeData.image}
+        alt="zumba class"
+      />
       <h1 className="font-black text-xl mb-0">{fakeData.title}</h1>
       <p className="font-light mt-0">Posted on {fakeData.date}</p>
       <div

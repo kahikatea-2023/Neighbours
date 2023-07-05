@@ -22,7 +22,7 @@ function CommunityPost() {
 
     title: 'Help needed: Cockroach in House!',
     image: '/images/cockroach.png',
-    date: '15/July',
+    date: '06/July',
     time: '6pm',
   }
 

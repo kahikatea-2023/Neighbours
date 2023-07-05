@@ -7,7 +7,7 @@ exports.seed = async function (knex) {
       title: 'Help needed: Cockroach in House!',
       type: 'Household',
       image: '/public/images/cockroach.png',
-      date: '2023-07-15',
+      date: '06/07/2023',
       time: '15:00:00',
       venue: 'My House',
       description:
@@ -20,7 +20,7 @@ exports.seed = async function (knex) {
       title: 'Gardening Assistance Needed',
       type: 'Gardening',
       image: '/public/images/gardening.png',
-      date: '2023-08-05',
+      date: '06/07/2023',
       time: '18:30:00',
       venue: 'Backyard',
       description:
@@ -33,7 +33,7 @@ exports.seed = async function (knex) {
       title: 'Math Tutor Needed',
       type: 'Education',
       image: '/public/images/calculator.png',
-      date: '2023-09-10',
+      date: '06/07/2023',
       time: '19:00:00',
       venue: 'Library',
       description:
@@ -46,7 +46,7 @@ exports.seed = async function (knex) {
       title: 'My house if flood',
       type: 'Education',
       image: '/public/images/flooded-house.png',
-      date: '2023-09-10',
+      date: '06/07/2023',
       time: '19:00:00',
       venue: 'Library',
       description:
@@ -59,7 +59,7 @@ exports.seed = async function (knex) {
       title: 'Warning! The traffic is real shit',
       type: 'Education',
       image: '/public/images/warning.png',
-      date: '2023-09-10',
+      date: '06/07/2023',
       time: '19:00:00',
       venue: 'Library',
       description:
@@ -72,7 +72,7 @@ exports.seed = async function (knex) {
       title: 'Can someone review my code?',
       type: 'Education',
       image: '/public/images/headache.png',
-      date: '2023-09-10',
+      date: '06/07/2023',
       time: '19:00:00',
       venue: 'Library',
       description:
@@ -85,7 +85,7 @@ exports.seed = async function (knex) {
       title: 'Need baysitting for 3 days',
       type: 'Education',
       image: '/public/images/babysitting.png',
-      date: '2023-09-10',
+      date: '06/07/2023',
       time: '19:00:00',
       venue: 'Library',
       description:

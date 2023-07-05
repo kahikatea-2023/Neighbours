@@ -14,7 +14,7 @@ export default function Market() {
       price: 100,
       image: '/public/images/banana.png',
       user_auth0_id: 'auth0_3',
-      time: '2023-07-16 09:30:00',
+      time: '06/07/2023 09:30:00',
       description: 'Premium Banana only for $100 per 100g!',
       comment: "Your organic vegetables look amazing! Can't wait to try them!",
     },
