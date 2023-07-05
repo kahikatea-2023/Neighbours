@@ -56,7 +56,7 @@ export default function Market() {
 
   return (
     <>
-      <h1 className="text-center font-semibold mb-2">All items</h1>
+      <h1 className="text-center font-semibold text-xl mb-2">All items</h1>
       <div className="mx-2 grid-cols-2">
         <div className="mb-4 grid-rows-2 grid grid-cols-2">
           {fakeData.map((post) => {
