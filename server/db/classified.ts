@@ -4,6 +4,7 @@ import {
   ClaRequestDataBackend,
   newRequestToBackend,
 } from '../../models/classified'
+import { AnswersToBackend } from '../../models/comments'
 
 export async function getAllClassificationsByLocation(locationId: number) {
   return (await db('classified_request')
@@ -89,29 +90,14 @@ export async function getAllAnswersByRequest(requestId: number) {
     .join('users', 'users.auth0_id', 'classified_request_answers.user_auth0_id')
     .where('classified_request_answers.classified_request_id', requestId)
     .select(
-      'classified_request.id as classified_request_id',
-      'classified_request_answers.user_auth0_id',
+      'classified_request_answers.id',
       'users.name',
       'classified_request_answers.comment'
     )
 }
 
-export function addAnswer(answer: PostAnswers) {
-  const newAnswer = {
-    classified_request_id: answer.classified_request_id,
-    time: answer.time,
-    comment: answer.comment,
-  }
-
-  return db('classified_request_answers')
-    .join(
-      'classified_request',
-      'classified_request.user_auth0_id',
-      'classified_request_answers.classified_request_id'
-    )
-    .where('classified_request.id', answer.classified_request_id)
-    .select()
-    .insert(newAnswer)
+export function addAnswer(answer: AnswersToBackend) {
+  return db('classified_request_answers').insert(answer)
 }
 
 export function updateAnswer(UpdatedAnswer: PostAnswers, id: number) {
@@ -120,9 +106,14 @@ export function updateAnswer(UpdatedAnswer: PostAnswers, id: number) {
   return db('classified_request_answers').where('id', id).update(newObj)
 }
 
-export function deleteAnswerById(answerId: number, userAuth0Id: string) {
-  return db('classified_request_answers')
+export async function deleteAnswerById(answerId: number, userAuth0Id: string) {
+  const comment = await db('classified_request_answers')
+    .select('user_auth0_id')
     .where('id', answerId)
-    .where('user_auth0_id', userAuth0Id)
-    .delete()
+    .first()
+  if (comment.user_auth0_id !== userAuth0Id) {
+    throw new Error('Unauthorized, user is not author of comment')
+  }
+
+  await db('classified_request_answers').where('id', answerId).del()
 }
