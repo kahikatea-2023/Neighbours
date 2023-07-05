@@ -11,17 +11,16 @@ import {
   addAnswer,
   updateAnswer,
   deleteAnswerById,
+  getClassificationByUserAuthId,
 } from '../db/classified'
 import {
   AddClaRequest,
   addClaRequestSchema,
   newRequestToBackend,
-  PostAnswersSchema,
-  PostRequestSchema,
   updateClaRequestSchema,
 } from '../../models/classified'
 import { validateAccessToken } from './auth0'
-import { AddPostDraftSchema } from '../../models/activities'
+
 const router = Router()
 
 router.get('/', async (req, res) => {
@@ -71,6 +70,20 @@ router.get('/:id/classifieds/:request', async (req, res) => {
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
+// get classified post by auth0_id
+router.get('/:auth0Id/classifiedposts', async (req, res) => {
+  try {
+    const auth0Id = req.params.auth0Id
+    const userClassifications = await getClassificationByUserAuthId(auth0Id)
+    res.json({ userClassifications })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      message: 'Something went wrong with getClassificationByUserAuthId',
+    })
   }
 })
 
@@ -192,88 +205,5 @@ router.get('/:id/classified/:request/answers', async (req, res) => {
 })
 
 //post answer
-router.post(
-  '/:id/classified/:request/answers',
-  validateAccessToken,
-  async (req, res) => {
-    const newAnswer = req.body
-    const auth0Id = req.auth?.payload.sub
-    if (!auth0Id) {
-      console.error('No auth0Id')
-      return res.status(401).send('Unauthorized')
-    }
-    try {
-      const userResult = PostAnswersSchema.safeParse(newAnswer)
-
-      if (!userResult.success) {
-        res.status(400).json({ message: 'Please provide a valid form' })
-        return
-      }
-      const newComment = { ...newAnswer, user_auth0_id: auth0Id }
-      await addAnswer(newComment)
-
-      res.sendStatus(201)
-    } catch (error) {
-      console.error(error)
-      res.status(500).send('Something went wrong')
-    }
-  }
-)
-
-//update answer
-router.patch(
-  '/:id/classified/:request/answers/:answer',
-  validateAccessToken,
-  async (req, res) => {
-    const updatedAnswer = req.body
-    const id = Number(req.params.answer)
-    const auth0Id = req.auth?.payload.sub
-    if (!auth0Id) {
-      console.error('No auth0Id')
-      return res.status(401).send('Unauthorized')
-    }
-    try {
-      const userResult = PostAnswersSchema.safeParse(updatedAnswer)
-
-      if (!userResult.success) {
-        res.status(400).json({ message: 'Please provide a valid form' })
-        return
-      }
-      await getAllAnswersByRequest(id)
-      const updatedComment = { ...updatedAnswer, user_auth0_id: auth0Id }
-      await updateAnswer(updatedComment, id)
-      res.sendStatus(204)
-    } catch (error) {
-      console.error(error)
-      res.status(500).send('Something went wrong')
-    }
-  }
-)
-
-// delete answer
-router.delete(
-  '/:id/classified/:request/answers/:answer',
-  validateAccessToken,
-  async (req, res) => {
-    try {
-      const requestId = Number(req.params.request)
-      const answerId = Number(req.params.answer)
-      const auth0Id = req.auth?.payload.sub
-
-      if (!auth0Id) {
-        console.error('No auth0Id')
-        return res.status(401).send('Unauthorized')
-      }
-
-      await getAllAnswersByRequest(requestId)
-      await deleteAnswerById(answerId, auth0Id)
-
-      res.sendStatus(200)
-    } catch (error) {
-      console.error(error)
-      res.status(500).send('Something went wrong')
-    }
-  }
-)
 
 export default router

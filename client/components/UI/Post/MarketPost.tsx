@@ -8,28 +8,28 @@ interface PostProps {
   date: string
   className: string
   path: string
+  price: number
 }
 
-function Post({ imgSource, title, date, className, path }: PostProps) {
+function MarketPost({ imgSource, title, className, path, price }: PostProps) {
   return (
     <div
       className={twMerge(
-        ' bg-lightPink flex rounded-2xl drop-shadow-xl w-50% h-32 items-center ',
+        ' bg-lightPink py-2 mb-2 rounded-sm drop-shadow-xl',
         className
       )}
     >
-      <img className="h-11 w-11" src={imgSource} alt={title} />
+      <img className="w-full h-28" src={imgSource} alt={title} />
       <div className="flex flex-col pl-4 pt-2">
-        <p className="text-black font-semibold text-xs">
+        <div className="font-bold text-grey font-base">
+          <p>${price}</p>
+        </div>
+        <p className="font-xl font-light">
           <Link to={path}>{title}</Link>
         </p>
-        <div className="text-slate-600 font-medium text-xs">
-          <p>${date}</p>
-          <p>(3) comments</p>
-        </div>
       </div>
     </div>
   )
 }
 
-export default Post
+export default MarketPost

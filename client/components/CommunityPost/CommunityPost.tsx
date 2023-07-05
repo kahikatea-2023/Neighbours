@@ -12,7 +12,7 @@ function CommunityPost() {
     user_auth0_id: 3456,
     location_id: 2,
     title: 'Zumba Class',
-    image: '../../public/images/zumba.png',
+    image: '/images/zumba.png',
     date: '06/July',
   }
 
@@ -21,7 +21,7 @@ function CommunityPost() {
     location_id: 1,
 
     title: 'Catch a cockroach PLZ!!!!!',
-    image: '../../public/images/cockroach.png',
+    image: '/images/cockroach.png',
     date: '06/July',
     time: '6pm',
   }
@@ -31,7 +31,7 @@ function CommunityPost() {
     location_id: 1,
 
     title: `Ahmad's Banana for $100`,
-    image: '../../public/images/banana.png',
+    image: '/images/banana.png',
     date: '06/July',
     time: '6pm',
   }
