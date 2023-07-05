@@ -12,13 +12,13 @@ const router = Router()
 
 router.post('/', validateAccessToken, async (req, res) => {
   console.log('post route hit')
-  const newAnswer = req.body as AddAnswer
+  console.log(req.body)
+  const newAnswer = req.body
   const auth0Id = req.auth?.payload.sub
   const newComment = {
     comment: newAnswer.comment,
     classified_request_id: newAnswer.classified_request_id,
-    user_auth0_id: auth0Id,
-  } as AnswersToBackend
+  }
 
   if (!auth0Id) {
     console.error('No auth0Id')
@@ -26,13 +26,13 @@ router.post('/', validateAccessToken, async (req, res) => {
   }
 
   try {
-    const userResult = addAnswerSchema.safeParse(newAnswer)
+    const userResult = addAnswerSchema.safeParse(req.body)
 
     if (!userResult.success) {
       res.status(400).json({ message: 'Please provide a valid form' })
       return
     }
-    await addAnswer(newComment)
+    await addAnswer({ ...newComment, user_auth0_id: auth0Id })
     res.sendStatus(201)
   } catch (error) {
     console.error(error)

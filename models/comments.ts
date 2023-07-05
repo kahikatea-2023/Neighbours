@@ -6,11 +6,11 @@ export const updateAnswerSchema = z.object({
 
 export const addAnswerSchema = updateAnswerSchema.extend({
   classified_request_id: z.number(),
-  user_name: z.string(),
 })
 
 export const answersDataBackendSchema = addAnswerSchema.extend({
   id: z.number(),
+  user_name: z.string(),
 })
 
 export const answersToBackendSchema = updateAnswerSchema.extend({

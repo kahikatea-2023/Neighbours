@@ -1,7 +1,7 @@
 import { FaArrowLeft } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
 import CommentsSection from '../Comment/CommentsSection'
-import Comment from '../Comment/Comment'
+import Comment from '../Comment/CommentsSection'
 
 import { fetchClassifiedPostDetails } from '../../apis/classifiedPost'
 import { useQuery } from 'react-query'
