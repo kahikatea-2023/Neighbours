@@ -7,9 +7,11 @@ export async function loadWeatherData(
   setWeatherData: SetWeatherData
 ) {
   try {
-    const city = 'chengdu' // Get the city from the current URL
+    const urlParams = new URLSearchParams(window.location.search)
+    const city = urlParams.get('city') || 'newmarket'
+    const country = urlParams.get('country') || 'nz'
     const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}`
     )
     setWeatherData(response.data)
   } catch (error) {

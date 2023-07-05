@@ -1,6 +1,6 @@
 {
   "extends": "../tsconfig.json",
-  "include": [".", "../models"],
+  "include": [".", "../models", "../client/apis/address.ts"],
   "compilerOptions": {
     "outDir": "../dist/server",
     "noEmit": false

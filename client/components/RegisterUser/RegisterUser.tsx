@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { fetchLocations, upsertProfile } from '../../apis/registration'
 import { useMutation, useQuery } from 'react-query'
+import Map from '../Map/Map'
 
 function RegisterUser() {
   const { user, getAccessTokenSilently } = useAuth0()
@@ -143,7 +144,6 @@ function RegisterUser() {
             className=" bg-lightPink flex flex-row py-2 px-4 mb-6 ml-6 h-20 rounded-sm"
           />
         </div>
-
         <div className="text-center text-2xl font-semibold mb-5">
           <h2>Find your Neighbours</h2>
         </div>
@@ -189,6 +189,10 @@ function RegisterUser() {
                 </option>
               ))}
           </select>
+          <div className="flex flex-col pl-7 pb-2 text-lg mb-4">
+            <Map />
+          </div>
+          <br />
         </div>
         <button
           type="submit"
