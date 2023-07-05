@@ -38,8 +38,7 @@ export async function getClassificationById(id: number) {
       'classified_request.venue',
       'classified_request.description'
     )
-    .first()
-  ) as ClaRequestDataBackend
+    .first()) as ClaRequestDataBackend
 }
 
 export async function getClassificationByUserAuthId(id: string) {
@@ -58,8 +57,6 @@ export async function getClassificationByUserAuthId(id: string) {
       'classified_request.description'
     )) as ClaRequestDataBackend[]
 }
-
-
 
 export function addRequest(request: newRequestToBackend) {
   return db('classified_request').insert(request)
@@ -91,7 +88,7 @@ export async function getAllAnswersByRequest(requestId: number) {
     .where('classified_request_answers.classified_request_id', requestId)
     .select(
       'classified_request_answers.id',
-      'users.name',
+      'users.first_name as user_name',
       'classified_request_answers.comment'
     )
 }
