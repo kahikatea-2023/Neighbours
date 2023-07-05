@@ -74,18 +74,29 @@ router.get('/:id/classified/:request', async (req, res) => {
 })
 
 // get classified post by auth0_id
-router.get('/:auth0Id/classifiedposts', async (req, res) => {
-  try {
-    const auth0Id = req.params.auth0Id
-    const userClassifications = await getClassificationByUserAuthId(auth0Id)
-    res.json({ userClassifications })
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({
-      message: 'Something went wrong with getClassificationByUserAuthId',
-    })
+router.get(
+  '/:auth0Id/classifiedposts',
+  validateAccessToken,
+  async (req, res) => {
+    const auth0Id = req.auth?.payload.sub
+    const auth0_id = req.params.auth0Id
+
+    if (!auth0Id) {
+      console.error('No auth0Id')
+      return res.status(401).send('Unauthorized')
+    }
+    try {
+      const userClassifications = await getClassificationByUserAuthId(auth0_id)
+
+      res.json({ userClassifications })
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({
+        message: 'Something went wrong with getClassificationByUserAuthId',
+      })
+    }
   }
-})
+)
 
 //add new request
 router.post('/:id/classified', validateAccessToken, async (req, res) => {

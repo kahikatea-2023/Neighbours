@@ -40,7 +40,8 @@ export async function fetchUserClassifiedPost(
     .get(url)
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
-  return res.body.classificationDetails
+
+  return res.body.userClassifications
 }
 // export async function addClassifiedPost(
 //   locationId: number,
