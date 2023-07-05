@@ -20,9 +20,9 @@ function CommunityPost() {
     user_auth0_id: 12513718,
     location_id: 1,
 
-    title: 'Catch a cockroach PLZ!!!!!',
+    title: 'Help needed: Cockroach in House!',
     image: '/images/cockroach.png',
-    date: '06/July',
+    date: '15/July',
     time: '6pm',
   }
 
@@ -67,7 +67,7 @@ function CommunityPost() {
         title={classifiedPost.title}
         className="text-black"
         path={`/${Number(locationId)}/classifieds/${
-          classifiedPost.user_auth0_id
+          classifiedPost.location_id
         }`}
         imgSource={classifiedPost.image}
         date={classifiedPost.date}
