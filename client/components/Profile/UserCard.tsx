@@ -38,7 +38,7 @@ function UserCard() {
   return (
     <div className="bg-primary rounded-lg text-lightPink font-extralight flex flex-col items-center pt-8 mt-6">
       <img
-        src={userInfo.user_image}
+        src="/images/userImage.jpg"
         alt={userInfo.first_name}
         className="w-28 h-28 rounded-full border-4 border-lightPink"
       />

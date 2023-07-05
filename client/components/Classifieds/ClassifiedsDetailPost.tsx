@@ -49,7 +49,7 @@ function ClassifiedsDetailPost() {
   }
 
   return (
-    <div className="p-5">
+    <div className="p-5 h-screen">
       <FaArrowLeft size={30} onClick={handleGoBack} />
       <img
         className="w-96 m-auto mt-4"

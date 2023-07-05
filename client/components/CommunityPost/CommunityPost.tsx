@@ -31,7 +31,7 @@ function CommunityPost() {
     location_id: 1,
 
     title: `Ahmad's Banana for $100`,
-    image: '/images/banana.png',
+    image: '/images/bananas.png',
     date: '06/July',
     time: '6pm',
   }
