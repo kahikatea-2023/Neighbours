@@ -50,7 +50,7 @@ exports.seed = async function (knex) {
       time: '19:00:00',
       venue: 'Library',
       description:
-        'I need a math tutor to help me with algebra and calculus. Willing to pay for the lessons.',
+        'Urgent! My house is flooded, carpets soaked. Desperately seeking help as water levels continue to rise. Please assisit',
     },
     {
       id: 5,
@@ -63,7 +63,7 @@ exports.seed = async function (knex) {
       time: '19:00:00',
       venue: 'Library',
       description:
-        'I need a math tutor to help me with algebra and calculus. Willing to pay for the lessons.',
+        'Traffic is horrendous today! Check Google Maps and plan your time wisely to avoid delays.',
     },
     {
       id: 6,
@@ -76,7 +76,7 @@ exports.seed = async function (knex) {
       time: '19:00:00',
       venue: 'Library',
       description:
-        'I need a math tutor to help me with algebra and calculus. Willing to pay for the lessons.',
+        'I need assistance with reviewing my code. Seeking a knowledgeable programmer to provide feedback and suggestions.',
     },
     {
       id: 7,
@@ -89,7 +89,7 @@ exports.seed = async function (knex) {
       time: '19:00:00',
       venue: 'Library',
       description:
-        'I need a math tutor to help me with algebra and calculus. Willing to pay for the lessons.',
+        ' am looking for a reliable babysitter to take care of my children for 3 days. Compensation provided.',
     },
   ])
 }
