@@ -22,6 +22,9 @@ function ClassifiedPage() {
   )
   if (isLoading) return 'Loading...'
 
+  function handleSearch(e: any) {
+    e.preventDefault()
+  }
   function handleGoBack() {
     navigate(-1)
   }
