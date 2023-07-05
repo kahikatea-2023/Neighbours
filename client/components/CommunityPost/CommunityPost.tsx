@@ -67,7 +67,7 @@ function CommunityPost() {
         title={classifiedPost.title}
         className="text-black"
         path={`/${Number(locationId)}/classifieds/${
-          classifiedPost.user_auth0_id
+          classifiedPost.location_id
         }`}
         imgSource={classifiedPost.image}
         date={classifiedPost.date}

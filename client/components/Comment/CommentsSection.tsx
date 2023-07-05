@@ -49,7 +49,7 @@ function CommentsSection({ postId, locationId }: Props) {
               </p>
               <p className="pb-2">{comment.comment}</p>
             </div>
-            <div className="px-4 flex justify-end">
+            <div className="px-4 flex justify-between">
               <button onClick={() => handleDelete(comment.id)}>
                 <img src="/images/delete.png" alt="delete" className="w-10" />
               </button>
@@ -58,7 +58,7 @@ function CommentsSection({ postId, locationId }: Props) {
         ))}
       <form
         onSubmit={handleAdd}
-        className="border-1 drop-shadow-lg rounded-full bg-white flex items-center"
+        className="border-1 drop-shadow-lg rounded-full bg-white flex justify-between w-full px-4"
       >
         <input
           type="text"

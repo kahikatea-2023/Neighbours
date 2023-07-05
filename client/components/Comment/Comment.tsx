@@ -48,7 +48,7 @@ function Comment({ postId, locationId }: Props) {
             <button onClick={() => handleDelete(comment.id)}>Delete</button>
           </div>
         ))}
-      <form onSubmit={handleAdd}>
+      <form onSubmit={handleAdd} >
         <input type="text" name="comment" placeholder="Add a comment" />
         <button type="submit">Add Comment</button>
       </form>
