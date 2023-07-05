@@ -1,7 +1,7 @@
 import { FaArrowLeft } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
 import CommentsSection from '../Comment/CommentsSection'
-import Comment from '../Comment/CommentsSection'
+import Comment from '../Comment/CommentSe'
 
 import { fetchClassifiedPostDetails } from '../../apis/classifiedPost'
 import { useQuery } from 'react-query'
@@ -12,16 +12,19 @@ function ClassifiedsDetailPost() {
   const navigate = useNavigate()
   const { postId } = useParams()
   const { locationId } = useParams()
+  const postLocationId = Number(useParams().locationId)
+  const postPostId = Number(useParams().postId)
 
   const { isLoading, data } = useQuery(
-    ['fetchClassifiedPostDetails', Number(locationId), Number(postId)],
+    ['fetchClassifiedPostDetails', postLocationId, postPostId],
     async () => {
       const token = await getAccessTokenSilently()
       const response = await fetchClassifiedPostDetails(
-        Number(locationId),
-        Number(postId),
+        postLocationId,
+        postPostId,
         token
       )
+
       return response
     }
   )

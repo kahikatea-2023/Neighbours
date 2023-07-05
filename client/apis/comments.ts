@@ -8,7 +8,7 @@ export async function fetchComments(
   postId: number,
   token: string
 ) {
-  const url = `${rootUrl}locations/${locationId}/classifieds/${postId}`
+  const url = `${rootUrl}locations/${locationId}/classified/${postId}`
   const res = await request
     .get(url)
     .set('Authorization', `Bearer ${token}`)
