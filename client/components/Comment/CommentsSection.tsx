@@ -42,7 +42,7 @@ function CommentsSection({ postId, locationId }: Props) {
         data.map((comment) => (
           <div key={comment.id}>
             <p>
-              <strong>{comment.user_name}</strong>: {comment.comment}
+              <strong>{comment.name}</strong>: {comment.comment}
             </p>
             <button onClick={() => handleDelete(comment.id)}>Delete</button>
           </div>
