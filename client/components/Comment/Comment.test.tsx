@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 import { describe, expect, it, vi } from 'vitest'
-import Comment from '../Comment/Comment'
+import Comment from './CommentsSection'
 import { renderComponent } from '../../test-utils'
 import { CommentData } from '../../../models/comments'
 

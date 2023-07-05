@@ -7,7 +7,7 @@ interface Props {
   locationId: string
 }
 
-function Comment({ postId, locationId }: Props) {
+function CommentsSection({ postId, locationId }: Props) {
   const { getAccessTokenSilently } = useAuth0()
   const client = useQueryClient()
   const { data } = useQuery(['comments', postId], async () => {
@@ -30,7 +30,6 @@ function Comment({ postId, locationId }: Props) {
     const comment = formData.get('comment') as string
 
     const token = await getAccessTokenSilently()
-
     await postComment(comment, Number(postId), token)
     client.invalidateQueries(['comments'])
   }
@@ -56,4 +55,4 @@ function Comment({ postId, locationId }: Props) {
   )
 }
 
-export default Comment
+export default CommentsSection

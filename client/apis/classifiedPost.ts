@@ -1,5 +1,6 @@
 import request from 'superagent'
 import { ClaRequestDataBackend } from '../../models/classified'
+import ClassifiedPage from '../Pages/ClassifiedsPage/ClassifiedsPage'
 
 const rootUrl = '/api/v1/'
 
@@ -14,7 +15,6 @@ export async function fetchClassifiedPost(
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
 
-
   return res.body.classifications
 }
 
@@ -28,7 +28,7 @@ export async function fetchClassifiedPostDetails(
     .get(url)
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
-  return res.body.classificationDetails
+  return res.body
 }
 
 export async function fetchUserClassifiedPost(
@@ -40,7 +40,7 @@ export async function fetchUserClassifiedPost(
     .get(url)
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
-  return res.body.userClassifications
+  return res.body.classificationDetails
 }
 // export async function addClassifiedPost(
 //   locationId: number,

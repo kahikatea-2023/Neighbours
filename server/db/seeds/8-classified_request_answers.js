@@ -22,7 +22,7 @@ exports.seed = async function (knex) {
     {
       id: 3,
       classified_request_id: 2,
-      user_auth0_id: 'auth0_1',
+      user_auth0_id: 'auth0|649d032ecb6899372f3ccd0e',
       time: '2023-08-05 19:45:00',
       comment:
         "I enjoy gardening and would be happy to assist you. Let's discuss the details.",
@@ -32,7 +32,7 @@ exports.seed = async function (knex) {
     {
       id: 4,
       classified_request_id: 3,
-      user_auth0_id: 'auth0_2',
+      user_auth0_id: 'auth0|649d032ecb6899372f3ccd0e',
       time: '2023-09-10 20:30:00',
       comment:
         "I'm good at math and can help you understand algebra and calculus concepts. Let's schedule a session.",
