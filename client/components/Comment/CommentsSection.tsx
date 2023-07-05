@@ -45,7 +45,7 @@ function CommentsSection({ postId, locationId }: Props) {
           >
             <div className=" w-">
               <p className="py-1">
-                <strong>{comment.name}</strong>
+                <strong>{comment.user_name}</strong>
               </p>
               <p className="pb-2">{comment.comment}</p>
             </div>
